@@ -46,7 +46,6 @@
     "label.menu.permissions": "Permisos",
     "label.menu.options": "Opciones",
     "label.menu.resume": "Resumen",
-    "label.menu.pdf-example": "Pdf example",
 
     "label.validation.patterns.email": "El email no es válido",
     "label.validation.patterns.password": "La contraseña debe tener mínimo 8 caracteres, 1 mínuscula, 1 mayúscula, 1 número y 1 caracter especial",

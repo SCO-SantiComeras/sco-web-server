@@ -45,9 +45,3 @@ export const RESUME_MENU_ITEM: MenuItem = {
   text: "label.menu.resume",
   route: "/resume",
 }
-
-export const PDF_EXAMPLE_MENU_ITEM: MenuItem = {
-  icon: "fa fa-file",
-  text: "label.menu.pdf-example",
-  route: "/pdf-example",
-}

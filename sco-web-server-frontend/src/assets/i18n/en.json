@@ -46,7 +46,6 @@
     "label.menu.permissions": "Permissions",
     "label.menu.options": "Options",
     "label.menu.resume": "Summary",
-    "label.menu.pdf-example": "Pdf example",
 
     "label.validation.patterns.email": "Email is not valid",
     "label.validation.patterns.password": "Password must be at least 8 characters, with 1 lowercase, 1 uppercase, 1 number, and 1 special character",
