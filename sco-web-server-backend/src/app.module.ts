@@ -27,6 +27,7 @@ import { UsersModule } from 'sco-nestjs-utilities/users/users.module';
 import { PopulateModule } from 'sco-nestjs-utilities/populate/populate.module';
 import { PublicMiddleware } from "sco-nestjs-utilities/middlewares/public.middleware";
 import { NodeServerModule } from "./modules/node-server/node-server.module";
+import { configurationNodeServer } from "./configuration/configuration-nodeServer";
 
 require("dotenv").config();
 
@@ -47,6 +48,7 @@ export const JWT_CONTROLLER_OFF: boolean = false;
         configurationRoles,
         configurationUsers,
         configurationWebSockets,
+        configurationNodeServer,
       ],
       envFilePath: `./env/${process.env.NODE_ENV}.env`,
       isGlobal: true,

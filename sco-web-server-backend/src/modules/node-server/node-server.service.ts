@@ -5,36 +5,35 @@ import * as path from 'path';
 import { NodeServerDto } from "./dto/node-server";
 import { NodeServerFileDto } from "./dto/node-server-file";
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
-
-export const SERVER_PATH: string = `C:/xampp/htdocs`;
-export const SERVER_ROOT: string = `nodeserver`;
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class NodeServerService {
 
     private _serverPath: string; 
 
-    constructor() { 
-        this._serverPath = `${SERVER_PATH}/${SERVER_ROOT}`;
+    constructor(private readonly configService: ConfigService) { 
+        this._serverPath = `${this.configService.get('server.serverPath')}/${this.configService.get('server.serverRootFolder')}`;
     }
 
     async onModuleInit() {
-        const existServerPath: boolean = fs.existsSync(SERVER_PATH);
+        const existServerPath: boolean = fs.existsSync(this.configService.get('server.serverPath'));
         if (!existServerPath) {
-            console.log(`[Node Server Init] Server path '${SERVER_PATH}' do not exist`);
+            console.log(`[Node Server Init] Server path '${this.configService.get('server.serverPath')}' do not exist`);
             throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.SERVER_PATH_NOT_EXIST);
         }
 
-        const existRootFolder: boolean = fs.existsSync(this._serverPath);
+        const serverPath: string = `${this.configService.get('server.serverPath')}/${this.configService.get('server.serverRootFolder')}`;
+        const existRootFolder: boolean = fs.existsSync(serverPath);
         if (!existRootFolder) {
-            fs.mkdirSync(this._serverPath);
-            if (!fs.existsSync(this._serverPath)) {
-                console.log(`[Node Server Init] Unnable to create root folder '${this._serverPath}'`);
+            fs.mkdirSync(serverPath);
+            if (!fs.existsSync(serverPath)) {
+                console.log(`[Node Server Init] Unnable to create root folder '${serverPath}'`);
                 throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_CREATE_ROOT_FOLDER);
             }
         }
         
-        console.log(`[Node Server Init] Loaded successfully in path '${this._serverPath}'`);
+        console.log(`[Node Server Init] Loaded successfully in path '${serverPath}'`);
     }
 
     async exists(nodeServerDto: NodeServerDto, checkNewPath: boolean = false): Promise<boolean> {
