@@ -45,6 +45,7 @@
     "label.menu.roles": "Roles",
     "label.menu.permissions": "Permissions",
     "label.menu.options": "Options",
+    "label.menu.node-server": "Server",
 
     "label.validation.patterns.email": "Email is not valid",
     "label.validation.patterns.password": "Password must be at least 8 characters, with 1 lowercase, 1 uppercase, 1 number, and 1 special character",
@@ -196,5 +197,24 @@
     "label.pdf-viewer.component.onload": "Unnable to load pdf file",
     "label.pdf-viewer.component.onDownload": "Pdf file downloaded successfully",
     "label.pdf-viewer.component.onDownload.error": "Error trying to download pdf file",
-    "label.pdf-viewer.component.onLoad": "Pdf file loaded successfully"
+    "label.pdf-viewer.component.onLoad": "Pdf file loaded successfully",
+
+    "label.node-server.state.exists.success": "The file exists in the server",
+    "label.node-server.state.exists.error": "The file doesnt exists in the server",
+    "label.node-server.state.exists.catch": "Error trying to check if file exists in the server",
+    "label.node-server.state.isDirectory.success": "The file is a directory",
+    "label.node-server.state.isDirectory.error": "The file is not a directory",
+    "label.node-server.state.isDirectory.catch": "Error trying to check if file is a directory",
+    "label.node-server.state.IsFile.success": "The file is a file",
+    "label.node-server.state.IsFile.error": "The file is not a file",
+    "label.node-server.state.IsFile.catch": "Error trying to check if file is a file",
+    "label.node-server.state.delete.success": "The file deleted successfully",
+    "label.node-server.state.delete.error": "Unnable to delete file",
+    "label.node-server.state.delete.catch": "Error trying to delete file",
+    "label.node-server.state.copy.success": "The file copied successfully",
+    "label.node-server.state.copy.error": "Unnable to copy file",
+    "label.node-server.state.copy.catch": "Error trying to copy file",
+    "label.node-server.state.move.success": "The file moved successfully",
+    "label.node-server.state.move.error": "Unnable to move file",
+    "label.node-server.state.move.catch": "Error trying to move file"
 }

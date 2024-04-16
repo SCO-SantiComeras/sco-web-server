@@ -39,3 +39,9 @@ export const LOGOUT_MENU_ITEM: MenuItem = {
   text: "label.menu.logout",
   route: "/logout",
 }
+
+export const SERVER_MENU_ITEM: MenuItem = {
+  icon: "fa fa-server",
+  text: "label.menu.node-server",
+  route: "/node-server",
+}

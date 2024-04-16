@@ -11,6 +11,7 @@ import { PermissionsComponent } from './modules/permissions/components/permissio
 import { AdminGuard } from './guards/admin.guard.service';
 import { RolesComponent } from './modules/roles/components/roles/roles.component';
 import { UsersComponent } from './modules/users/components/users/users.component';
+import { NodeServerComponent } from './modules/node-server/components/node-server/node-server.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,12 @@ const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     canActivate: [AuthGuard, AdminGuard],
+  },
+
+  {
+    path: 'node-server',
+    component: NodeServerComponent,
+    canActivate: [AuthGuard],
   },
   
   //

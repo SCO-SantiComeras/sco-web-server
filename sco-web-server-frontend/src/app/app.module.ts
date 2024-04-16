@@ -22,6 +22,7 @@ import { EmailerModule } from './modules/emailer/emailer.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { UsersModule } from './modules/users/users.module';
+import { NodeServerModule } from './modules/node-server/node-server.module';
 
 export function configFactory(provider: ScoConfigService) {
   return () => provider.getDataFromJson('assets/config/data.json');
@@ -55,6 +56,8 @@ export function translateFactory(provider: ScoTranslateService) {
     PermissionsModule,
     RolesModule,
     UsersModule,
+    
+    NodeServerModule,
   ],
   providers: [
     WebsocketsService,
