@@ -12,4 +12,5 @@ import { WEBSOCKET_EVENTS } from "sco-nestjs-utilities";
   
 export const BACKEND_WEBSOCKET_EVENTS = {
     ...WEBSOCKET_EVENTS,
+    WS_NODE_SERVER: 'WS_NODE_SERVER',
 };

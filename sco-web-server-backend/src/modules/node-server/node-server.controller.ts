@@ -1,3 +1,4 @@
+import { BACKEND_WEBSOCKET_EVENTS } from './../../constants/websocket.constants';
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
 import { Body, Controller, Res, Post, Req, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -6,6 +7,7 @@ import { NodeServerService } from './node-server.service';
 import { AuthGuard } from '@nestjs/passport';
 import { NodeServerDto } from './dto/node-server';
 import { NodeServerFileDto } from './dto/node-server-file';
+import { WebsocketGateway } from 'sco-nestjs-utilities';
 
 @Controller('api/v1/node-server')
 @ApiTags('Node server')
@@ -13,6 +15,7 @@ export class NodeServerController {
   
   constructor(
     private readonly nodeServerService: NodeServerService,
+    private readonly websocketsService: WebsocketGateway,
   ) {}
 
   @Post('exists')
@@ -112,6 +115,10 @@ export class NodeServerController {
     }
 
     const deleted: boolean = await  this.nodeServerService.delete(nodeServerDto);
+    if (deleted) {
+      this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+    }
+    
     return res.status(200).json(deleted);
   }
 
@@ -143,6 +150,10 @@ export class NodeServerController {
     }
 
     const copy: boolean = await  this.nodeServerService.copy(nodeServerDto);
+    if (copy) {
+      this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+    }
+
     return res.status(200).json(copy);
   }
 
@@ -174,6 +185,10 @@ export class NodeServerController {
     }
 
     const move: boolean = await  this.nodeServerService.move(nodeServerDto);
+    if (move) {
+      this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+    }
+
     return res.status(200).json(move);
   }
 }
