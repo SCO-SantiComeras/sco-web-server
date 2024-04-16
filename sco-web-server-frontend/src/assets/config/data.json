@@ -1,8 +1,8 @@
 {
-    "title": "SCO | Angular Components Base",
+    "title": "SCO | Web server",
     "theme": "theme-default",
     "pwdRecoveryExpire": 30,
-    "newUserActived": false,
+    "newUserActived": true,
     "formCrud": {
         "closeFormWhenCancel": true,
         "formAlwaysVisible": false,

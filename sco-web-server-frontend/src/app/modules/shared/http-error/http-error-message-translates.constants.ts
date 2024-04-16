@@ -65,10 +65,18 @@ export const httpErrorMessageTranslates = {
       SESSION_EXPIRED: 'La sesión ha terminado',
       USER_NOT_ACTIVED: 'El usuario no está activo',
     },
-    EMAIL_TEMPLATES: {
-      APP_HOST_NOT_PROVIDED: 'Host de la aplicación no proporcionado',
-      APP_PORT_NOT_PROVIDED: 'Puerto de la aplicación no proporcionado',
-      TOKEN_EXPIRATION_NOT_PROVIDED: 'Expiración de token no proporcionada',
+    NODE_SERVER: {
+      SERVER_PATH_NOT_EXIST: 'La ruta del servidor no existe',
+      UNNABLE_CREATE_ROOT_FOLDER: 'Imposible crear la carpeta raíz del servidor',
+      UNNABLE_DELETE_ROOT_FOLDER: 'Imposible eliminar la carpeta raíz del servidor',
+  
+      PATH_NOT_PROVIDED: 'Ruta no proporcionada',
+      NEW_PATH_NOT_PROVIDED: 'Nueva ruta no proporcionada',
+       
+      PATH_NOT_EXISTS: 'La ruta no existe',
+      PATH_IS_NOT_DIRECTORY: 'La ruta no es un directorio',
+  
+      NEW_PATH_ALREADY_EXISTS: 'La nueva ruta ya éxiste',
     }
   },
 
@@ -140,10 +148,18 @@ export const httpErrorMessageTranslates = {
       SESSION_EXPIRED: 'Session expired',
       USER_NOT_ACTIVED: 'User not actived',
     },
-    EMAIL_TEMPLATES: {
-      APP_HOST_NOT_PROVIDED: 'App host not provided',
-      APP_PORT_NOT_PROVIDED: 'App port not provided',
-      TOKEN_EXPIRATION_NOT_PROVIDED: 'Token expiration not provided',
+    NODE_SERVER: {
+      SERVER_PATH_NOT_EXIST: 'Server path not exists',
+      UNNABLE_CREATE_ROOT_FOLDER: 'Unnable to create root folder',
+      UNNABLE_DELETE_ROOT_FOLDER: 'Unnable to delete root folder',
+  
+      PATH_NOT_PROVIDED: 'Path not provided',
+      NEW_PATH_NOT_PROVIDED: 'New path not provided',
+       
+      PATH_NOT_EXISTS: 'Path not exists',
+      PATH_IS_NOT_DIRECTORY: 'Path is not directory',
+  
+      NEW_PATH_ALREADY_EXISTS: 'New path already exists',
     }
   }
 
