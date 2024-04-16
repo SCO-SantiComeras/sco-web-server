@@ -189,42 +189,6 @@ import { VALIDATION_ERROR_CONSTANTS } from "sco-nestjs-utilities";
 
 export const BACKEND_VALIDATION_ERROR_CONSTANTS = {
     ...VALIDATION_ERROR_CONSTANTS,
-    SEND_RECOVERY_PASSWORD: {
-        EMAIL: {
-            NOT_EMPTY: 'Email should be not empty',
-            INVALID_VALUE: 'Email should be string value',
-        },
-        USER: {
-            NOT_EMPTY: 'User should be not empty',
-            INVALID_VALUE: 'User should be object (UserDto) value',
-        },
-        APP_HOST: {
-            NOT_EMPTY: 'Total pages should be not empty',
-            INVALID_VALUE: 'Total pages should be string value',
-        },
-        APP_PORT: {
-            NOT_EMPTY: 'Total pages should be not empty',
-            INVALID_VALUE: 'Total pages should be number value',
-        },
-        TOKEN_EXPIRATION: {
-            NOT_EMPTY: 'Total pages should be not empty',
-            INVALID_VALUE: 'Total pages should be number value',
-        },
-    },
-    SEND_ACTIVATION_USER: {
-        USER: {
-            NOT_EMPTY: 'User should be not empty',
-            INVALID_VALUE: 'User should be object (UserDto) value',
-        },
-        APP_HOST: {
-            NOT_EMPTY: 'Total pages should be not empty',
-            INVALID_VALUE: 'Total pages should be string value',
-        },
-        APP_PORT: {
-            NOT_EMPTY: 'Total pages should be not empty',
-            INVALID_VALUE: 'Total pages should be number value',
-        },
-    },
     NODE_SERVER: {
         PATH: {
             NOT_EMPTY: 'Path should be not empty',

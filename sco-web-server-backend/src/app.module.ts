@@ -26,7 +26,6 @@ import { RolesModule } from 'sco-nestjs-utilities/roles/roles.module';
 import { UsersModule } from 'sco-nestjs-utilities/users/users.module';
 import { PopulateModule } from 'sco-nestjs-utilities/populate/populate.module';
 import { PublicMiddleware } from "sco-nestjs-utilities/middlewares/public.middleware";
-import { EmailTemplatesModule } from "./modules/email-templates/email-templates.module";
 import { NodeServerModule } from "./modules/node-server/node-server.module";
 
 require("dotenv").config();
@@ -171,7 +170,6 @@ export const JWT_CONTROLLER_OFF: boolean = false;
     ),
 
     /* Backend Own Imports */
-    EmailTemplatesModule,
     NodeServerModule,
   ],
   controllers: [],

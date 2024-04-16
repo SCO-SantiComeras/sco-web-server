@@ -74,11 +74,6 @@ import { HTTP_ERROR_CONSTANTS } from "sco-nestjs-utilities";
 
 export const BACKEND_HTTP_ERROR_CONSTANTS = {
   ...HTTP_ERROR_CONSTANTS,
-  EMAIL_TEMPLATES: {
-    APP_HOST_NOT_PROVIDED: 'App host not provided',
-    APP_PORT_NOT_PROVIDED: 'App port not provided',
-    TOKEN_EXPIRATION_NOT_PROVIDED: 'Token expiration not provided',
-  },
   NODE_SERVER: {
     SERVER_PATH_NOT_EXIST: 'Server path not exists',
     UNNABLE_CREATE_ROOT_FOLDER: 'Unnable to create root folder',
