@@ -225,4 +225,40 @@ export const BACKEND_VALIDATION_ERROR_CONSTANTS = {
             INVALID_VALUE: 'Total pages should be number value',
         },
     },
+    NODE_SERVER: {
+        PATH: {
+            NOT_EMPTY: 'Path should be not empty',
+            INVALID_VALUE: 'Path should be string value',
+        },
+        NEW_PATH: {
+            NOT_EMPTY: 'New path should be not empty',
+            INVALID_VALUE: 'New path should be string value',
+        },
+    },
+    NODE_SERVER_FILE: {
+        NAME: {
+            NOT_EMPTY: 'Name should be not empty',
+            INVALID_VALUE: 'Name should be string value',
+        },
+        EXTENSION: {
+            NOT_EMPTY: 'Extension should be not empty',
+            INVALID_VALUE: 'Extension should be string value',
+        },
+        SIZE: {
+            NOT_EMPTY: 'Size should be not empty',
+            INVALID_VALUE: 'Size should be number value',
+        },
+        TYPE: {
+            NOT_EMPTY: 'Type should be not empty',
+            INVALID_VALUE: 'Type should be string value',
+        },
+        TYPE_DESCRIPTION: {
+            NOT_EMPTY: 'Type description should be not empty',
+            INVALID_VALUE: 'Type description should be string value',
+        },
+        MODIFIED_DATE: {
+            NOT_EMPTY: 'Modified date should be not empty',
+            INVALID_VALUE: 'Modified date should be Date value',
+        },
+    }
 }

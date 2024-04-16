@@ -78,5 +78,17 @@ export const BACKEND_HTTP_ERROR_CONSTANTS = {
     APP_HOST_NOT_PROVIDED: 'App host not provided',
     APP_PORT_NOT_PROVIDED: 'App port not provided',
     TOKEN_EXPIRATION_NOT_PROVIDED: 'Token expiration not provided',
+  },
+  NODE_SERVER: {
+    SERVER_PATH_NOT_EXIST: 'Server path not exists',
+    UNNABLE_CREATE_ROOT_FOLDER: 'Unnable to create root folder',
+
+    PATH_NOT_PROVIDED: 'Path not provided',
+    NEW_PATH_NOT_PROVIDED: 'New path not provided',
+     
+    PATH_NOT_EXISTS: 'Path not exists',
+    PATH_IS_NOT_DIRECTORY: 'Path is not directory',
+
+    NEW_PATH_ALREADY_EXISTS: 'New path already exists',
   }
 }
