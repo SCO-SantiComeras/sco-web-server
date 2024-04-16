@@ -66,17 +66,22 @@ export const httpErrorMessageTranslates = {
       USER_NOT_ACTIVED: 'El usuario no está activo',
     },
     NODE_SERVER: {
-      SERVER_PATH_NOT_EXIST: 'La ruta del servidor no existe',
-      UNNABLE_CREATE_ROOT_FOLDER: 'Imposible crear la carpeta raíz del servidor',
-      UNNABLE_DELETE_ROOT_FOLDER: 'Imposible eliminar la carpeta raíz del servidor',
-  
-      PATH_NOT_PROVIDED: 'Ruta no proporcionada',
-      NEW_PATH_NOT_PROVIDED: 'Nueva ruta no proporcionada',
-       
+      ROOT_PATH_NOT_EXIST: 'La ruta raíz no existe',
+
+      UNNABLE_CREATE_SERVER_FOLDER: 'Imposible crear la carpeta del servidor',
+      UNNABLE_DELETE_SERVER_FOLDER: 'Imposible eliminar la carpeta del servidor',
+      
+      UNNABLE_CREATE_APP_FOLDER: 'Imposible crear la carpeta de la aplicación',
+      UNNABLE_DELETE_APP_FOLDER: 'Imposible eliminar la carpeta de la aplicación',
+
+      PATH_NOT_PROVIDED: 'Ruta no informada',
+      NEW_PATH_NOT_PROVIDED: 'Nueva ruta no informada',
+      
       PATH_NOT_EXISTS: 'La ruta no existe',
       PATH_IS_NOT_DIRECTORY: 'La ruta no es un directorio',
-  
-      NEW_PATH_ALREADY_EXISTS: 'La nueva ruta ya éxiste',
+      PATH_IS_NOT_VALID: 'La ruta no es válida',
+
+      NEW_PATH_ALREADY_EXISTS: 'La nueva ruta ya existe',
     }
   },
 
@@ -149,16 +154,21 @@ export const httpErrorMessageTranslates = {
       USER_NOT_ACTIVED: 'User not actived',
     },
     NODE_SERVER: {
-      SERVER_PATH_NOT_EXIST: 'Server path not exists',
-      UNNABLE_CREATE_ROOT_FOLDER: 'Unnable to create root folder',
-      UNNABLE_DELETE_ROOT_FOLDER: 'Unnable to delete root folder',
-  
+      ROOT_PATH_NOT_EXIST: 'Root path not exists',
+
+      UNNABLE_CREATE_SERVER_FOLDER: 'Unnable to create server folder',
+      UNNABLE_DELETE_SERVER_FOLDER: 'Unnable to delete server folder',
+      
+      UNNABLE_CREATE_APP_FOLDER: 'Unnable to create app folder',
+      UNNABLE_DELETE_APP_FOLDER: 'Unnable to delete app folder',
+
       PATH_NOT_PROVIDED: 'Path not provided',
       NEW_PATH_NOT_PROVIDED: 'New path not provided',
-       
+      
       PATH_NOT_EXISTS: 'Path not exists',
       PATH_IS_NOT_DIRECTORY: 'Path is not directory',
-  
+      PATH_IS_NOT_VALID: 'Path is not valid',
+
       NEW_PATH_ALREADY_EXISTS: 'New path already exists',
     }
   }
