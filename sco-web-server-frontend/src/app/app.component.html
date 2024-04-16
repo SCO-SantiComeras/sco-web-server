@@ -1,0 +1,67 @@
+<sco-app
+  [headerFixed]="false"
+  [translatePipe]="true"
+
+  [logoPath]="'resources/img/sco-logo.png'"
+  [logoWidth]="80"
+  [logoHeight]="40"
+
+  [maxMenuItems]="6"
+  [menuItems]="cacheService.getElement(CACHE_CONSTANTS.MENU_ITEMS)"
+  [menuBorderRadius]="true"
+
+  [contentPadding]="20"
+  [contentBackgroundColor]="undefined"
+  
+  [toastEnabled]="true"
+  [toastOrientation]="constantsService.ScoToastConstants.ORIENTATION_BOTTOM_RIGHT"
+  [toastBlock]="true"
+
+  [spinnerEnabled]="true"
+  [spinnerEmbedded]="false"
+  [spinnerImgPath]="'resources/img/spinner.gif'"
+
+  [menuMobileTransparent]="true"
+  [menuMobileIcon]="'fa fa-bars'"
+  [menuMobileColorRevert]="true"
+  [menuMobileShowIcons]="true"
+  [menuMobileHeaderMargin]="0"
+  
+  (logoClick)="onCLickLogo($event)"
+  (itemClick)="onClickMenuItem($event)"
+  (displayResize)="onDisplayResize($event)"
+>       
+  <router-outlet content-app>
+    <sco-pdf-viewer *ngIf="pdfViewerService.show()"
+      [positionAbsolute]="true"
+      [headerPosition]="constantsService.ScoPdfViewerConstants.HEADER_POSITION_LEFT"
+
+      [showComebackButton]="true"
+      [comebackButtonIcon]="'fa fa-arrow-left'"
+      [comebackButtonTransparent]="true"
+
+      [showDownloadButton]="true"
+      [downloadButtonIcon]="'fa fa-download'"
+      [downloadButtonTransparent]="true"
+
+      [scoPdfViewer]="pdfViewerService.scoPdfViewer()"
+      [initialZoom]="constantsService.ScoPdfViewerConstants.DEFAULT_ZOOM"
+
+      [showZoomButtons]="true"
+      [plusZoomButtonIcon]="'fa fa-plus'"
+      [plusZoomButtonTransparent]="true"
+      [minusZoomButtonIcon]="'fa fa-minus'"
+      [minusZoomButtonTransparent]="true"
+      [restoreZoomButtonIcon]="'fa fa-refresh'"
+      [restoreZoomButtonTransparent]="true"
+      
+      [showTotalPages]="true"
+      [totalPagesOnRightSide]="true"
+      [labelTotalPages]="'label.pdf-viewer.component.pages' | scoTranslate"
+
+      (onGoBack)="onPdfViewerEvent('onGoBack')"
+      (onDownload)="onPdfViewerEvent('onDownload', $event)"
+      (onLoad)="onPdfViewerEvent('onLoad', $event)">
+    </sco-pdf-viewer>
+  </router-outlet>       
+</sco-app>

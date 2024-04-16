@@ -1,0 +1,49 @@
+<div class="row mt-3 sco-confirm-email" *ngIf="finishedProcess">
+  <div class="col-12 sco-confirm-email__content" [ngClass]="{
+      'sco-confirm-email__content--tablet': scoDisplayResize.mode == constantsService.ScoResolutionConstants.TABLET,
+      'sco-confirm-email__content--mobile': scoDisplayResize.mode == constantsService.ScoResolutionConstants.MOBILE
+    }"
+  >
+    <sco-card [showTitle]="true">
+      <div card-title class="text-center">
+        <p>{{cacheService.getElement(CACHE_CONSTANTS.TITLE)}}</p>
+      </div>
+      <div card-content class="row">
+        <div class="col-12">
+
+          <div [hidden]="!activatedUser" class="sco-confirm-email__success">
+            <p class="sco-confirm-email__success--text">
+              {{'label.confirm-email.component.grettings' | scoTranslate}} {{user.name}},
+            </p>
+            <p class="sco-confirm-email__success--text">
+              {{'label.confirm-email.component.success.1' | scoTranslate}}, {{'label.confirm-email.component.success.2' | scoTranslate}}
+            </p>
+
+            <div class="sco-confirm-email__success--button">
+              <sco-button
+                [mode]="constantsService.ScoButtonConstants.MODE_DEFAULT"
+                [icon]="'fa fa-sign-in'"
+                [size]="constantsService.ScoButtonConstants.SIZE_LARGE"
+                [text]="'label.confirm-email.component.success.btn' | scoTranslate"
+                (click)="onCLickGoLogin()">
+              </sco-button>
+            </div>
+          </div>
+
+          <div [hidden]="activatedUser" class="sco-confirm-email__error">
+            <p class="sco-confirm-email__error--text">
+              {{'label.confirm-email.component.grettings' | scoTranslate}} {{user.name}},
+            </p>
+            <p class="sco-confirm-email__error--text">
+              {{'label.confirm-email.component.error.1' | scoTranslate}}
+            </p>
+            <p class="sco-confirm-email__error--text">
+              {{'label.confirm-email.component.error.2' | scoTranslate}}
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </sco-card>  
+  </div>
+</div>

@@ -1,0 +1,6 @@
+export const PERMISSIONS_CONSTANTS = {
+    READ: 'READ',
+    CREATE: 'CREATE',
+    UPDATE: 'UPDATE',
+    DELETE: 'DELETE',
+}

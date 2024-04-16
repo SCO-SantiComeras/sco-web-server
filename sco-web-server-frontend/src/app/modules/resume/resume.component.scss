@@ -1,0 +1,46 @@
+.sco-resume {
+    &__content {
+        padding-left: 30%; 
+        padding-right: 30%;
+
+        &--tablet {
+            padding-left: 15%; 
+            padding-right: 15%;
+        }
+
+        &--mobile {
+            padding-left: 2.5%; 
+            padding-right: 2.5%;
+        }
+
+        &__title {
+            text-align: center;
+        }
+    
+        &__header {
+            text-align: center;
+            font-family: 'sco regular';
+            font-weight: bold;
+            font-size: 20px;
+        }
+    
+        &__info {
+            text-align: left;
+            font-family: 'sco regular';
+            font-size: 18px;
+
+            &--title {
+                font-weight: bold;
+            }
+
+            &--list {
+                font-size: 18px;
+
+                &--title {
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}

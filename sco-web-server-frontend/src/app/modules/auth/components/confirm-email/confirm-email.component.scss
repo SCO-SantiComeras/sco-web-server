@@ -1,0 +1,35 @@
+.sco-confirm-email {
+
+    &__content {
+        padding-left: 30%; 
+        padding-right: 30%;
+
+        &--tablet {
+            padding-left: 15%; 
+            padding-right: 15%;
+        }
+
+        &--mobile {
+            padding-left: 2.5%; 
+            padding-right: 2.5%;
+        }
+    }
+
+    &__success {
+        &--text {
+            font-family: 'sco regular';
+            font-weight: 300;
+        }
+
+        &--button {
+            text-align: center;
+        }
+    }
+
+    &__error {
+        &--text {
+            font-family: 'sco regular';
+            font-weight: 300;
+        }
+    }
+}

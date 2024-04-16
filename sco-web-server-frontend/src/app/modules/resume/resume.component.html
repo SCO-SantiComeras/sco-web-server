@@ -1,0 +1,58 @@
+<div *ngIf="user" class="row mt-3 sco-resume">
+  <div class="col-12 sco-resume__content" [ngClass]="{
+      'sco-resume__content--tablet': scoDisplayResize.mode == constantsService.ScoResolutionConstants.TABLET,
+      'sco-resume__content--mobile': scoDisplayResize.mode == constantsService.ScoResolutionConstants.MOBILE
+    }"
+  >
+    <sco-card [showTitle]="true">
+      <div card-title class="sco-resume__content__title">
+        <p>{{cacheService.getElement(CACHE_CONSTANTS.TITLE)}}</p>
+      </div>
+      <div card-content class="row">
+        <div class="col-12 sco-resume__content__header">
+          <p>
+            <span>
+              {{ 
+                ('label.resume.component.resume.1' | scoTranslate) + " " + ( user.name | titlecase ) + " (" + user.role.name + ") "
+              }}
+            </span>
+            <br>
+            <span>
+              {{
+                ('label.resume.component.resume.2' | scoTranslate) + " " + ( dateNow | date: 'HH:mm:ss' ) + ('label.resume.component.resume.3' | scoTranslate) + ( dateNow | date: 'dd/MM/yyy' )
+              }}
+            </span>
+          </p>
+        </div>
+        <div class="col-12 mt-2 sco-resume__content__info">
+          <p class="sco-resume__content__info--title">
+            {{
+              ('label.resume.component.info.title' | scoTranslate) + ":"
+            }}
+          </p>
+          <ul class="sco-resume__content__info--list">
+            <li>
+              <span class="sco-resume__content__info--list--title">{{'label.users.component.input.name' | scoTranslate}}:&nbsp;&nbsp;</span>
+              <span>{{user.name}}</span>
+            </li>
+            <li>
+              <span class="sco-resume__content__info--list--title">{{'label.users.component.input.email' | scoTranslate}}:&nbsp;&nbsp;</span>
+              <span>{{user.email}}</span>
+            </li>
+            <li>
+              <span class="sco-resume__content__info--list--title">{{'label.users.component.input.active' | scoTranslate}}:&nbsp;&nbsp;</span>
+              <span>{{user.active}}</span>
+            </li>
+            <li>
+              <span class="sco-resume__content__info--list--title">{{'label.users.component.input.role' | scoTranslate}}:&nbsp;&nbsp;</span>
+              <span>{{user.role.name}}</span>
+            </li>
+            <li>
+              <span class="sco-resume__content__info--list--title">{{'label.users.component.input.createdAt' | scoTranslate}}:&nbsp;&nbsp;</span>
+              <span>{{ user.createdAt | date: 'dd/MM/yyy HH:mm:ss' }}</span></li>
+          </ul>
+        </div>
+      </div>
+    </sco-card>
+  </div>
+</div>

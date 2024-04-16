@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-12 mt-3">
+    <sco-login
+      [labelUser]="'label.auth.component.input.user' | scoTranslate"
+      [labelPassword]="'label.auth.component.input.pwd' | scoTranslate"
+      [labelCancel]="'label.auth.component.btn.cancel' | scoTranslate"
+      [labelConfirm]="'label.auth.component.btn.confirm' | scoTranslate"
+      [labelPwdRecovery]="'label.auth.component.pwd.recovery' | scoTranslate"
+      [labelUserRegister]="'label.auth.component.user.register' | scoTranslate"
+      [formErrors]="formErrors"
+      [verticalButtons]="true"
+      [title]="cacheService.getElement(CACHE_CONSTANTS.TITLE)"
+      [showLabelPwdRecovery]="true"
+      [showLabelUserRegister]="true"
+      (confirm)="onConfirmButton($event)"
+      (pwdRecovery)="onPwdRecovery()"
+      (registerUser)="onRegisterUser()" >
+    </sco-login> 
+  </div>
+</div>
+
+<sco-modal 
+  [id]="'auth-pwd-recovery'"
+  [type]="constantsService.ScoModalTypeConstants.CONFIRM" 
+  [labelConfirm]="'label.confirm' | scoTranslate"
+  [labelClose]="'label.cancel' | scoTranslate"
+  [closeWhenConfirm]="false"
+  (close)="onCloseModal()"
+  (accept)="onConfirmModal()" >
+  <div modal-title>{{'label.auth.component.modal.pwd.recovery.title' | scoTranslate}}</div>
+  <div modal-content>
+    <div class="row" *ngIf="recoveryPasswordForm">
+      <div class="col-12">
+        <form [formGroup]="recoveryPasswordForm">
+          <sco-input
+            formControlName="email"
+            [label]="'label.auth.component.modal.pwd.recovery.input.label' | scoTranslate"
+            [showLabel]="true"
+            [icon]="'fa fa-at'"
+            [showIcon]="true" 
+            [enabledIconClick]="false"
+            [required]="true"
+            [placeholder]="'label.auth.component.modal.pwd.recovery.input.placeholder' | scoTranslate" >
+          </sco-input>
+          <span class="sco-form-error" *ngIf="recoveryPasswordForm.controls['email'].invalid">
+            {{formErrorsModal | scoFormError : 'email'}}
+          </span>
+        </form>
+      </div>
+    </div>
+  </div>
+</sco-modal>
