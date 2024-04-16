@@ -18,17 +18,16 @@ import { PaginationModule } from 'sco-nestjs-utilities/pagination/pagination.mod
 import { SharedModule } from 'sco-nestjs-utilities/shared/shared.module';
 import { MongoDbModule } from 'sco-nestjs-utilities/mongo-db/mongo-db.module';
 import { WebsocketModule } from 'sco-nestjs-utilities/websocket/websocket.module';
-import { MicroserviceConnectionModule } from 'sco-nestjs-utilities/microservice-connection/microservice-connection.module';
 import { AuthModule } from 'sco-nestjs-utilities/auth/auth.module';
 import { EmailerModule } from 'sco-nestjs-utilities/emailer/emailer.module';
 import { ExcelModule } from 'sco-nestjs-utilities/excel/excel.module';
-import { SftpModule } from 'sco-nestjs-utilities/sftp/sftp.module';
 import { PermissionsModule } from 'sco-nestjs-utilities/permissions/permissions.module';
 import { RolesModule } from 'sco-nestjs-utilities/roles/roles.module';
 import { UsersModule } from 'sco-nestjs-utilities/users/users.module';
 import { PopulateModule } from 'sco-nestjs-utilities/populate/populate.module';
 import { PublicMiddleware } from "sco-nestjs-utilities/middlewares/public.middleware";
 import { EmailTemplatesModule } from "./modules/email-templates/email-templates.module";
+import { NodeServerModule } from "./modules/node-server/node-server.module";
 
 require("dotenv").config();
 
@@ -173,6 +172,7 @@ export const JWT_CONTROLLER_OFF: boolean = false;
 
     /* Backend Own Imports */
     EmailTemplatesModule,
+    NodeServerModule,
   ],
   controllers: [],
   providers: [],
