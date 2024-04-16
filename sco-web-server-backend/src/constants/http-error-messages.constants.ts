@@ -77,6 +77,7 @@ export const BACKEND_HTTP_ERROR_CONSTANTS = {
   NODE_SERVER: {
     SERVER_PATH_NOT_EXIST: 'Server path not exists',
     UNNABLE_CREATE_ROOT_FOLDER: 'Unnable to create root folder',
+    UNNABLE_DELETE_ROOT_FOLDER: 'Unnable to delete root folder',
 
     PATH_NOT_PROVIDED: 'Path not provided',
     NEW_PATH_NOT_PROVIDED: 'New path not provided',

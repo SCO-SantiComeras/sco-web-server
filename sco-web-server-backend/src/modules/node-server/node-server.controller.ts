@@ -8,6 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { NodeServerDto } from './dto/node-server';
 import { NodeServerFileDto } from './dto/node-server-file';
 import { WebsocketGateway } from 'sco-nestjs-utilities';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('api/v1/node-server')
 @ApiTags('Node server')
@@ -16,6 +17,7 @@ export class NodeServerController {
   constructor(
     private readonly nodeServerService: NodeServerService,
     private readonly websocketsService: WebsocketGateway,
+    private readonly configService: ConfigService,
   ) {}
 
   @Post('exists')
@@ -112,6 +114,12 @@ export class NodeServerController {
     if (!exists) {
       console.log(`[delete] Path '${nodeServerDto.path}' not exists`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
+    }
+
+    const serverPath: string = `${this.configService.get('server.serverPath')}/${this.configService.get('server.serverRootFolder')}`;
+    if (`${serverPath}${nodeServerDto.path}` == `${serverPath}/`) {
+      console.log(`[delete] Unnable to delete root folder '${serverPath}${nodeServerDto.path}'`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DELETE_ROOT_FOLDER, HttpStatus.CONFLICT);
     }
 
     const deleted: boolean = await  this.nodeServerService.delete(nodeServerDto);
