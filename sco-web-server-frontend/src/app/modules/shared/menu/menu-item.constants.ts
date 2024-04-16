@@ -39,9 +39,3 @@ export const LOGOUT_MENU_ITEM: MenuItem = {
   text: "label.menu.logout",
   route: "/logout",
 }
-
-export const RESUME_MENU_ITEM: MenuItem = {
-  icon: "fa fa-paper-plane",
-  text: "label.menu.resume",
-  route: "/resume",
-}

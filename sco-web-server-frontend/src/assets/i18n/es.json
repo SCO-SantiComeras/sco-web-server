@@ -45,7 +45,6 @@
     "label.menu.roles": "Roles",
     "label.menu.permissions": "Permisos",
     "label.menu.options": "Opciones",
-    "label.menu.resume": "Resumen",
 
     "label.validation.patterns.email": "El email no es válido",
     "label.validation.patterns.password": "La contraseña debe tener mínimo 8 caracteres, 1 mínuscula, 1 mayúscula, 1 número y 1 caracter especial",
@@ -192,12 +191,6 @@
     "label.users.component.form.title.update": "Actualizar usuario",
     "label.users.component.modal.delete.title": "Eliminar usuario",
     "label.users.component.modal.delete.content": "¿Realmente quiere eliminar el usuario",
-
-    "label.resume.component.cache.title": "Resumen",
-    "label.resume.component.resume.1": "Bienvenido de nuevo",
-    "label.resume.component.resume.2": "Actualmente son las",
-    "label.resume.component.resume.3": " del día ",
-    "label.resume.component.info.title": "Información de usuario",
 
     "label.pdf-viewer.component.pages": "Páginas",
     "label.pdf-viewer.component.onload": "No se pudo cargar el fichero pdf",

@@ -6,7 +6,6 @@ import { AuthComponent } from './modules/auth/components/auth/auth.component';
 import { PasswordRecoveryComponent } from './modules/auth/components/password-recovery/password-recovery.component';
 import { RegisterComponent } from './modules/auth/components/register/register.component';
 import { ConfirmEmailComponent } from './modules/auth/components/confirm-email/confirm-email.component';
-import { ResumeComponent } from './modules/resume/resume.component';
 import { AuthGuard } from './guards/auth.guard.service';
 import { PermissionsComponent } from './modules/permissions/components/permissions/permissions.component';
 import { AdminGuard } from './guards/admin.guard.service';
@@ -38,12 +37,6 @@ const routes: Routes = [
   {
     path: 'options',
     component: OptionsComponent,
-  },
-  
-  {
-    path: 'resume',
-    component: ResumeComponent,
-    canActivate: [AuthGuard],
   },
 
   {

@@ -45,7 +45,6 @@
     "label.menu.roles": "Roles",
     "label.menu.permissions": "Permissions",
     "label.menu.options": "Options",
-    "label.menu.resume": "Summary",
 
     "label.validation.patterns.email": "Email is not valid",
     "label.validation.patterns.password": "Password must be at least 8 characters, with 1 lowercase, 1 uppercase, 1 number, and 1 special character",
@@ -192,12 +191,6 @@
     "label.users.component.form.title.update": "Update user",
     "label.users.component.modal.delete.title": "Delete user",
     "label.users.component.modal.delete.content": "Do you really want to delete the user",
-
-    "label.resume.component.cache.title": "Summary",
-    "label.resume.component.resume.1": "Welcome back",
-    "label.resume.component.resume.2": "It's currently",
-    "label.resume.component.resume.3": "on",
-    "label.resume.component.info.title": "User Information",
 
     "label.pdf-viewer.component.pages": "Pages",
     "label.pdf-viewer.component.onload": "Unnable to load pdf file",

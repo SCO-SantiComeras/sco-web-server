@@ -1,4 +1,3 @@
-import { ResumeModule } from './modules/resume/resume.module';
 import { ngxsConfig } from './../environments/constants';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,7 +52,6 @@ export function translateFactory(provider: ScoTranslateService) {
     ExcelModule,
     EmailerModule,
     OptionsModule,
-    ResumeModule,
     PermissionsModule,
     RolesModule,
     UsersModule,
