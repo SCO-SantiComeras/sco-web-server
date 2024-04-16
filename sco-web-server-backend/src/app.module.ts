@@ -6,10 +6,8 @@ import { configurationApp } from "./configuration/configuration-app";
 import { configurationAuth } from "./configuration/configuration-auth";
 import { configurationEmailer } from "./configuration/configuration-emailer";
 import { configurationMongo } from "./configuration/configuration-mongo";
-import { configurationSftp } from './configuration/configuration-sftp';
 import { configurationWebSockets } from './configuration/configuration-webSockets';
 import { configurationExcel } from "./configuration/configuration-excel";
-import { configurationMicroserviceConnection } from "./configuration/configuration-microservice-connection";
 import { configurationPermissions } from "./configuration/configuration-permissions";
 import { configurationRoles } from "./configuration/configuration-roles";
 import { configurationUsers } from "./configuration/configuration-users";
@@ -45,12 +43,10 @@ export const JWT_CONTROLLER_OFF: boolean = false;
         configurationAuth, 
         configurationEmailer,
         configurationExcel,
-        configurationMicroserviceConnection,
         configurationMongo,
         configurationPermissions,
         configurationPopulate,
         configurationRoles,
-        configurationSftp,
         configurationUsers,
         configurationWebSockets,
       ],
@@ -81,17 +77,6 @@ export const JWT_CONTROLLER_OFF: boolean = false;
         return {
           port: configService.get('ws.port'),
           origin: configService.get('ws.origin'),
-        };
-      },
-      inject: [ConfigService],
-    }),
-    MicroserviceConnectionModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => {
-        return {
-          enabled: configService.get('mc.enabled'),
-          host: configService.get('mc.host'),
-          port: configService.get('mc.port'),
         };
       },
       inject: [ConfigService],
@@ -131,22 +116,6 @@ export const JWT_CONTROLLER_OFF: boolean = false;
         useFactory: (configService: ConfigService) => {
           return {
             jwtController: configService.get('excel.jwtController'),
-          };
-        },
-        inject: [ConfigService],
-      },
-      JWT_CONTROLLER_OFF,
-    ),
-    SftpModule.registerAsync(
-      {
-        imports: [ConfigModule],
-        useFactory: (configService: ConfigService) => {
-          return {
-            jwtController: configService.get('sftp.jwtController'),
-            host: configService.get('sftp.host'),
-            port: configService.get('sftp.port'),
-            username: configService.get('sftp.username'),
-            password: configService.get('sftp.password')
           };
         },
         inject: [ConfigService],
