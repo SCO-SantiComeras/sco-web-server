@@ -75,15 +75,20 @@ import { HTTP_ERROR_CONSTANTS } from "sco-nestjs-utilities";
 export const BACKEND_HTTP_ERROR_CONSTANTS = {
   ...HTTP_ERROR_CONSTANTS,
   NODE_SERVER: {
-    SERVER_PATH_NOT_EXIST: 'Server path not exists',
-    UNNABLE_CREATE_ROOT_FOLDER: 'Unnable to create root folder',
-    UNNABLE_DELETE_ROOT_FOLDER: 'Unnable to delete root folder',
+    ROOT_PATH_NOT_EXIST: 'Root path not exists',
+
+    UNNABLE_CREATE_SERVER_FOLDER: 'Unnable to create server folder',
+    UNNABLE_DELETE_SERVER_FOLDER: 'Unnable to delete server folder',
+    
+    UNNABLE_CREATE_APP_FOLDER: 'Unnable to create app folder',
+    UNNABLE_DELETE_APP_FOLDER: 'Unnable to delete app folder',
 
     PATH_NOT_PROVIDED: 'Path not provided',
     NEW_PATH_NOT_PROVIDED: 'New path not provided',
      
     PATH_NOT_EXISTS: 'Path not exists',
     PATH_IS_NOT_DIRECTORY: 'Path is not directory',
+    PATH_IS_NOT_VALID: 'Path is not valid',
 
     NEW_PATH_ALREADY_EXISTS: 'New path already exists',
   }

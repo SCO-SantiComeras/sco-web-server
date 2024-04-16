@@ -6,34 +6,43 @@ import { NodeServerDto } from "./dto/node-server";
 import { NodeServerFileDto } from "./dto/node-server-file";
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
 import { ConfigService } from '@nestjs/config';
-
 @Injectable()
 export class NodeServerService {
 
     private _serverPath: string; 
 
     constructor(private readonly configService: ConfigService) { 
-        this._serverPath = `${this.configService.get('server.serverPath')}/${this.configService.get('server.serverRootFolder')}`;
+        this._serverPath = `${this.configService.get('server.rootPath')}/${this.configService.get('server.serverServerFolder')}`;
     }
 
     async onModuleInit() {
-        const existServerPath: boolean = fs.existsSync(this.configService.get('server.serverPath'));
-        if (!existServerPath) {
-            console.log(`[Node Server Init] Server path '${this.configService.get('server.serverPath')}' do not exist`);
-            throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.SERVER_PATH_NOT_EXIST);
+        const existRootPath: boolean = fs.existsSync(this.configService.get('server.rootPath'));
+        if (!existRootPath) {
+            console.log(`[Node Server Init] Root path '${this.configService.get('server.rootPath')}' do not exist`);
+            throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.ROOT_PATH_NOT_EXIST);
         }
 
-        const serverPath: string = `${this.configService.get('server.serverPath')}/${this.configService.get('server.serverRootFolder')}`;
-        const existRootFolder: boolean = fs.existsSync(serverPath);
-        if (!existRootFolder) {
-            fs.mkdirSync(serverPath);
+        const serverPath: string = `${this.configService.get('server.rootPath')}/${this.configService.get('server.serverServerFolder')}`;
+        const existServerFolder: boolean = fs.existsSync(serverPath);
+        if (!existServerFolder) {
+            fs.mkdirSync(serverPath, { recursive: true });
             if (!fs.existsSync(serverPath)) {
-                console.log(`[Node Server Init] Unnable to create root folder '${serverPath}'`);
-                throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_CREATE_ROOT_FOLDER);
+                console.log(`[Node Server Init] Unnable to create server folder '${serverPath}'`);
+                throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_CREATE_SERVER_FOLDER);
             }
         }
         
-        console.log(`[Node Server Init] Loaded successfully in path '${serverPath}'`);
+        const appPath: string = `${this.configService.get('server.rootPath')}/${this.configService.get('server.serverAppFolder')}`;
+        const existAppFolder: boolean = fs.existsSync(appPath);
+        if (!existAppFolder) {
+            fs.mkdirSync(appPath, { recursive: true });
+            if (!fs.existsSync(appPath)) {
+                console.log(`[Node Server Init] Unnable to create app folder '${appPath}'`);
+                throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_CREATE_APP_FOLDER);
+            }
+        }
+        
+        console.log(`[Node Server Init] Loaded successfully in path '${serverPath}' & '${appPath}'`);
     }
 
     async exists(nodeServerDto: NodeServerDto, checkNewPath: boolean = false): Promise<boolean> {
@@ -179,9 +188,40 @@ export class NodeServerService {
 
         return true;
     }
+
+    async validateServerPath(nodeServerDto: NodeServerDto): Promise<boolean> {
+        const path: string = `${this._serverPath}${nodeServerDto.path}`;
+
+        const startsWithServerPath: boolean = path.startsWith(this._serverPath);
+        if (!startsWithServerPath) {
+            return false;
+        }
+
+        const inputPath: string = path.split(this._serverPath)[1];
+        if (!inputPath) {
+            return false;
+        }
+
+        if (
+            inputPath.includes('./') 
+            || inputPath.includes('/..') 
+            || inputPath.includes('../') 
+            || inputPath.includes('..')
+        ) {
+            return false;
+        }
+
+        const serverSidePath: string = path.split(inputPath)[0];
+        const splitServerSidePath: string[] = serverSidePath.split('/');
+        if (splitServerSidePath[splitServerSidePath.length-1].trim() != this.configService.get('server.serverServerFolder').trim()) {
+            return false;
+        }
+
+        return true;
+    }
 }
 
-const copyFolderRecursive = function(srcDir: string, dstDir: string, verbose: boolean = false) {
+const copyFolderRecursive = function(srcDir: string, dstDir: string, verbose: boolean = true) {
     let results = [];
 
     let src: string;
