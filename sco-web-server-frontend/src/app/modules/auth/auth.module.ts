@@ -9,7 +9,6 @@ import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './store/auth.state';
 import { ScoAngularComponentsModule } from 'sco-angular-components';
 import { SharedModule } from '../shared/shared.module';
-import { RegisterComponent } from './components/register/register.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 
 @NgModule({
@@ -29,14 +28,12 @@ import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.
     AuthComponent,
     LogoutComponent,
     PasswordRecoveryComponent,
-    RegisterComponent,
     ConfirmEmailComponent,
   ],
   exports: [
     AuthComponent,
     LogoutComponent,
     PasswordRecoveryComponent,
-    RegisterComponent,
     ConfirmEmailComponent,
   ],
   providers: [

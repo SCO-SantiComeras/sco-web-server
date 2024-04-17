@@ -4,7 +4,6 @@ import { OptionsComponent } from './modules/options/options.component';
 import { LogoutComponent } from './modules/auth/components/logout/logout.component';
 import { AuthComponent } from './modules/auth/components/auth/auth.component';
 import { PasswordRecoveryComponent } from './modules/auth/components/password-recovery/password-recovery.component';
-import { RegisterComponent } from './modules/auth/components/register/register.component';
 import { ConfirmEmailComponent } from './modules/auth/components/confirm-email/confirm-email.component';
 import { AuthGuard } from './guards/auth.guard.service';
 import { PermissionsComponent } from './modules/permissions/components/permissions/permissions.component';
@@ -21,10 +20,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: AuthComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
   },
   {
     path: 'reset-password/:pwdRecovery',
