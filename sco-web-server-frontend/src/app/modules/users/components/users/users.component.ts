@@ -19,6 +19,7 @@ import * as XLSX from 'xlsx';
 import { RoleState } from 'src/app/modules/roles/store/roles.state';
 import { FetchRoles, SubscribeRoleWS, UnSubscribeRoleWS } from 'src/app/modules/roles/store/roles.actions';
 import { CONFIG_CONSTANTS } from 'src/app/constants/config.constants';
+import { ROLES_CONSTANTS } from 'src/app/constants/roles.constants';
 
 @Component({
   selector: 'app-users',
@@ -277,6 +278,10 @@ export class UsersComponent implements OnInit, OnDestroy {
           })
 
           for (const role of this.store.selectSnapshot(RoleState.roles)) {
+            if (role.name == ROLES_CONSTANTS.SUPERADMIN.NAME) {
+              continue;
+            }
+
             this.roleFilterOptions.push({ label: cloneDeep(role.name), value: cloneDeep(role) });
           }
 
