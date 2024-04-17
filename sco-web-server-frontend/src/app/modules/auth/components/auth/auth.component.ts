@@ -83,7 +83,7 @@ export class AuthComponent implements OnInit {
 
         const user: User = this.store.selectSnapshot(AuthState.loggedUser);
         this.cacheService.setElement(CACHE_CONSTANTS.MENU_ITEMS, this.menuService.selectMenu(user));
-        this.router.navigateByUrl('server');
+        this.router.navigateByUrl('node-server');
       }, 
       error: () => {
         this.spinnerService.hideSpinner(500);
