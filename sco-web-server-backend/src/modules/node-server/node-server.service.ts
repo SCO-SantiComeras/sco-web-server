@@ -239,6 +239,26 @@ export class NodeServerService {
 
         return folderCreated;
     }
+
+    async uploadFiles(nodeServerDto: NodeServerDto, files: Array<Express.Multer.File>): Promise<boolean> {
+        const filesUploaded: boolean = await new Promise<boolean>(async (resolve) => {
+            let result: boolean = false;
+
+            try {
+                for (const file of files) {
+                    fs.writeFileSync(`${this._serverPath}${nodeServerDto.path}/${file.originalname}`, file.buffer);
+                }
+                result = true;
+            } catch (error) {
+                result = false;
+            }
+
+            return resolve(result);
+        });
+
+
+        return filesUploaded;
+    }
 }
 
 const copyFolderRecursive = function(srcDir: string, dstDir: string, recursive: boolean, verbose: boolean = true) {

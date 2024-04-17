@@ -1,6 +1,6 @@
 import { BACKEND_WEBSOCKET_EVENTS } from './../../constants/websocket.constants';
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
-import { Body, Controller, Res, Post, Req, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { Body, Controller, Res, Post, Req, HttpException, HttpStatus, UseGuards, UseInterceptors, UploadedFiles, Param } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import { NodeServerService } from './node-server.service';
@@ -9,6 +9,7 @@ import { NodeServerDto } from './dto/node-server';
 import { NodeServerFileDto } from './dto/node-server-file';
 import { WebsocketGateway } from 'sco-nestjs-utilities';
 import { ConfigService } from '@nestjs/config';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/v1/node-server')
 @ApiTags('Node server')
@@ -21,6 +22,7 @@ export class NodeServerController {
   ) {}
 
   @Post('exists')
+  @UseGuards(AuthGuard())
   async exists(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -41,6 +43,7 @@ export class NodeServerController {
   }
 
   @Post('isDirectory')
+  @UseGuards(AuthGuard())
   async isDirectory(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -67,6 +70,7 @@ export class NodeServerController {
   }
 
   @Post('isFile')
+  @UseGuards(AuthGuard())
   async isFile(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -93,6 +97,7 @@ export class NodeServerController {
   }
 
   @Post('list')
+  @UseGuards(AuthGuard())
   async list(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -125,6 +130,7 @@ export class NodeServerController {
   }
 
   @Post('delete')
+  @UseGuards(AuthGuard())
   async delete(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -161,6 +167,7 @@ export class NodeServerController {
   }
 
   @Post('copy')
+  @UseGuards(AuthGuard())
   async copy(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -202,6 +209,7 @@ export class NodeServerController {
   }
 
   @Post('move')
+  @UseGuards(AuthGuard())
   async move(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -243,6 +251,7 @@ export class NodeServerController {
   }
 
   @Post('createFolder')
+  @UseGuards(AuthGuard())
   async createFolder(
     @Res() res: Response, 
     @Body() nodeServerDto: NodeServerDto
@@ -270,5 +279,38 @@ export class NodeServerController {
     }
 
     return res.status(200).json(createFolder);
+  }
+
+  @Post('uploadFiles/:path')
+  @UseGuards(AuthGuard())
+  @UseInterceptors(AnyFilesInterceptor())
+  async uploadFiles(
+    @Res() res: Response, 
+    @Param('path') path: string, 
+    @UploadedFiles() files: Array<Express.Multer.File>
+  ): Promise<Response<boolean, Record<string, boolean>>> {
+    if (!path) {
+      console.log(`[createFolder] Path '${path}' not provided`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
+    }
+
+    let currentPath: string = JSON.parse(path);
+    while (currentPath.includes('-rootParse-')) {
+      currentPath = currentPath.replace('-rootParse-', '/');
+    }
+
+    const nodeServerDto: NodeServerDto = { path: currentPath };   
+    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
+    if (!pathIsValid) {
+      console.log(`[createFolder] Path '${nodeServerDto.path}' is not in valid format`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
+    const uploadFiles: boolean = await this.nodeServerService.uploadFiles(nodeServerDto, files);
+    if (uploadFiles) {
+      await this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+    }
+
+    return res.status(200).json(uploadFiles);
   }
 }
