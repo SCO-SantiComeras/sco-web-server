@@ -177,7 +177,7 @@ export class NodeServerState {
     { patchState }: StateContext<NodeServerStateModel>,
     { payload }: List
   ) {
-    return this.nodeServerService.list(payload.nodeServer).pipe(
+    return this.nodeServerService.list(payload.nodeServer, payload.filter ? payload.filter : undefined).pipe(
       map((nodeServerFiles: NodeServerFile[]) => {
         if (nodeServerFiles && nodeServerFiles.length > 0) {
           patchState({

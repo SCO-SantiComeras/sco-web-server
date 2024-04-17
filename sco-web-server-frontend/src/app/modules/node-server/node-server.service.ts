@@ -31,25 +31,8 @@ export class NodeServerService {
     }
 
     list(nodeServer: NodeServer, filter: NodeServerFileFilter = undefined): Observable<NodeServerFile[]> {
-        const params: string[] = [];
-
-        if (filter) {
-            if (filter.name) params.push(`name=${filter.name}`);
-            if (filter.extension) params.push(`extension=${filter.extension}`);
-            if (filter.size) params.push(`size=${filter.size}`);
-            if (filter.type) params.push(`type=${filter.type}`);
-            if (filter.typeDescription) params.push(`typeDescription=${filter.typeDescription}`);
-            if (filter.modifiedDate) params.push(`modifiedDate=${filter.modifiedDate}`);
-        }
-
-        return this.http.post<NodeServerFile[]>(`${environment.apiUrl}/node-server/list
-            ${
-                params.length > 0 
-                    ? `?${this.joinPipe.transform(params, '&')}`
-                    : ``
-            }`,
-            nodeServer,
-        );
+        if (filter) nodeServer.filter = filter;   
+        return this.http.post<NodeServerFile[]>(`${environment.apiUrl}/node-server/list`, nodeServer);
     }
 
     delete(nodeServer: NodeServer): Observable<boolean> {

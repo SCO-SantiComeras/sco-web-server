@@ -9,12 +9,12 @@ export class NodeServerFileFilter {
     modifiedDate?: Date;
 
     constructor() {
-        this.name = '';
-        this.extension = '';
-        this.image = '';
+        this.name = undefined;
+        this.extension = undefined;
+        this.image = undefined;
         this.size = undefined;
-        this.type = '';
-        this.typeDescription = '';
+        this.type = undefined;
+        this.typeDescription = undefined;
         this.modifiedDate = undefined;
     }
 }
