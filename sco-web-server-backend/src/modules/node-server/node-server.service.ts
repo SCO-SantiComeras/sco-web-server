@@ -148,14 +148,16 @@ export class NodeServerService {
     async copy(nodeServerDto: NodeServerDto): Promise<boolean> {
         const isDirectory: boolean = await this.isDirectory(nodeServerDto);
         if (isDirectory) {
+            fs.mkdirSync(`${this._serverPath}${nodeServerDto.newPath}`, { recursive: true });
             copyFolderRecursive(
                 `${this._serverPath}${nodeServerDto.path}`,
-                `${this._serverPath}${nodeServerDto.newPath}`
+                `${this._serverPath}${nodeServerDto.newPath}`,
+                nodeServerDto.recursive == true ? true : false,
             );
         } else {
             fs.copyFileSync(
                 `${this._serverPath}${nodeServerDto.path}`,
-                `${this._serverPath}${nodeServerDto.newPath}`
+                `${this._serverPath}${nodeServerDto.newPath}`,
             ); 
         }
 
@@ -170,14 +172,16 @@ export class NodeServerService {
     async move(nodeServerDto: NodeServerDto): Promise<boolean> {
         const isDirectory: boolean = await this.isDirectory(nodeServerDto);
         if (isDirectory) {
+            fs.mkdirSync(`${this._serverPath}${nodeServerDto.newPath}`, { recursive: true });
             copyFolderRecursive(
                 `${this._serverPath}${nodeServerDto.path}`,
-                `${this._serverPath}${nodeServerDto.newPath}`
+                `${this._serverPath}${nodeServerDto.newPath}`,
+                nodeServerDto.recursive == true ? true : false,
             );
         } else {
             fs.copyFileSync(
                 `${this._serverPath}${nodeServerDto.path}`,
-                `${this._serverPath}${nodeServerDto.newPath}`
+                `${this._serverPath}${nodeServerDto.newPath}`,
             ); 
         }
 
@@ -247,7 +251,7 @@ export class NodeServerService {
     }
 }
 
-const copyFolderRecursive = function(srcDir: string, dstDir: string, verbose: boolean = true) {
+const copyFolderRecursive = function(srcDir: string, dstDir: string, recursive: boolean, verbose: boolean = true) {
     let results = [];
 
     let src: string;
@@ -263,11 +267,11 @@ const copyFolderRecursive = function(srcDir: string, dstDir: string, verbose: bo
 
             try {
                 if (verbose) console.log(`[copyFolderRecursive] Dir '${file}' creating: ${dst}`);
-                fs.mkdirSync(dst, { recursive: true });
+                fs.mkdirSync(dst, { recursive: recursive });
             } catch(e) {
                 if (verbose) console.log(`[copyFolderRecursive] Dir '${file}' already exists: ${dst}`);
             }
-            results = results.concat(copyFolderRecursive(src, dst));
+            results = results.concat(copyFolderRecursive(src, dst, recursive));
         } else {
             if (verbose) console.log(`[copyFolderRecursive] File '${file}' is file`);
 
@@ -282,7 +286,7 @@ const copyFolderRecursive = function(srcDir: string, dstDir: string, verbose: bo
     });
 
     if (results && results.length == 0) {
-        fs.mkdirSync(dstDir, { recursive: true });
+        fs.mkdirSync(dstDir, { recursive: recursive });
     }
 
     return results;
