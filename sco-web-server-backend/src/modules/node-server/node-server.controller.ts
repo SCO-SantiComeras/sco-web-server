@@ -1,9 +1,9 @@
 import { BACKEND_WEBSOCKET_EVENTS } from './../../constants/websocket.constants';
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
-import { Body, Controller, Res, Post, Req, HttpException, HttpStatus, UseGuards, UseInterceptors, UploadedFiles, Param } from '@nestjs/common';
+import { Body, Controller, Res, Post, Req, HttpException, HttpStatus, UseGuards, UseInterceptors, UploadedFiles, Param, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response, Request } from 'express';
-import { NodeServerService } from './node-server.service';
+import { NodeServerService, filterListFiles } from './node-server.service';
 import { AuthGuard } from '@nestjs/passport';
 import { NodeServerDto } from './dto/node-server';
 import { NodeServerFileDto } from './dto/node-server-file';
@@ -125,8 +125,32 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
     }
 
+    // Fetch all files from path
     const list: NodeServerFileDto[] = await  this.nodeServerService.list(nodeServerDto);
-    return res.status(200).json(list);
+
+    // Initialize filter variables
+    let filteredList: NodeServerFileDto[] = [];
+    let filterActive: boolean = false;
+
+    // Check if filter is provided
+    if (nodeServerDto.filter) {
+      const filterKeys: string[] = Object.keys(nodeServerDto.filter);
+      if (filterKeys && filterKeys.length > 0) {
+        for (const key of filterKeys) {
+          if (!filterActive) filterActive = true;
+          filteredList = await filterListFiles(list, nodeServerDto, filteredList, key);
+        }
+      }
+    }
+
+    return res.status(200).json(filterActive
+      ? filteredList && filteredList.length > 0 
+        ? filteredList 
+        : [] 
+      : list && list.length > 0 
+        ? list 
+        : []
+    );
   }
 
   @Post('delete')

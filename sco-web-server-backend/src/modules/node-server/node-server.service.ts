@@ -301,3 +301,34 @@ const copyFolderRecursive = function(srcDir: string, dstDir: string, recursive: 
 
     return results;
 }
+
+export const filterListFiles = async function(list: NodeServerFileDto[], nodeServerDto: NodeServerDto, filteredList: NodeServerFileDto[], key: string) {
+    if (!list || (list && list.length == 0)) {
+        return filteredList;
+    }
+
+    for (const file of list) {
+        if (key == 'name') {
+            if (
+                file[key] == nodeServerDto.filter[key] ||
+                file[key].includes(nodeServerDto.filter[key])
+            ) {
+                const existFilteredFile: NodeServerFileDto = filteredList.find(f => f.name == file.name);
+                if (!existFilteredFile) {
+                  filteredList.push(file);
+                }
+            }
+            continue;
+        }
+        
+
+        if (file[key] == nodeServerDto.filter[key]) {
+          const existFilteredFile: NodeServerFileDto = filteredList.find(f => f.name == file.name);
+          if (!existFilteredFile) {
+            filteredList.push(file);
+          }
+        }
+    }
+
+    return filteredList;
+}
