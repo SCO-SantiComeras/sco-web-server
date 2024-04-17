@@ -79,9 +79,6 @@ export const BACKEND_HTTP_ERROR_CONSTANTS = {
 
     UNNABLE_CREATE_SERVER_FOLDER: 'Unnable to create server folder',
     UNNABLE_DELETE_SERVER_FOLDER: 'Unnable to delete server folder',
-    
-    UNNABLE_CREATE_APP_FOLDER: 'Unnable to create app folder',
-    UNNABLE_DELETE_APP_FOLDER: 'Unnable to delete app folder',
 
     PATH_NOT_PROVIDED: 'Path not provided',
     NEW_PATH_NOT_PROVIDED: 'New path not provided',

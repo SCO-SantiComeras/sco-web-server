@@ -70,9 +70,6 @@ export const httpErrorMessageTranslates = {
 
       UNNABLE_CREATE_SERVER_FOLDER: 'Imposible crear la carpeta del servidor',
       UNNABLE_DELETE_SERVER_FOLDER: 'Imposible eliminar la carpeta del servidor',
-      
-      UNNABLE_CREATE_APP_FOLDER: 'Imposible crear la carpeta de la aplicación',
-      UNNABLE_DELETE_APP_FOLDER: 'Imposible eliminar la carpeta de la aplicación',
 
       PATH_NOT_PROVIDED: 'Ruta no informada',
       NEW_PATH_NOT_PROVIDED: 'Nueva ruta no informada',
@@ -159,9 +156,6 @@ export const httpErrorMessageTranslates = {
 
       UNNABLE_CREATE_SERVER_FOLDER: 'Unnable to create server folder',
       UNNABLE_DELETE_SERVER_FOLDER: 'Unnable to delete server folder',
-      
-      UNNABLE_CREATE_APP_FOLDER: 'Unnable to create app folder',
-      UNNABLE_DELETE_APP_FOLDER: 'Unnable to delete app folder',
 
       PATH_NOT_PROVIDED: 'Path not provided',
       NEW_PATH_NOT_PROVIDED: 'New path not provided',

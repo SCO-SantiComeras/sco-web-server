@@ -145,12 +145,6 @@ export class NodeServerController {
       console.log(`[delete] Unnable to delete server folder '${rootPath}${nodeServerDto.path}'`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DELETE_SERVER_FOLDER, HttpStatus.CONFLICT);
     }
-
-    const appPath: string = `${this.configService.get('server.rootPath')}/${this.configService.get('server.serverAppFolder')}`;
-    if (`${appPath}${nodeServerDto.path}` == `${rootPath}${nodeServerDto.path}`) {
-      console.log(`[delete] Unnable to delete app folder '${appPath}${nodeServerDto.path}'`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DELETE_APP_FOLDER, HttpStatus.CONFLICT);
-    }
     
     const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
     if (!pathIsValid) {

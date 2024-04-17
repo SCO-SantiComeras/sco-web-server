@@ -13,7 +13,6 @@ const environment = {
 
   rootPath: '/home/sco/sco-web-server/dist/public',
   serverFolder: 'nodeserver',
-  appFolder: 'nodeserverApp',
 };
 
 environment.apiUrl = `${environment.httpsEnabled ? 'https://' : 'http://'}`;

@@ -32,17 +32,7 @@ export class NodeServerService {
             }
         }
         
-        const appPath: string = `${this.configService.get('server.rootPath')}/${this.configService.get('server.serverAppFolder')}`;
-        const existAppFolder: boolean = fs.existsSync(appPath);
-        if (!existAppFolder) {
-            fs.mkdirSync(appPath, { recursive: true });
-            if (!fs.existsSync(appPath)) {
-                console.log(`[Node Server Init] Unnable to create app folder '${appPath}'`);
-                throw new Error(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_CREATE_APP_FOLDER);
-            }
-        }
-        
-        console.log(`[Node Server Init] Loaded successfully in path '${serverPath}' & '${appPath}'`);
+        console.log(`[Node Server Init] Loaded successfully in path '${serverPath}'`);
     }
 
     async exists(nodeServerDto: NodeServerDto, checkNewPath: boolean = false): Promise<boolean> {
