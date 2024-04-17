@@ -147,7 +147,7 @@ export class NodeServerController {
     }
 
     const appPath: string = `${this.configService.get('server.rootPath')}/${this.configService.get('server.serverAppFolder')}`;
-    if (`${appPath}${nodeServerDto.path}` == (`${appPath}/`) || `${appPath}`) {
+    if (`${appPath}${nodeServerDto.path}` == `${rootPath}${nodeServerDto.path}`) {
       console.log(`[delete] Unnable to delete app folder '${appPath}${nodeServerDto.path}'`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DELETE_APP_FOLDER, HttpStatus.CONFLICT);
     }
@@ -160,7 +160,7 @@ export class NodeServerController {
 
     const deleted: boolean = await  this.nodeServerService.delete(nodeServerDto);
     if (deleted) {
-      this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+      await this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
     }
     
     return res.status(200).json(deleted);
@@ -201,7 +201,7 @@ export class NodeServerController {
 
     const copy: boolean = await  this.nodeServerService.copy(nodeServerDto);
     if (copy) {
-      this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+      await this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
     }
 
     return res.status(200).json(copy);
@@ -242,7 +242,7 @@ export class NodeServerController {
 
     const move: boolean = await  this.nodeServerService.move(nodeServerDto);
     if (move) {
-      this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+      await this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
     }
 
     return res.status(200).json(move);
@@ -271,6 +271,10 @@ export class NodeServerController {
     }
     
     const createFolder: boolean = await this.nodeServerService.createFolder(nodeServerDto);
+    if (createFolder) {
+      await this.websocketsService.notifyWebsockets(BACKEND_WEBSOCKET_EVENTS.WS_NODE_SERVER);
+    }
+
     return res.status(200).json(createFolder);
   }
 }
