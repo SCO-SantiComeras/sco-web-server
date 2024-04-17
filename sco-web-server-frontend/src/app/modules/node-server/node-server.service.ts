@@ -67,6 +67,18 @@ export class NodeServerService {
     createFolder(nodeServer: NodeServer): Observable<boolean> {
         return this.http.post<boolean>(`${environment.apiUrl}/node-server/createFolder`, nodeServer);
     }
+
+    uploadFiles(nodeServer: NodeServer, files: File[]): Observable<boolean> {
+        const form = new FormData();
+        files.forEach((file) => { form.append('files[]', file); });
+
+        let path: string = nodeServer.path;
+        while (path.includes('/')) {
+            path = path.replace('/', '-rootParse-');
+        }
+
+        return this.http.post<boolean>(`${environment.apiUrl}/node-server/uploadFiles/${JSON.stringify(path)}`, form);
+    }
     
       /* Web sockets */
     getNodeserverChangesBySocket(): any {

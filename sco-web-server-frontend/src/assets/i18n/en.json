@@ -219,5 +219,8 @@
     "label.node-server.state.move.catch": "Error trying to move file",
     "label.node-server.state.createFolder.success": "The folder created successfully",
     "label.node-server.state.createFolder.error": "Unnable to create folder",
-    "label.node-server.state.createFolder.catch": "Error trying to create folder"
+    "label.node-server.state.createFolder.catch": "Error trying to create folder",
+    "label.node-server.state.uploadFiles.success": "Files loaded successfully",
+    "label.node-server.state.uploadFiles.error": "Unnable to load files",
+    "label.node-server.state.uploadFiles.catch": "Error trying to load files"
 }

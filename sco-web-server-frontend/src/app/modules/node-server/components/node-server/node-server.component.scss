@@ -18,6 +18,18 @@
         }
     }
 
+    sco-file-uploader {
+        .sco-file-uploader {
+            &__container { 
+
+                &__file { 
+                    padding-left: 0 !important;
+                }
+
+            }
+        }
+    }
+
     &__container {
         width: 100%;
         overflow: auto; 

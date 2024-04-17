@@ -15,15 +15,21 @@
               </sco-input>
             </div>
             <div class="col-12 sco-node-server__container__header pb-5">
-              <div class="col-1 sco-node-server__container__header--left">
+              <div class="col-2 sco-node-server__container__header--left">
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="'fa fa-table' || 'fa fa-list'"
                   [transparent]="false"
                   (action)="undefined">
                 </sco-button>
+                <sco-button class="sco-node-server__container__header--button pl-2"
+                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                  [icon]="'fa fa-refresh'"
+                  [transparent]="false"
+                  (action)="onRefreshCurrentList()">
+                </sco-button>
               </div>
-              <div class="col-5 sco-node-server__container__header--center">
+              <div class="col-4 sco-node-server__container__header--center">
                 <sco-input class="sco-node-server__container__header--filter"
                   [showLabel]="false">
                 </sco-input>
@@ -57,14 +63,39 @@
                     [disabled]="currentPath == '/' || currentPath == undefined"
                     (action)="onLevelUpButton()">
                   </sco-button>
-                  <sco-button class="sco-node-server__container__header--button pl-2"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-refresh'"
-                    [transparent]="false"
-                    (action)="onRefreshCurrentList()">
-                  </sco-button>
+                  <sco-file-uploader class="pt-1 pl-2"
+                    [showLabel]="false"
+                    [label]="''"
+                    [required]="false"
+
+                    [multipleFiles]="true"
+                    [acceptFileTypes]="[]"
+
+                    [showBorder]="false"
+                    [colorBorder]="''"
+
+                    [labelSelectBtn]="''"
+                    [iconSelectBtn]="'fa fa-file'"
+
+                    [labelUploadBtn]="''"
+                    [showUploadBtn]="false"
+                    [iconUploadBtn]="''"
+
+                    [labelCleanBtn]="''"
+                    [showCleanBtn]="false"
+                    [iconCleanBtn]="''"
+
+                    [base64]="false"
+                    [labelBase64Title]="''"
+                    [base64TextRows]="0"
+
+                    (selectFiles)="onSelectFiles($event)"
+                    (uploadBtn)="undefined"
+                    (cleanBtn)="undefined"
+                    (copyBtn)="undefined">
+                  </sco-file-uploader>
                 </div>
-                <div class="col-4 p-0 m-0 d-flex justify-content-center">
+                <div class="col-4 p-0 m-0 d-flex justify-content-end">
                   <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-home'"
@@ -108,15 +139,15 @@
                       <td>{{file.size}}</td>
                       <td>{{file.typeDescription}}</td>
                       <td>{{file.modifiedDate | date: 'dd-MM-yyy HH:mm:ss'}}</td> 
-                      <td>
+                      <td class="text-right pr-2">
                         <!-- [disabled]="selectedCopyFile != undefined && selectedCopyFile.name == file.name" -->
-                        <button class="btn btn-sm btn-secondary mr-2" 
+                        <button class="btn btn-sm btn-secondary mr-3" 
                           (click)="onCopyCopyFile(file, i)"
                         >
                           <i class="fa fa-clone sco-node-server__container__body--action"></i>
                         </button>
                         <!--  [disabled]="selectedCutFile != undefined && selectedCutFile.name == file.name" -->
-                        <button class="btn btn-sm btn-dark mr-2"
+                        <button class="btn btn-sm btn-dark mr-3"
                           (click)="onCutCopyFile(file, i)"
                         >
                           <i class="fa fa-cut sco-node-server__container__body--action"></i>

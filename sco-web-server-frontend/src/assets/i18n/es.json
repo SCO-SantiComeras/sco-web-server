@@ -219,5 +219,8 @@
     "label.node-server.state.move.catch": "Error intentando mover el archivo",
     "label.node-server.state.createFolder.success": "La carpeta se creó con éxito",
     "label.node-server.state.createFolder.error": "La carpeta no se pudo crear",
-    "label.node-server.state.createFolder.catch": "Error intentando crear la carpeta"
+    "label.node-server.state.createFolder.catch": "Error intentando crear la carpeta",
+    "label.node-server.state.uploadFiles.success": "Ficheros subidos con éxito",
+    "label.node-server.state.uploadFiles.error": "No se pudieron subir los ficheros",
+    "label.node-server.state.uploadFiles.catch": "Error intentando subir los ficheros"
 }

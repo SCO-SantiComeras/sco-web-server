@@ -41,6 +41,11 @@ export class CreateFolder {
   constructor(public payload: { nodeServer: NodeServer }) {}
 }
 
+export class UploadFiles {
+  static readonly type = "[NodeServer] Upload files";
+  constructor(public payload: { nodeServer: NodeServer, files: File[] }) {}
+}
+
 
 /* Web sockets */
 export class SubscribeNodeServerWS {

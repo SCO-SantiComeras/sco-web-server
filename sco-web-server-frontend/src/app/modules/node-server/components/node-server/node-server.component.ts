@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ScoConstantsService, ScoDisplayResize, ScoModalService, ScoSpinnerService, ScoToastService, ScoTranslateService } from 'sco-angular-components';
 import { NodeServerState } from '../../store/node-server.state';
 import { NodeServerFile } from '../../model/node-server-file';
-import { Copy, CreateFolder, Delete, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS } from '../../store/node-server.actions';
+import { Copy, CreateFolder, Delete, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from '../../store/node-server.actions';
 import { NodeServerFileFilter } from '../../model/node-server-file-filter';
 import environment from 'src/environments/environment';
 import { FILE_TYPES_CONSTANTS } from 'src/app/constants/file-types.constants';
@@ -362,6 +362,41 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     }
     
     this.store.dispatch(new Copy({ nodeServer: { path: originPath, newPath: destinyPath, recursive: true } })).subscribe({
+      next: () => {
+        const success: boolean = this.store.selectSnapshot(NodeServerState.success);
+        if (!success) {
+          this.toastService.addErrorMessage(
+            this.translateService.getTranslate('label.error'),
+            this.store.selectSnapshot(NodeServerState.errorMsg),
+          );
+          return;
+        }
+
+        this.toastService.addSuccessMessage(
+          this.translateService.getTranslate('label.success'),
+          this.store.selectSnapshot(NodeServerState.successMsg),
+        );
+
+        this.copyFileOriginPath = undefined;
+        this.selectedCopyFile = undefined;
+      },
+      error: () => {
+        this.toastService.addErrorMessage(
+          this.translateService.getTranslate('label.error'),
+          this.store.selectSnapshot(NodeServerState.errorMsg),
+        );
+        return;
+      }
+    })
+  }
+
+  /* Upload Files */
+  onSelectFiles(files: File[]) {
+    if (!files || (files && files.length == 0)) {
+      return;
+    }
+
+    this.store.dispatch(new UploadFiles({ nodeServer: { path: this.currentPath, recursive: true }, files: files })).subscribe({
       next: () => {
         const success: boolean = this.store.selectSnapshot(NodeServerState.success);
         if (!success) {
