@@ -78,6 +78,7 @@ export const httpErrorMessageTranslates = {
       NEW_PATH_NOT_PROVIDED: 'Nueva ruta no informada',
       
       PATH_NOT_EXISTS: 'La ruta no existe',
+      PATH_ALREADY_EXISTS: 'La ruta ya existe',
       PATH_IS_NOT_DIRECTORY: 'La ruta no es un directorio',
       PATH_IS_NOT_VALID: 'La ruta no es válida',
 
@@ -166,6 +167,7 @@ export const httpErrorMessageTranslates = {
       NEW_PATH_NOT_PROVIDED: 'New path not provided',
       
       PATH_NOT_EXISTS: 'Path not exists',
+      PATH_ALREADY_EXISTS: 'Path already exists',
       PATH_IS_NOT_DIRECTORY: 'Path is not directory',
       PATH_IS_NOT_VALID: 'Path is not valid',
 

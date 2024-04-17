@@ -79,6 +79,7 @@ export const httpErrorMessages = {
     NEW_PATH_NOT_PROVIDED: 'New path not provided',
      
     PATH_NOT_EXISTS: 'Path not exists',
+    PATH_ALREADY_EXISTS: 'Path already exists',
     PATH_IS_NOT_DIRECTORY: 'Path is not directory',
     PATH_IS_NOT_VALID: 'Path is not valid',
 
