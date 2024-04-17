@@ -1,3 +1,198 @@
-<p>
-  node-server works!
-</p>
+<div class="row sco-node-server">
+  <div class="col-12">
+
+    <sco-card [showTitle]="true">
+      <p card-title>Archivos del servidor</p>
+      <div card-content class="row m-0 p-0">
+        <div class="col-12 sco-node-server__container">
+
+          <div class="row w-100 p-0 m-0">
+            <div class="col-12 pt-1 pb-1 sco-node-server__container__header-input">
+              <sco-input
+                [(ngModel)]="currentPath"
+                [readonly]="true"
+                [showLabel]="false">
+              </sco-input>
+            </div>
+            <div class="col-12 sco-node-server__container__header pb-5">
+              <div class="col-1 sco-node-server__container__header--left">
+                <sco-button class="sco-node-server__container__header--button pl-2"
+                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                  [icon]="'fa fa-table' || 'fa fa-list'"
+                  [transparent]="false"
+                  (action)="undefined">
+                </sco-button>
+              </div>
+              <div class="col-5 sco-node-server__container__header--center">
+                <sco-input class="sco-node-server__container__header--filter"
+                  [showLabel]="false">
+                </sco-input>
+                <sco-button class="sco-node-server__container__header--button pl-2"
+                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                  [icon]="'fa fa-search'"
+                  [transparent]="false"
+                  (action)="undefined">
+                </sco-button>
+              </div>       
+              <div class="col-6 sco-node-server__container__header--right">
+                <div class="col-8 p-0 m-0 d-flex justify-content-center">
+                  <sco-button class="sco-node-server__container__header--button"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-clone'"
+                    [transparent]="false"
+                    [disabled]="selectedCopyFile == undefined"
+                    (action)="onCopyPasteFile()">
+                  </sco-button>
+                  <sco-button class="sco-node-server__container__header--button pl-2"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-cut'"
+                    [transparent]="false"
+                    [disabled]="selectedCutFile == undefined"
+                    (action)="onCutPasteFile()">
+                  </sco-button>
+                  <sco-button class="sco-node-server__container__header--button pl-2"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-level-up'"
+                    [transparent]="false"
+                    [disabled]="currentPath == '/' || currentPath == undefined"
+                    (action)="onLevelUpButton()">
+                  </sco-button>
+                  <sco-button class="sco-node-server__container__header--button pl-2"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-refresh'"
+                    [transparent]="false"
+                    (action)="onRefreshCurrentList()">
+                  </sco-button>
+                </div>
+                <div class="col-4 p-0 m-0 d-flex justify-content-center">
+                  <sco-button class="sco-node-server__container__header--button pl-2"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-home'"
+                    [transparent]="false"
+                    (action)="onClickHomeButton()">
+                  </sco-button>
+                  <sco-button class="sco-node-server__container__header--button pl-2 pr-2"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-folder'"
+                    [transparent]="false"
+                    (action)="onClickCreateFolder()">
+                  </sco-button>
+                </div>
+              </div>
+            </div>  
+            <div class="col-12 sco-node-server__container__body pl-2 pr-2">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tamaño</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Ultima modificación</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
+                    <tr class="sco-node-server__container__body--row" *ngFor="let file of nodeServerFiles; let i = index;" 
+                    >
+                      <th scope="row" 
+                        [ngClass]="{'c-pointer': file.type == 'd'}"
+                        (click)="onSelectItem(file, i)"
+                      >
+                        <img class="sco-node-server__container__body--icon" 
+                          [src]="'../../../../../assets/icons/' + file.image"
+                        >
+                      </th>
+                      <td>{{file.name}}</td>
+                      <td>{{file.size}}</td>
+                      <td>{{file.typeDescription}}</td>
+                      <td>{{file.modifiedDate | date: 'dd-MM-yyy HH:mm:ss'}}</td> 
+                      <td>
+                        <!-- [disabled]="selectedCopyFile != undefined && selectedCopyFile.name == file.name" -->
+                        <button class="btn btn-sm btn-secondary mr-2" 
+                          (click)="onCopyCopyFile(file, i)"
+                        >
+                          <i class="fa fa-clone sco-node-server__container__body--action"></i>
+                        </button>
+                        <!--  [disabled]="selectedCutFile != undefined && selectedCutFile.name == file.name" -->
+                        <button class="btn btn-sm btn-dark mr-2"
+                          (click)="onCutCopyFile(file, i)"
+                        >
+                          <i class="fa fa-cut sco-node-server__container__body--action"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" (click)="onDeleteItem(file, i)">
+                          <i class="fa fa-trash sco-node-server__container__body--action"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </ng-container>
+          
+                </tbody>
+              </table>
+              <ng-container *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
+                <div class="sco-node-server__container__body--no-elements">
+                  <span>No hay ficheros que mostrar</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sco-card>
+
+  </div>
+</div>
+
+<!-- Create Folder Modal -->
+<sco-modal 
+  [id]="'create-folder-modal'"
+  [type]="constantsService.ScoModalTypeConstants.CONFIRM" 
+  [labelConfirm]="'Crear'"
+  [labelClose]="'Cancelar'"
+  [forceClose]="true" 
+  [closeWhenConfirm]="false"
+
+  [width]="30"
+  [height]="21"
+  [sizeUnity]="'percentage'"
+
+  (close)="onCancelCreateFolderModal($event)"
+  (accept)="onConfirmCreateFolderModal($event)" >
+    <div modal-title>Nueva carpeta</div>
+    <div modal-content class="p-0 m-0">
+      <div class="row p-0 m-0">
+        <div class="col-12 p-0 m-0">
+          <sco-input
+            [(ngModel)]="newFolderName"
+            [showLabel]="false">
+          </sco-input>
+        </div>
+      </div>
+    </div>
+</sco-modal>
+
+<!-- Delete File Modal -->
+<sco-modal 
+  [id]="'delete-file-modal'"
+  [type]="constantsService.ScoModalTypeConstants.CONFIRM" 
+  [labelConfirm]="'Eliminar'"
+  [labelClose]="'Cancelar'"
+  [forceClose]="true" 
+  [closeWhenConfirm]="false"
+
+  [width]="30"
+  [height]="20"
+  [sizeUnity]="'percentage'"
+
+  (close)="onCancelDeleteFileModal($event)"
+  (accept)="onConfirmDeleteFileModal($event)" >
+    <div modal-title>Nueva carpeta</div>
+    <div modal-content class="p-0 m-0">
+      <div class="row p-0 m-0">
+        <div class="col-12 p-0 m-0 text-center">
+          <span>¿Realmente quiere eliminar el fichero?</span>
+        </div>
+      </div>
+    </div>
+</sco-modal>
