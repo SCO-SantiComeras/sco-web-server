@@ -247,4 +247,30 @@ export class NodeServerController {
 
     return res.status(200).json(move);
   }
+
+  @Post('createFolder')
+  async createFolder(
+    @Res() res: Response, 
+    @Body() nodeServerDto: NodeServerDto
+  ): Promise<Response<boolean, Record<string, boolean>>> {
+    if (!nodeServerDto.path) {
+      console.log(`[createFolder] Path '${nodeServerDto.path}' not provided`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
+    }
+
+    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
+    if (exists) {
+      console.log(`[createFolder] Path '${nodeServerDto.path}' already exists`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_ALREADY_EXISTS, HttpStatus.CONFLICT);
+    }
+
+    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
+    if (!pathIsValid) {
+      console.log(`[createFolder] Path '${nodeServerDto.path}' is not in valid format`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+    
+    const createFolder: boolean = await this.nodeServerService.createFolder(nodeServerDto);
+    return res.status(200).json(createFolder);
+  }
 }

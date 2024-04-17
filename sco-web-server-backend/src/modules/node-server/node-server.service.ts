@@ -109,11 +109,17 @@ export class NodeServerService {
                     if (fileDetails.isDirectory()) {
                         listResponse.type = FILE_TYPES_CONSTANTS.DIRECTORY;
                         listResponse.extension = '';
+                        listResponse.image = 'folder.png';
                         listResponse.typeDescription = 'Carpeta de archivos';
                     } else {
                         listResponse.type = FILE_TYPES_CONSTANTS.FILE;
                         listResponse.extension = listResponse.name.split('.')[listResponse.name.split('.').length-1] || '';
-                        listResponse.typeDescription = `Archivo ${listResponse.extension.toUpperCase()}`;
+                        listResponse.image = listResponse.extension && listResponse.extension != listResponse.name 
+                            ? `${listResponse.extension}.png`
+                            : 'blank.png';
+                        listResponse.typeDescription = listResponse.extension && listResponse.extension != listResponse.name
+                         ? `Archivo ${listResponse.extension.toUpperCase()}`
+                         : '';
                     }
                    
                     listResponse.size = fileDetails.size;
@@ -222,6 +228,22 @@ export class NodeServerService {
         }
 
         return true;
+    }
+
+    async createFolder(nodeServerDto: NodeServerDto): Promise<boolean> {
+        const folderCreated: boolean = await new Promise<boolean>(async (resolve) => {
+            fs.mkdirSync(`${this._serverPath}${nodeServerDto.path}`, { recursive: nodeServerDto.recursive == true ? true : false });
+
+            const existsNewFolder: boolean = await this.exists(nodeServerDto);
+            if (!existsNewFolder) {
+                return resolve(false);
+            }
+
+            return resolve(true);
+        });
+
+
+        return folderCreated;
     }
 }
 
