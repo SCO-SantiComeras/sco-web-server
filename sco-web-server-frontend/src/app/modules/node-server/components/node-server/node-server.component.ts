@@ -48,8 +48,8 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   public copyFileOriginPath: string;
   public selectedCopyFile: NodeServerFile;
 
-  /* Filter Path */
-  public filterPath: string;
+  /* Filter File names */
+  public filterFileNames: string;
 
   /* Filter Show Path */
   public showCurrentPath: string;
@@ -84,7 +84,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     this.copyFileOriginPath = '';
     this.selectedCopyFile = undefined;
 
-    this.filterPath = '';
+    this.filterFileNames = '';
 
     this.showCurrentPath = this.currentPath;
   }
@@ -161,7 +161,6 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   }
 
   onRefreshCurrentList() {
-    this.nodeServerFileFilter = new NodeServerFileFilter(); // TODO: Check When Filter Works
     this.filterPathList();
   }
 
@@ -437,15 +436,19 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     })
   }
 
-  /* Filter Path Actions  */
-  onFilterList() {
-   
+  /* Filter File Names Actions  */
+  onFilterFileNames($event: string) {
+    this.filterFileNames = $event;
+    this.nodeServerFileFilter.name = $event && $event.length > 0 ? $event : '';
+  }
+
+  onCleanFilterNames() {
+    this.filterFileNames = '';
+    this.nodeServerFileFilter.name = '';
+    this.filterPathList();
   }
 
   /* Filter Current Path */
-  onInputChange() {
-  }
-
   onFilterCurrentPath() {
     if (!this.showCurrentPath || this.showCurrentPath == '') {
       this.showCurrentPath = '/';
@@ -486,9 +489,12 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   keyEvent(event: KeyboardEvent) {
     switch (event.key) {
       case 'Enter':
+        if (this.selectedDeleteFile) return;
         this.onFilterCurrentPath();
         break;
       case 'Escape':
+        if (this.selectedDeleteFile) return;
+        this.onCleanFilterNames();
         break;
       default:
         break;

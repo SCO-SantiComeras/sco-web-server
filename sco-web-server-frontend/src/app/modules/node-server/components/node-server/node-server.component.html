@@ -37,14 +37,15 @@
               </div>
               <div class="col-4 sco-node-server__container__header--center">
                 <sco-input class="sco-node-server__container__header--filter"
-                  [(ngModel)]="filterPath"
-                  [showLabel]="false">
+                  [(ngModel)]="filterFileNames"
+                  [showLabel]="false"
+                  (inputKeyUp)="onFilterFileNames($event)">
                 </sco-input>
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-search'"
+                  [icon]="'fa fa-close'"
                   [transparent]="false"
-                  (action)="onFilterList()">
+                  (action)="onCleanFilterNames()">
                 </sco-button>
               </div>       
               <div class="col-6 sco-node-server__container__header--right">
