@@ -36,6 +36,11 @@ export class Move {
   constructor(public payload: { nodeServer: NodeServer }) {}
 }
 
+export class CreateFolder {
+  static readonly type = "[NodeServer] Create a new folder";
+  constructor(public payload: { nodeServer: NodeServer }) {}
+}
+
 
 /* Web sockets */
 export class SubscribeNodeServerWS {

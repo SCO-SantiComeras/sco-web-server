@@ -63,6 +63,10 @@ export class NodeServerService {
     move(nodeServer: NodeServer): Observable<boolean> {
         return this.http.post<boolean>(`${environment.apiUrl}/node-server/move`, nodeServer);
     }
+
+    createFolder(nodeServer: NodeServer): Observable<boolean> {
+        return this.http.post<boolean>(`${environment.apiUrl}/node-server/createFolder`, nodeServer);
+    }
     
       /* Web sockets */
     getNodeserverChangesBySocket(): any {

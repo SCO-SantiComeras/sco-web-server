@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { NodeServerService } from "../node-server.service";
 import { ScoTranslateService } from "sco-angular-components";
 import { HttpErrorsService } from "../../shared/http-error/http-errors.service";
-import { Copy, Delete, Exists, IsDirectory, IsFile, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS } from "./node-server.actions";
+import { Copy, CreateFolder, Delete, Exists, IsDirectory, IsFile, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS } from "./node-server.actions";
 import { catchError, map, tap } from "rxjs";
 
 export class NodeServerStateModel {
@@ -281,6 +281,40 @@ export class NodeServerState {
       }),
       catchError((error) => {
         let errorMsg: string = this.translateService.getTranslate('label.node-server.state.move.catch');
+        if (this.httpErrorsService.getErrorMessage(error.error.message)) {
+          errorMsg = this.httpErrorsService.getErrorMessage(error.error.message);
+        }
+
+        patchState({
+          success: false,
+          errorMsg: errorMsg,
+        });
+        throw new Error(error);
+      })
+    );
+  }
+
+  @Action(CreateFolder)
+  public createFolder(
+    { patchState }: StateContext<NodeServerStateModel>,
+    { payload }: CreateFolder
+  ) {
+    return this.nodeServerService.createFolder(payload.nodeServer).pipe(
+      tap((result: boolean) => {
+        if (result) {
+          patchState({
+            success: true,
+            successMsg: this.translateService.getTranslate('label.node-server.state.createFolder.success'),
+          });
+        } else {
+          patchState({
+            success: false,
+            errorMsg: this.translateService.getTranslate('label.node-server.state.createFolder.error'),
+          });
+        }
+      }),
+      catchError((error) => {
+        let errorMsg: string = this.translateService.getTranslate('label.node-server.state.createFolder.catch');
         if (this.httpErrorsService.getErrorMessage(error.error.message)) {
           errorMsg = this.httpErrorsService.getErrorMessage(error.error.message);
         }
