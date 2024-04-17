@@ -2,6 +2,7 @@ export class NodeServerFile {
 
     name: string;
     extension?: string;
+    image?: string;
     size?: number;
     type?: string;
     typeDescription?: string;
@@ -10,6 +11,7 @@ export class NodeServerFile {
     constructor(name: string) {
         this.name = name;
         this.extension = '';
+        this.image = '';
         this.size = undefined;
         this.type = '';
         this.typeDescription = '';
