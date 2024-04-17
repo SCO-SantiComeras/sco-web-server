@@ -1,6 +1,7 @@
 import { BACKEND_VALIDATION_ERROR_CONSTANTS } from './../../../constants/validation-error-messages.constants';
 import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsBoolean, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsObject, IsOptional, IsString } from "class-validator";
+import { NodeServerFileFilterDto } from './node-server-file-filter';
 
 export class NodeServerDto { 
 
@@ -18,4 +19,9 @@ export class NodeServerDto {
     @IsOptional()
     @IsBoolean({ message: BACKEND_VALIDATION_ERROR_CONSTANTS.NODE_SERVER.RECURSIVE.INVALID_VALUE })
     recursive?: boolean;
+
+    @ApiPropertyOptional()
+    @IsOptional()
+    @IsObject({ message: BACKEND_VALIDATION_ERROR_CONSTANTS.NODE_SERVER.FILTER.INVALID_VALUE })
+    filter?: NodeServerFileFilterDto;
 }

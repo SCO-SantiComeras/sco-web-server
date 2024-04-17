@@ -202,6 +202,10 @@ export const BACKEND_VALIDATION_ERROR_CONSTANTS = {
             NOT_EMPTY: 'Recursive should be not empty',
             INVALID_VALUE: 'Recursive should be boolean value',
         },
+        FILTER: {
+            NOT_EMPTY: 'Filter should be not empty',
+            INVALID_VALUE: 'Filter should be NodeServerFileFilterDto value',
+        },
     },
     NODE_SERVER_FILE: {
         NAME: {
