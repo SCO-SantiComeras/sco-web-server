@@ -1,6 +1,6 @@
 import { MenuItem } from "sco-angular-components";
 
-export const USERS_MENU_ITEM: MenuItem = {
+export const USERS_MENU_ITEM_GROUP: MenuItem = {
   icon: "fa fa-caret-down",
   text: "label.menu.users.group",
   children: [
@@ -20,6 +20,12 @@ export const USERS_MENU_ITEM: MenuItem = {
       icon: "fa fa-user"
     }
   ]
+}
+
+export const USERS_MENU_ITEM: MenuItem = {
+  icon: "fa fa-user",
+  text: "label.menu.users",
+  route: "users",
 }
 
 export const OPTIONS_MENU_ITEM: MenuItem = {
