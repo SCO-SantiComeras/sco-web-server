@@ -2,7 +2,7 @@ const environment = {
   name: 'prod',
   production: true,
   hostname: 'scoapps.es',
-  port: '8000',
+  port: '9000',
   apiPort: '9000',
   webSocketPort: '9001',
   globalPrefix: 'api',
