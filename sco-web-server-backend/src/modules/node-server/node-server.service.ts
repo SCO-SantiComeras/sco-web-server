@@ -211,6 +211,10 @@ export class NodeServerService {
             return false;
         }
 
+        if (inputPath.trim() == '/') {
+            return true;
+        }
+
         const serverSidePath: string = path.split(inputPath)[0];
         const splitServerSidePath: string[] = serverSidePath.split('/');
         if (splitServerSidePath[splitServerSidePath.length-1].trim() != this.configService.get('server.serverServerFolder').trim()) {
