@@ -23,6 +23,7 @@ import { PermissionsModule } from './modules/permissions/permissions.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { UsersModule } from './modules/users/users.module';
 import { NodeServerModule } from './modules/node-server/node-server.module';
+import { SuperAdminGuard } from './guards/superadmin.guard.service';
 
 export function configFactory(provider: ScoConfigService) {
   return () => provider.getDataFromJson('assets/config/data.json');
@@ -63,6 +64,7 @@ export function translateFactory(provider: ScoTranslateService) {
     WebsocketsService,
     AuthGuard,
     AdminGuard,
+    SuperAdminGuard,
     {
       provide: APP_INITIALIZER,
       useFactory: translateFactory,
