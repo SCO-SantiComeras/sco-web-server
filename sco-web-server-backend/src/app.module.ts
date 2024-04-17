@@ -28,6 +28,7 @@ import { PopulateModule } from 'sco-nestjs-utilities/populate/populate.module';
 import { PublicMiddleware } from "sco-nestjs-utilities/middlewares/public.middleware";
 import { NodeServerModule } from "./modules/node-server/node-server.module";
 import { configurationNodeServer } from "./configuration/configuration-nodeServer";
+import { BackendPopulateModule } from "./modules/backend-populate/backend-populate.module";
 
 require("dotenv").config();
 
@@ -173,6 +174,7 @@ export const JWT_CONTROLLER_OFF: boolean = false;
 
     /* Backend Own Imports */
     NodeServerModule,
+    BackendPopulateModule,
   ],
   controllers: [],
   providers: [],
