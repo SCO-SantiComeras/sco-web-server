@@ -198,6 +198,10 @@ export const BACKEND_VALIDATION_ERROR_CONSTANTS = {
             NOT_EMPTY: 'New path should be not empty',
             INVALID_VALUE: 'New path should be string value',
         },
+        RECURSIVE: {
+            NOT_EMPTY: 'Recursive should be not empty',
+            INVALID_VALUE: 'Recursive should be boolean value',
+        },
     },
     NODE_SERVER_FILE: {
         NAME: {
@@ -207,6 +211,10 @@ export const BACKEND_VALIDATION_ERROR_CONSTANTS = {
         EXTENSION: {
             NOT_EMPTY: 'Extension should be not empty',
             INVALID_VALUE: 'Extension should be string value',
+        },
+        IMAGE: {
+            NOT_EMPTY: 'Image should be not empty',
+            INVALID_VALUE: 'Image should be string value',
         },
         SIZE: {
             NOT_EMPTY: 'Size should be not empty',

@@ -1,6 +1,6 @@
 import { BACKEND_VALIDATION_ERROR_CONSTANTS } from './../../../constants/validation-error-messages.constants';
 import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsOptional, IsString } from "class-validator";
 
 export class NodeServerDto { 
 
@@ -13,4 +13,9 @@ export class NodeServerDto {
     @IsOptional()
     @IsString({ message: BACKEND_VALIDATION_ERROR_CONSTANTS.NODE_SERVER.NEW_PATH.INVALID_VALUE })
     newPath?: string;
+
+    @ApiPropertyOptional()
+    @IsOptional()
+    @IsBoolean({ message: BACKEND_VALIDATION_ERROR_CONSTANTS.NODE_SERVER.RECURSIVE.INVALID_VALUE })
+    recursive?: boolean;
 }

@@ -14,6 +14,11 @@ export class NodeServerFileDto {
     @IsOptional()
     @IsString({ message: BACKEND_VALIDATION_ERROR_CONSTANTS.NODE_SERVER_FILE.EXTENSION.INVALID_VALUE })
     extension?: string;
+    
+    @ApiPropertyOptional()
+    @IsOptional()
+    @IsString({ message: BACKEND_VALIDATION_ERROR_CONSTANTS.NODE_SERVER_FILE.IMAGE.INVALID_VALUE })
+    image?: string;
 
     @ApiPropertyOptional()
     @IsOptional()
