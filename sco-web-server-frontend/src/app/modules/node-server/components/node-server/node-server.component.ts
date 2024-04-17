@@ -1,12 +1,12 @@
 import { cloneDeep } from 'lodash-es';
 import { AppState } from './../../../../store/app.state';
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { ScoConstantsService, ScoDisplayResize, ScoModalService, ScoSpinnerService, ScoToastService, ScoTranslateService } from 'sco-angular-components';
 import { NodeServerState } from '../../store/node-server.state';
 import { NodeServerFile } from '../../model/node-server-file';
-import { Copy, CreateFolder, Delete, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from '../../store/node-server.actions';
+import { Copy, CreateFolder, Delete, IsDirectory, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from '../../store/node-server.actions';
 import { NodeServerFileFilter } from '../../model/node-server-file-filter';
 import environment from 'src/environments/environment';
 import { FILE_TYPES_CONSTANTS } from 'src/app/constants/file-types.constants';
@@ -47,6 +47,12 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   /* Copy Item Action */
   public copyFileOriginPath: string;
   public selectedCopyFile: NodeServerFile;
+
+  /* Filter Path */
+  public filterPath: string;
+
+  /* Filter Show Path */
+  public showCurrentPath: string;
   
   constructor(
     private readonly store: Store,
@@ -77,6 +83,10 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
     this.copyFileOriginPath = '';
     this.selectedCopyFile = undefined;
+
+    this.filterPath = '';
+
+    this.showCurrentPath = this.currentPath;
   }
   
   /* Angular Flow Functions */
@@ -146,6 +156,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     }
     
     this.currentPath = newPath;
+    this.showCurrentPath = this.currentPath;
     this.filterPathList();
   }
 
@@ -156,6 +167,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
   onClickHomeButton() {
     this.currentPath = '/';
+    this.showCurrentPath = this.currentPath;
     this.onRefreshCurrentList();
   }
 
@@ -170,9 +182,9 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     if (this.currentPath.charAt(this.currentPath.length-1) == '/') {
       this.currentPath = this.currentPath + file.name;
     } else {
-      
       this.currentPath = this.currentPath + `/${file.name}`;
     }
+    this.showCurrentPath = this.currentPath;
 
     this.filterPathList();
   }
@@ -423,5 +435,63 @@ export class NodeServerComponent implements OnInit, OnDestroy {
         return;
       }
     })
+  }
+
+  /* Filter Path Actions  */
+  onFilterList() {
+   
+  }
+
+  /* Filter Current Path */
+  onInputChange() {
+  }
+
+  onFilterCurrentPath() {
+    if (!this.showCurrentPath || this.showCurrentPath == '') {
+      this.showCurrentPath = '/';
+    }
+
+    if (this.showCurrentPath.charAt(0) != '/') {
+      this.showCurrentPath = `/${this.showCurrentPath}`;
+    }
+
+    this.store.dispatch(new IsDirectory({ nodeServer: { path: this.showCurrentPath } })).subscribe({
+      next: () => {
+        const success: boolean = this.store.selectSnapshot(NodeServerState.success);
+        if (!success) {
+          this.showCurrentPath = this.currentPath;
+          this.toastService.addErrorMessage(
+            this.translateService.getTranslate('label.error'),
+            this.store.selectSnapshot(NodeServerState.errorMsg),
+          );
+          return;
+        }
+
+        this.currentPath = this.showCurrentPath;
+        this.filterPathList();
+      },
+      error: () => {
+        this.showCurrentPath = this.currentPath;
+        this.toastService.addErrorMessage(
+          this.translateService.getTranslate('label.error'),
+          this.store.selectSnapshot(NodeServerState.errorMsg),
+        );
+        return;
+      }
+    })
+  }
+
+  /* Keyboard Events */
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'Enter':
+        this.onFilterCurrentPath();
+        break;
+      case 'Escape':
+        break;
+      default:
+        break;
+    }
   }
 }

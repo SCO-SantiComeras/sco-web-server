@@ -8,11 +8,17 @@
 
           <div class="row w-100 p-0 m-0">
             <div class="col-12 pt-1 pb-1 sco-node-server__container__header-input">
-              <sco-input
-                [(ngModel)]="currentPath"
-                [readonly]="true"
+              <sco-input class="w-100"
+                [(ngModel)]="showCurrentPath"
+                [readonly]="false"
                 [showLabel]="false">
               </sco-input>
+              <sco-button class="sco-node-server__container__header--button pl-2 pt-1"
+                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                  [icon]="'fa fa-check'"
+                  [transparent]="false"
+                  (action)="onFilterCurrentPath()">
+                </sco-button>
             </div>
             <div class="col-12 sco-node-server__container__header pb-5">
               <div class="col-2 sco-node-server__container__header--left">
@@ -31,13 +37,14 @@
               </div>
               <div class="col-4 sco-node-server__container__header--center">
                 <sco-input class="sco-node-server__container__header--filter"
+                  [(ngModel)]="filterPath"
                   [showLabel]="false">
                 </sco-input>
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="'fa fa-search'"
                   [transparent]="false"
-                  (action)="undefined">
+                  (action)="onFilterList()">
                 </sco-button>
               </div>       
               <div class="col-6 sco-node-server__container__header--right">
