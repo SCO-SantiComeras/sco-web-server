@@ -10,6 +10,10 @@ const environment = {
   httpsEnabled: false,
   apiUrl: '',
   serverSocketUrl: '',
+
+  rootPath: 'C:/xampp/htdocs',
+  serverFolder: 'nodeserver',
+  appFolder: 'nodeserverApp',
 };
 
 environment.apiUrl = `${environment.httpsEnabled ? 'https://' : 'http://'}`;
