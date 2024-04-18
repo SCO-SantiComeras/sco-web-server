@@ -143,7 +143,7 @@ export class NodeServerService {
         const isDirectory: boolean = await this.isDirectory(nodeServerDto);
         if (isDirectory) {
             fs.mkdirSync(`${this._serverPath}${nodeServerDto.newPath}`, { recursive: true });
-            copyFolderRecursive(
+            this.copyFolderRecursive(
                 `${this._serverPath}${nodeServerDto.path}`,
                 `${this._serverPath}${nodeServerDto.newPath}`,
                 nodeServerDto.recursive == true ? true : false,
@@ -167,7 +167,7 @@ export class NodeServerService {
         const isDirectory: boolean = await this.isDirectory(nodeServerDto);
         if (isDirectory) {
             fs.mkdirSync(`${this._serverPath}${nodeServerDto.newPath}`, { recursive: true });
-            copyFolderRecursive(
+            this.copyFolderRecursive(
                 `${this._serverPath}${nodeServerDto.path}`,
                 `${this._serverPath}${nodeServerDto.newPath}`,
                 nodeServerDto.recursive == true ? true : false,
@@ -322,76 +322,86 @@ export class NodeServerService {
         
         return nodeServerDownload;
     }
-}
 
-const copyFolderRecursive = function(srcDir: string, dstDir: string, recursive: boolean, verbose: boolean = true) {
-    let results = [];
-
-    let src: string;
-    let dst: string;
-    fs.readdirSync(srcDir).forEach(function(file) {
-        if (verbose) console.log(`[copyFolderRecursive] File: ${file}`);
-        src = srcDir + '/' + file;
-        dst = dstDir + '/' + file;
-        
-        const stat = fs.statSync(src);
-        if (stat && stat.isDirectory()) {
-            if (verbose) console.log(`[copyFolderRecursive] File '${file}' is directory`);
-
-            try {
-                if (verbose) console.log(`[copyFolderRecursive] Dir '${file}' creating: ${dst}`);
-                fs.mkdirSync(dst, { recursive: recursive });
-            } catch(e) {
-                if (verbose) console.log(`[copyFolderRecursive] Dir '${file}' already exists: ${dst}`);
-            }
-            results = results.concat(copyFolderRecursive(src, dst, recursive));
-        } else {
-            if (verbose) console.log(`[copyFolderRecursive] File '${file}' is file`);
-
-            try {
-                if (verbose) console.log(`[copyFolderRecursive] File '${file}' copying: ${dst}`);
-                fs.writeFileSync(dst, fs.readFileSync(src));
-            } catch(e) {
-                if (verbose) console.log(`[copyFolderRecursive] File '${file}' couldnt copy: ${dst}`);
-            }
-            results.push(src);
+    async filterListFiles(
+        list: NodeServerFileDto[], 
+        nodeServerDto: NodeServerDto, 
+        filteredList: NodeServerFileDto[], 
+        key: string
+    ): Promise<NodeServerFileDto[]> {
+        if (!list || (list && list.length == 0)) {
+            return filteredList;
         }
-    });
-
-    if (results && results.length == 0) {
-        fs.mkdirSync(dstDir, { recursive: recursive });
-    }
-
-    return results;
-}
-
-export const filterListFiles = async function(list: NodeServerFileDto[], nodeServerDto: NodeServerDto, filteredList: NodeServerFileDto[], key: string) {
-    if (!list || (list && list.length == 0)) {
+    
+        for (const file of list) {
+            if (key == 'name') {
+                if (
+                    file[key] == nodeServerDto.filter[key] ||
+                    file[key].includes(nodeServerDto.filter[key])
+                ) {
+                    const existFilteredFile: NodeServerFileDto = filteredList.find(f => f.name == file.name);
+                    if (!existFilteredFile) {
+                      filteredList.push(file);
+                    }
+                }
+                continue;
+            }
+            
+    
+            if (file[key] == nodeServerDto.filter[key]) {
+              const existFilteredFile: NodeServerFileDto = filteredList.find(f => f.name == file.name);
+              if (!existFilteredFile) {
+                filteredList.push(file);
+              }
+            }
+        }
+    
         return filteredList;
     }
 
-    for (const file of list) {
-        if (key == 'name') {
-            if (
-                file[key] == nodeServerDto.filter[key] ||
-                file[key].includes(nodeServerDto.filter[key])
-            ) {
-                const existFilteredFile: NodeServerFileDto = filteredList.find(f => f.name == file.name);
-                if (!existFilteredFile) {
-                  filteredList.push(file);
+    copyFolderRecursive(
+        srcDir: string, 
+        dstDir: string, 
+        recursive: boolean, 
+        verbose: boolean = true
+    ): any[] {
+        let results = [];
+    
+        let src: string;
+        let dst: string;
+        fs.readdirSync(srcDir).forEach(function(file) {
+            if (verbose) console.log(`[copyFolderRecursive] File: ${file}`);
+            src = srcDir + '/' + file;
+            dst = dstDir + '/' + file;
+            
+            const stat = fs.statSync(src);
+            if (stat && stat.isDirectory()) {
+                if (verbose) console.log(`[copyFolderRecursive] File '${file}' is directory`);
+    
+                try {
+                    if (verbose) console.log(`[copyFolderRecursive] Dir '${file}' creating: ${dst}`);
+                    fs.mkdirSync(dst, { recursive: recursive });
+                } catch(e) {
+                    if (verbose) console.log(`[copyFolderRecursive] Dir '${file}' already exists: ${dst}`);
                 }
+                results = results.concat(this.copyFolderRecursive(src, dst, recursive));
+            } else {
+                if (verbose) console.log(`[copyFolderRecursive] File '${file}' is file`);
+    
+                try {
+                    if (verbose) console.log(`[copyFolderRecursive] File '${file}' copying: ${dst}`);
+                    fs.writeFileSync(dst, fs.readFileSync(src));
+                } catch(e) {
+                    if (verbose) console.log(`[copyFolderRecursive] File '${file}' couldnt copy: ${dst}`);
+                }
+                results.push(src);
             }
-            continue;
+        });
+    
+        if (results && results.length == 0) {
+            fs.mkdirSync(dstDir, { recursive: recursive });
         }
-        
-
-        if (file[key] == nodeServerDto.filter[key]) {
-          const existFilteredFile: NodeServerFileDto = filteredList.find(f => f.name == file.name);
-          if (!existFilteredFile) {
-            filteredList.push(file);
-          }
-        }
+    
+        return results;
     }
-
-    return filteredList;
 }

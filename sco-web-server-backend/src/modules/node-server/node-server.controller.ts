@@ -2,7 +2,7 @@ import { BACKEND_WEBSOCKET_EVENTS } from './../../constants/websocket.constants'
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
 import { Body, Controller, Res, Post, HttpException, HttpStatus, UseGuards, UseInterceptors, UploadedFiles, Param } from '@nestjs/common';
 import { Response } from 'express';
-import { NodeServerService, filterListFiles } from './node-server.service';
+import { NodeServerService } from './node-server.service';
 import { AuthGuard } from '@nestjs/passport';
 import { NodeServerDto } from './dto/node-server';
 import { NodeServerFileDto } from './dto/node-server-file';
@@ -137,7 +137,7 @@ export class NodeServerController {
       if (filterKeys && filterKeys.length > 0) {
         for (const key of filterKeys) {
           if (!filterActive) filterActive = true;
-          filteredList = await filterListFiles(list, nodeServerDto, filteredList, key);
+          filteredList = await this.nodeServerService.filterListFiles(list, nodeServerDto, filteredList, key);
         }
       }
     }
