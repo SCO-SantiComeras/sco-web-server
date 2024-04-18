@@ -46,6 +46,10 @@ export class UploadFiles {
   constructor(public payload: { nodeServer: NodeServer, files: File[] }) {}
 }
 
+export class DownloadBackup {
+  static readonly type = "[NodeServer] Download backup root files";
+  constructor() {}
+}
 
 /* Web sockets */
 export class SubscribeNodeServerWS {

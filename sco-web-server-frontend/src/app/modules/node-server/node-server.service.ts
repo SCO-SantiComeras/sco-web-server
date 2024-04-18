@@ -8,6 +8,7 @@ import environment from 'src/environments/environment';
 import { NodeServerFile } from './model/node-server-file';
 import { ScoJoinPipe } from 'sco-angular-components';
 import { NodeServerFileFilter } from './model/node-server-file-filter';
+import { NodeServerDownload } from './model/node-server-download';
 
 @Injectable()
 export class NodeServerService {
@@ -61,6 +62,10 @@ export class NodeServerService {
         }
 
         return this.http.post<boolean>(`${environment.apiUrl}/node-server/uploadFiles/${JSON.stringify(path)}`, form);
+    }
+
+    downloadBackup(): Observable<NodeServerDownload> {
+        return this.http.post<NodeServerDownload>(`${environment.apiUrl}/node-server/downloadBackup`, {});
     }
     
       /* Web sockets */
