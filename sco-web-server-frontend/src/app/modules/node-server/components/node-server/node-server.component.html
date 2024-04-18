@@ -145,7 +145,6 @@
                     <th scope="col">Tamaño</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Ultima modificación</th>
-                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -166,26 +165,6 @@
                       <td [id]="('table-size-'+i)">{{file.size}}</td>
                       <td [id]="('table-typeDescription-'+i)">{{file.typeDescription}}</td>
                       <td [id]="('table-modifiedDate-'+i)">{{file.modifiedDate | date: 'dd-MM-yyy HH:mm:ss'}}</td> 
-                      <td class="text-right pr-2" [id]="('table-buttons-'+i)">
-                        <button class="btn btn-sm btn-success mr-3" 
-                          (click)="onDownloadFile(file, i)"
-                        >
-                          <i class="fa fa-download sco-node-server__container__body--action"></i>
-                        </button>
-                        <button class="btn btn-sm btn-secondary mr-3" 
-                          (click)="onCopyCopyFile(file, i)"
-                        >
-                          <i class="fa fa-clone sco-node-server__container__body--action"></i>
-                        </button>
-                        <button class="btn btn-sm btn-dark mr-3"
-                          (click)="onCutCopyFile(file, i)"
-                        >
-                          <i class="fa fa-cut sco-node-server__container__body--action"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" (click)="onDeleteItem(file, i)">
-                          <i class="fa fa-trash sco-node-server__container__body--action"></i>
-                        </button>
-                      </td>
                     </tr>
                   </ng-container>
                 </tbody>
@@ -282,14 +261,14 @@
 <!-- Actions Panel File Modal -->
 <sco-modal 
   [id]="'actions-panel-file-modal'"
-  [type]="constantsService.ScoModalTypeConstants.INFO" 
+  [type]="constantsService.ScoModalTypeConstants.NO_BUTTONS" 
   [labelConfirm]="'Cerrar'"
   [labelClose]="'Cancelar'"
   [forceClose]="true" 
   [closeWhenConfirm]="false"
 
   [width]="20"
-  [height]="20"
+  [height]="35"
   [sizeUnity]="'percentage'"
 
   (close)="onCancelActionsPanelModal($event)"
@@ -298,26 +277,42 @@
       <span *ngIf="selectedActionPanelFile">Acciones del {{selectedActionPanelFile.type == 'd' ? 'directorio' : 'archivo'}}: {{selectedActionPanelFile.name}}</span>
     </div>
     <div modal-content class="p-0 m-0">
-      <div class="row p-0 m-0">
-        <div class="col-12 p-0 m-0 text-center" *ngIf="selectedActionPanelFile">
-          <button class="btn btn-sm btn-success mr-3" 
-            (click)="onDownloadFile(selectedActionPanelFile, undefined)"
-          >
-            <i class="fa fa-download sco-node-server__container__body--action"></i>
-          </button>
-          <button class="btn btn-sm btn-secondary mr-3" 
-            (click)="onCopyCopyFile(selectedActionPanelFile, undefined)"
-          >
-            <i class="fa fa-clone sco-node-server__container__body--action"></i>
-          </button>
-          <button class="btn btn-sm btn-dark mr-3"
-            (click)="onCutCopyFile(selectedActionPanelFile, undefined)"
-          >
-            <i class="fa fa-cut sco-node-server__container__body--action"></i>
-          </button>
-          <button class="btn btn-sm btn-danger" (click)="onDeleteItem(selectedActionPanelFile, undefined)">
-            <i class="fa fa-trash sco-node-server__container__body--action"></i>
-          </button>
+      <div class="row p-0 m-0" *ngIf="selectedActionPanelFile">
+        <div class="col-12 p-0 m-0 text-center">
+          <sco-button
+            [mode]="constantsService.ScoButtonConstants.MODE_SAVE"
+            [block]="true"
+            [icon]="'fa fa-download'"
+            [text]="'Descargar'"
+            (action)="onDownloadFile(selectedActionPanelFile, undefined)">
+          </sco-button>
+        </div>
+        <div class="col-12 p-0 m-0 mt-2 text-center">
+          <sco-button
+            [mode]="constantsService.ScoButtonConstants.MODE_DEFAULT"
+            [block]="true"
+            [icon]="'fa fa-clone'"
+            [text]="'Copiar'"
+            (action)="onCopyCopyFile(selectedActionPanelFile, undefined)">
+          </sco-button>
+        </div>
+        <div class="col-12 p-0 m-0 mt-2 text-center">
+          <sco-button
+            [mode]="constantsService.ScoButtonConstants.MODE_INFO"
+            [block]="true"
+            [icon]="'fa fa-cut'"
+            [text]="'Cortar'"
+            (action)="onCutCopyFile(selectedActionPanelFile, undefined)">
+          </sco-button>
+        </div>
+        <div class="col-12 p-0 m-0 mt-2 text-center">
+          <sco-button
+            [mode]="constantsService.ScoButtonConstants.MODE_DANGER"
+            [block]="true"
+            [icon]="'fa fa-trash'"
+            [text]="'Eliminar'"
+            (action)="onDeleteItem(selectedActionPanelFile, undefined)">
+          </sco-button>
         </div>
       </div>
     </div>
