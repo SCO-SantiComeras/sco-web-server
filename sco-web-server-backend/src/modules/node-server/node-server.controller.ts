@@ -358,4 +358,21 @@ export class NodeServerController {
 
     return res.status(200).json(nodeServerDownload);
   }
+
+  @Post('downloadFolder')
+  @UseGuards(AuthGuard())
+  async downloadFolder(
+    @Res() res: Response,
+    @Body() nodeServerDto: NodeServerDto
+  ): Promise<Response<NodeServerDownloadDto, Record<string, NodeServerDownloadDto>>> {
+    const rootFiles: NodeServerFileDto[] = await this.nodeServerService.list(nodeServerDto) || [];
+
+    const nodeServerDownload: NodeServerDownloadDto = await this.nodeServerService.downloadFolder(nodeServerDto, rootFiles);
+    if (!nodeServerDownload) {
+      console.log(`[downloadFolder] Unnable to create root path backup`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DOWNLOAD_FOLDER, HttpStatus.CONFLICT);
+    }
+
+    return res.status(200).json(nodeServerDownload);
+  }
 }

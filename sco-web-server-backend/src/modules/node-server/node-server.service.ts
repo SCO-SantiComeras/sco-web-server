@@ -299,6 +299,45 @@ export class NodeServerService {
 
         return nodeServerDownload;
     }
+
+    async downloadFolder(nodeServerDto: NodeServerDto, rootFiles: NodeServerFileDto[]): Promise<NodeServerDownloadDto> {
+        const formatName: string = nodeServerDto.path.split("/")[nodeServerDto.path.split("/").length-1];
+        const zipName: string = `${formatName}.zip`;
+        const archive = archiver('zip', { zlib: { level: 9 } });
+        const output = fs.createWriteStream(`${this._serverPath}${nodeServerDto.path}/${zipName}`);
+        archive.pipe(output)
+
+        if (rootFiles && rootFiles.length > 0) {
+            for (const file of rootFiles) {
+                if (file.type == 'd') {
+                    archive.directory(`${this._serverPath}${nodeServerDto.path}/${file.name}`, file.name);
+                } else {
+                    archive.append(fs.createReadStream(`${this._serverPath}${nodeServerDto.path}/${file.name}`), { name: file.name });
+                }
+            }
+        }
+
+        archive.finalize()
+
+        const path: string = `${this._serverPath}${nodeServerDto.path}`;
+        const nodeServerDownload: NodeServerDownloadDto = await new Promise<NodeServerDownloadDto>((resolve) => {
+            output.on('close', function() {
+                const backupBase64: string = fs.readFileSync(`${path}/${zipName}`, { encoding: 'base64' });
+                if (fs.existsSync(`${path}/${zipName}`)) {
+                    fs.rmSync(`${path}/${zipName}`, { recursive: true, force: true });
+                }
+                
+                return resolve({
+                    fileName: zipName,
+                    fileType: 'zip',
+                    filePath: `${path}`,
+                    base64: backupBase64,
+                });
+            });
+        });
+
+        return nodeServerDownload;
+    }
 }
 
 const copyFolderRecursive = function(srcDir: string, dstDir: string, recursive: boolean, verbose: boolean = true) {
