@@ -17,7 +17,6 @@ import { AuthGuard } from './guards/auth.guard.service';
 import { AdminGuard } from './guards/admin.guard.service';
 import { AppState } from './store/app.state';
 import { ExcelModule } from './modules/excel/excel.module';
-import { EmailerModule } from './modules/emailer/emailer.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { UsersModule } from './modules/users/users.module';
@@ -51,7 +50,6 @@ export function translateFactory(provider: ScoTranslateService) {
 
     AuthModule,
     ExcelModule,
-    EmailerModule,
     PermissionsModule,
     RolesModule,
     UsersModule,

@@ -36,7 +36,7 @@ export class AppComponent {
     private readonly router: Router,
     private readonly store: Store,
   ) {
-    this.setTheme();
+    this.store.dispatch(new SetApplicationTheme({ theme: this.configService.getData(CONFIG_CONSTANTS.THEME) })).subscribe();
     this.websocketsService.connectWebSocket();
     
     if (this.store.selectSnapshot(AuthState.loggedUser)) {
@@ -62,15 +62,6 @@ export class AppComponent {
     } else {
       this.router.navigateByUrl('login');
     }
-  }
-
-  private setTheme() {
-    let currentTheme: string = this.store.selectSnapshot(AppState.currentTheme);
-    if (!currentTheme || (currentTheme && currentTheme.length == 0)) {
-      currentTheme = this.configService.getData(CONFIG_CONSTANTS.THEME);
-    }
-
-    this.store.dispatch(new SetApplicationTheme({ theme: this.configService.getData(CONFIG_CONSTANTS.THEME) })).subscribe();
   }
 
   onDisplayResize($event: ScoDisplayResize) {
