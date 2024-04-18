@@ -350,7 +350,7 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.ROOT_PATH_NO_FILES, HttpStatus.CONFLICT);
     }
 
-    const nodeServerDownload: NodeServerDownloadDto = await this.nodeServerService.downloadBackup(nodeServerDto, rootFiles);
+    const nodeServerDownload: NodeServerDownloadDto = await this.nodeServerService.downloadFolder(nodeServerDto, rootFiles);
     if (!nodeServerDownload) {
       console.log(`[downloadBackup] Unnable to create root path backup`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_CREATE_ROOT_PATH_BACKUP, HttpStatus.CONFLICT);
