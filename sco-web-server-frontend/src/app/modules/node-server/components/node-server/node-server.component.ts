@@ -53,6 +53,12 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
   /* Filter Show Path */
   public showCurrentPath: string;
+
+  /* Change View */
+  public tableView: boolean;
+
+  /* Actions Panel */
+  public selectedActionPanelFile: NodeServerFile;
   
   constructor(
     private readonly store: Store,
@@ -87,6 +93,10 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     this.filterFileNames = '';
 
     this.showCurrentPath = this.currentPath;
+
+    this.tableView = true;
+
+    this.selectedActionPanelFile= undefined;
   }
   
   /* Angular Flow Functions */
@@ -484,20 +494,75 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     })
   }
 
+  /* Actions Panel Actions */
+  onCancelActionsPanelModal($event: boolean) {
+    if (!$event) return;
+    this.selectedActionPanelFile = undefined;
+    this.modalService.close('actions-panel-file-modal');
+  }
+
+  onConfirmActionsPanelModal($event: boolean) {
+    if (!$event) return;
+    this.selectedActionPanelFile = undefined;
+    this.modalService.close('actions-panel-file-modal');
+  }
+
   /* Keyboard Events */
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
     switch (event.key) {
       case 'Enter':
-        if (this.selectedDeleteFile) return;
+        if (this.selectedDeleteFile || this.selectedActionPanelFile) return;
         this.onFilterCurrentPath();
         break;
       case 'Escape':
-        if (this.selectedDeleteFile) return;
+        if (this.selectedDeleteFile || this.selectedActionPanelFile) return;
         this.onCleanFilterNames();
         break;
       default:
         break;
     }
+  }
+
+  @HostListener('document:click')
+  clickout() {
+    if (this.selectedActionPanelFile) {
+      this.selectedActionPanelFile = undefined;
+      this.modalService.close('actions-panel-file-modal');
+    }
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  async contextmenu(event: MouseEvent) {
+    /* Prevent Default always to no open default options panel */
+    event.preventDefault();
+    event.stopPropagation();
+
+    /* Code Here */
+    const id: string = event.target['id'];
+    if (!id || (id && id.length == 0)) {
+      return false;
+    }
+
+    const splitId: string[] = id.split("-");
+    if (!splitId || (splitId && splitId.length == 0)) {
+      return false;
+    }
+
+    const index: number = Number.parseInt(splitId[splitId.length-1]);
+    if (index < 0) {
+      return false;
+    }
+
+    const nodeServerFile: NodeServerFile = this.nodeServerFiles[index];
+    if (!nodeServerFile) {
+      return false;
+    }
+    
+    this.selectedActionPanelFile = nodeServerFile;
+    this.modalService.open('actions-panel-file-modal');
+
+    /* Return false always to no open default options panel */
+    return false;
   }
 }

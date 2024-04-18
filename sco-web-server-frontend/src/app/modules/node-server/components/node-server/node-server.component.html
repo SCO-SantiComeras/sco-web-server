@@ -14,19 +14,19 @@
                 [showLabel]="false">
               </sco-input>
               <sco-button class="sco-node-server__container__header--button pl-2 pt-1"
-                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-check'"
-                  [transparent]="false"
-                  (action)="onFilterCurrentPath()">
-                </sco-button>
+                [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                [icon]="'fa fa-check'"
+                [transparent]="false"
+                (action)="onFilterCurrentPath()">
+              </sco-button>
             </div>
             <div class="col-12 sco-node-server__container__header pb-5">
               <div class="col-2 sco-node-server__container__header--left">
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-table' || 'fa fa-list'"
+                  [icon]="tableView ? 'fa fa-table' : 'fa fa-list'"
                   [transparent]="false"
-                  (action)="undefined">
+                  (action)="tableView = !tableView;">
                 </sco-button>
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
@@ -83,7 +83,7 @@
                     [colorBorder]="''"
 
                     [labelSelectBtn]="''"
-                    [iconSelectBtn]="'fa fa-file'"
+                    [iconSelectBtn]="'fa fa-upload'"
 
                     [labelUploadBtn]="''"
                     [showUploadBtn]="false"
@@ -119,7 +119,7 @@
                 </div>
               </div>
             </div>  
-            <div class="col-12 sco-node-server__container__body pl-2 pr-2">
+            <div class="col-12 sco-node-server__container__body pl-2 pr-2" [hidden]="!tableView">
               <table class="table">
                 <thead>
                   <tr>
@@ -133,28 +133,28 @@
                 </thead>
                 <tbody>
                   <ng-container *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
-                    <tr class="sco-node-server__container__body--row" *ngFor="let file of nodeServerFiles; let i = index;" 
+                    <tr class="sco-node-server__container__body--row" *ngFor="let file of nodeServerFiles; let i = index;" [id]="('table-'+i)"
                     >
                       <th scope="row" 
                         [ngClass]="{'c-pointer': file.type == 'd'}"
+                        [id]="('table-icon-'+i)"
                         (click)="onSelectItem(file, i)"
                       >
                         <img class="sco-node-server__container__body--icon" 
+                          [id]="('table-icon-image-'+i)"
                           [src]="'../../../../../assets/icons/' + file.image"
                         >
                       </th>
-                      <td>{{file.name}}</td>
-                      <td>{{file.size}}</td>
-                      <td>{{file.typeDescription}}</td>
-                      <td>{{file.modifiedDate | date: 'dd-MM-yyy HH:mm:ss'}}</td> 
-                      <td class="text-right pr-2">
-                        <!-- [disabled]="selectedCopyFile != undefined && selectedCopyFile.name == file.name" -->
+                      <td [id]="('table-name-'+i)">{{file.name}}</td>
+                      <td [id]="('table-size-'+i)">{{file.size}}</td>
+                      <td [id]="('table-typeDescription-'+i)">{{file.typeDescription}}</td>
+                      <td [id]="('table-modifiedDate-'+i)">{{file.modifiedDate | date: 'dd-MM-yyy HH:mm:ss'}}</td> 
+                      <td class="text-right pr-2" [id]="('table-buttons-'+i)">
                         <button class="btn btn-sm btn-secondary mr-3" 
                           (click)="onCopyCopyFile(file, i)"
                         >
                           <i class="fa fa-clone sco-node-server__container__body--action"></i>
                         </button>
-                        <!--  [disabled]="selectedCutFile != undefined && selectedCutFile.name == file.name" -->
                         <button class="btn btn-sm btn-dark mr-3"
                           (click)="onCutCopyFile(file, i)"
                         >
@@ -166,11 +166,30 @@
                       </td>
                     </tr>
                   </ng-container>
-          
                 </tbody>
               </table>
               <ng-container *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
                 <div class="sco-node-server__container__body--no-elements">
+                  <span>No hay ficheros que mostrar</span>
+                </div>
+              </ng-container>
+            </div>
+            <div class="col-12 sco-node-server__container__body-list p-0 m-0" [hidden]="tableView">
+              <div class="row w-100 p-0 m-0 pl-2 pr-2" *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
+                <div class="col-2 text-center sco-node-server__container__body-list--element" *ngFor="let file of nodeServerFiles; let i = index;" [id]="('list-'+i)">
+                  <div class="d-flex justify-content-center" [id]="('list-icon-'+i)" (click)="onSelectItem(file, i)">
+                    <img class="sco-node-server__container__body-list--icon" 
+                      [id]="('list-icon-image-'+i)"
+                      [src]="'../../../../../assets/icons/' + file.image"
+                    >
+                  </div>
+                  <div class="sco-node-server__container__body-list--title" [id]="('list-name-'+i)">
+                    <span [id]="('list-name-span-'+i)">{{file.name}}</span>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
+                <div class="sco-node-server__container__body-list--no-elements">
                   <span>No hay ficheros que mostrar</span>
                 </div>
               </ng-container>
@@ -189,7 +208,7 @@
   [type]="constantsService.ScoModalTypeConstants.CONFIRM" 
   [labelConfirm]="'Crear'"
   [labelClose]="'Cancelar'"
-  [forceClose]="true" 
+  [forceClose]="false" 
   [closeWhenConfirm]="false"
 
   [width]="30"
@@ -217,7 +236,7 @@
   [type]="constantsService.ScoModalTypeConstants.CONFIRM" 
   [labelConfirm]="'Eliminar'"
   [labelClose]="'Cancelar'"
-  [forceClose]="true" 
+  [forceClose]="false" 
   [closeWhenConfirm]="false"
 
   [width]="30"
@@ -226,11 +245,52 @@
 
   (close)="onCancelDeleteFileModal($event)"
   (accept)="onConfirmDeleteFileModal($event)" >
-    <div modal-title>Nueva carpeta</div>
+    <div modal-title>
+      <span *ngIf="selectedDeleteFile">Eliminar {{selectedDeleteFile.type == 'd' ? 'directorio' : 'archivo'}}: {{selectedDeleteFile.name}}</span>
+    </div>
     <div modal-content class="p-0 m-0">
       <div class="row p-0 m-0">
-        <div class="col-12 p-0 m-0 text-center">
+        <div class="col-12 p-0 m-0 text-center" *ngIf="selectedDeleteFile">
           <span>¿Realmente quiere eliminar el fichero?</span>
+        </div>
+      </div>
+    </div>
+</sco-modal>
+
+<!-- Actions Panel File Modal -->
+<sco-modal 
+  [id]="'actions-panel-file-modal'"
+  [type]="constantsService.ScoModalTypeConstants.INFO" 
+  [labelConfirm]="'Cerrar'"
+  [labelClose]="'Cancelar'"
+  [forceClose]="true" 
+  [closeWhenConfirm]="false"
+
+  [width]="20"
+  [height]="20"
+  [sizeUnity]="'percentage'"
+
+  (close)="onCancelActionsPanelModal($event)"
+  (accept)="onConfirmActionsPanelModal($event)" >
+    <div modal-title>
+      <span *ngIf="selectedActionPanelFile">Acciones del {{selectedActionPanelFile.type == 'd' ? 'directorio' : 'archivo'}}: {{selectedActionPanelFile.name}}</span>
+    </div>
+    <div modal-content class="p-0 m-0">
+      <div class="row p-0 m-0">
+        <div class="col-12 p-0 m-0 text-center" *ngIf="selectedActionPanelFile">
+          <button class="btn btn-sm btn-secondary mr-3" 
+            (click)="onCopyCopyFile(selectedActionPanelFile, undefined)"
+          >
+            <i class="fa fa-clone sco-node-server__container__body--action"></i>
+          </button>
+          <button class="btn btn-sm btn-dark mr-3"
+            (click)="onCutCopyFile(selectedActionPanelFile, undefined)"
+          >
+            <i class="fa fa-cut sco-node-server__container__body--action"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="onDeleteItem(selectedActionPanelFile, undefined)">
+            <i class="fa fa-trash sco-node-server__container__body--action"></i>
+          </button>
         </div>
       </div>
     </div>
