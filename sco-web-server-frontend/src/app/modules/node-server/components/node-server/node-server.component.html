@@ -113,6 +113,7 @@
                   <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-home'"
+                    [disabled]="currentPath == '/'"
                     [transparent]="false"
                     (action)="onClickHomeButton()">
                   </sco-button>
