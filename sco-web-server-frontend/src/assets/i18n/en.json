@@ -222,5 +222,8 @@
     "label.node-server.state.createFolder.catch": "Error trying to create folder",
     "label.node-server.state.uploadFiles.success": "Files loaded successfully",
     "label.node-server.state.uploadFiles.error": "Unnable to load files",
-    "label.node-server.state.uploadFiles.catch": "Error trying to load files"
+    "label.node-server.state.uploadFiles.catch": "Error trying to load files",
+    "label.node-server.state.downloadBackup.success": "Backup del servidor descargado con éxito",
+    "label.node-server.state.downloadBackup.error": "Imposible descargar el backup del servidor",
+    "label.node-server.state.downloadBackup.catch": "Error intentando descargar el backup del servidor"
 }

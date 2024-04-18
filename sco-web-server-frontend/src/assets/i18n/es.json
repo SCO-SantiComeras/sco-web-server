@@ -222,5 +222,8 @@
     "label.node-server.state.createFolder.catch": "Error intentando crear la carpeta",
     "label.node-server.state.uploadFiles.success": "Ficheros subidos con éxito",
     "label.node-server.state.uploadFiles.error": "No se pudieron subir los ficheros",
-    "label.node-server.state.uploadFiles.catch": "Error intentando subir los ficheros"
+    "label.node-server.state.uploadFiles.catch": "Error intentando subir los ficheros",
+    "label.node-server.state.downloadBackup.success": "Backup server download successfully",
+    "label.node-server.state.downloadBackup.error": "Unnable to download backup server",
+    "label.node-server.state.downloadBackup.catch": "Error trying to download backup server"
 }
