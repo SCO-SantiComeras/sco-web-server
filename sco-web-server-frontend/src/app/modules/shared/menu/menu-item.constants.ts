@@ -28,12 +28,6 @@ export const USERS_MENU_ITEM: MenuItem = {
   route: "users",
 }
 
-export const OPTIONS_MENU_ITEM: MenuItem = {
-  icon: "fa fa-gear",
-  text: "label.menu.options",
-  route: "/options",
-}
-
 export const LOGIN_MENU_ITEM: MenuItem = {
   icon: "fa fa-sign-in",
   text: "label.menu.login",

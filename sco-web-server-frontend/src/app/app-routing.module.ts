@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OptionsComponent } from './modules/options/options.component';
 import { LogoutComponent } from './modules/auth/components/logout/logout.component';
 import { AuthComponent } from './modules/auth/components/auth/auth.component';
 import { PasswordRecoveryComponent } from './modules/auth/components/password-recovery/password-recovery.component';
@@ -29,11 +28,6 @@ const routes: Routes = [
   {
     path: 'confirm-email/:email',
     component: ConfirmEmailComponent,
-  },
-  
-  {
-    path: 'options',
-    component: OptionsComponent,
   },
 
   {

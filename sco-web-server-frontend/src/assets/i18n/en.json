@@ -44,7 +44,6 @@
     "label.menu.users": "Users",
     "label.menu.roles": "Roles",
     "label.menu.permissions": "Permissions",
-    "label.menu.options": "Options",
     "label.menu.node-server": "Server",
 
     "label.validation.patterns.email": "Email is not valid",

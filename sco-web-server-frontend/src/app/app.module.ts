@@ -11,7 +11,6 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { WebsocketsService } from './websockets/websockets.service';
 import { ScoAngularComponentsModule, ScoConfigService, ScoTranslateService } from 'sco-angular-components';
-import { OptionsModule } from './modules/options/options.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { HeadersInterceptor } from './interceptors/headers.interceptor';
 import { AuthGuard } from './guards/auth.guard.service';
@@ -53,7 +52,6 @@ export function translateFactory(provider: ScoTranslateService) {
     AuthModule,
     ExcelModule,
     EmailerModule,
-    OptionsModule,
     PermissionsModule,
     RolesModule,
     UsersModule,
