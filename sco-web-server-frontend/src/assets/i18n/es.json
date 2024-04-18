@@ -223,7 +223,10 @@
     "label.node-server.state.uploadFiles.success": "Ficheros subidos con éxito",
     "label.node-server.state.uploadFiles.error": "No se pudieron subir los ficheros",
     "label.node-server.state.uploadFiles.catch": "Error intentando subir los ficheros",
-    "label.node-server.state.downloadBackup.success": "Backup server download successfully",
-    "label.node-server.state.downloadBackup.error": "Unnable to download backup server",
-    "label.node-server.state.downloadBackup.catch": "Error trying to download backup server"
+    "label.node-server.state.downloadBackup.success": "Backup del servidor descargado con éxito",
+    "label.node-server.state.downloadBackup.error": "Imposible descargar el backup del servidor",
+    "label.node-server.state.downloadBackup.catch": "Error intentando descargar el backup del servidor",
+    "label.node-server.state.downloadFolder.success": "Carpeta descargada con éxito",
+    "label.node-server.state.downloadFolder.error": "Imposible descargar la carpeta",
+    "label.node-server.state.downloadFolder.catch": "Error intentando descargar la carpeta"
 }

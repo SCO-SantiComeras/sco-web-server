@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { NodeServerService } from "../node-server.service";
 import { ScoTranslateService } from "sco-angular-components";
 import { HttpErrorsService } from "../../shared/http-error/http-errors.service";
-import { Copy, CreateFolder, Delete, DownloadBackup, Exists, IsDirectory, IsFile, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from "./node-server.actions";
+import { Copy, CreateFolder, Delete, DownloadBackup, DownloadFolder, Exists, IsDirectory, IsFile, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from "./node-server.actions";
 import { catchError, map, tap } from "rxjs";
 import { NodeServerDownload } from "../model/node-server-download";
 
@@ -392,6 +392,43 @@ export class NodeServerState {
       }),
       catchError((error) => {
         let errorMsg: string = this.translateService.getTranslate('label.node-server.state.downloadBackup.catch');
+        if (this.httpErrorsService.getErrorMessage(error.error.message)) {
+          errorMsg = this.httpErrorsService.getErrorMessage(error.error.message);
+        }
+
+        patchState({
+          success: false,
+          errorMsg: errorMsg,
+          nodeServerDownload: undefined,
+        });
+        throw new Error(error);
+      })
+    );
+  }
+
+  @Action(DownloadFolder)
+  public downloadFolder(
+    { patchState }: StateContext<NodeServerStateModel>,
+    { payload }: DownloadFolder
+  ) {
+    return this.nodeServerService.downloadFolder(payload.nodeServer).pipe(
+      tap((nodeServerDownload: NodeServerDownload) => {
+        if (nodeServerDownload && nodeServerDownload.base64) {
+          patchState({
+            success: true,
+            successMsg: this.translateService.getTranslate('label.node-server.state.downloadFolder.success'),
+            nodeServerDownload: nodeServerDownload,
+          });
+        } else {
+          patchState({
+            success: false,
+            errorMsg: this.translateService.getTranslate('label.node-server.state.downloadFolder.error'),
+            nodeServerDownload: undefined,
+          });
+        }
+      }),
+      catchError((error) => {
+        let errorMsg: string = this.translateService.getTranslate('label.node-server.state.downloadFolder.catch');
         if (this.httpErrorsService.getErrorMessage(error.error.message)) {
           errorMsg = this.httpErrorsService.getErrorMessage(error.error.message);
         }

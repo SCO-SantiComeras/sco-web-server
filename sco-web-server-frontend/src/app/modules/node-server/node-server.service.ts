@@ -67,6 +67,10 @@ export class NodeServerService {
     downloadBackup(): Observable<NodeServerDownload> {
         return this.http.post<NodeServerDownload>(`${environment.apiUrl}/node-server/downloadBackup`, {});
     }
+
+    downloadFolder(nodeServer: NodeServer): Observable<NodeServerDownload> {
+        return this.http.post<NodeServerDownload>(`${environment.apiUrl}/node-server/downloadFolder`, nodeServer);
+    }
     
       /* Web sockets */
     getNodeserverChangesBySocket(): any {

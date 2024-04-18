@@ -51,6 +51,11 @@ export class DownloadBackup {
   constructor() {}
 }
 
+export class DownloadFolder {
+  static readonly type = "[NodeServer] Download folder";
+  constructor(public payload: { nodeServer: NodeServer }) {}
+}
+
 /* Web sockets */
 export class SubscribeNodeServerWS {
   static readonly type = "[NodeServer] Suscribe nodeServer WS";
