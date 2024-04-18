@@ -33,7 +33,7 @@
     "ngx-socket-io": "4.2.0",
     "primeng": "^13.1.1",
     "rxjs": "~7.4.0",
-    "sco-angular-components": "^13.1.41",
+    "sco-angular-components": "^13.1.42",
     "tslib": "^2.3.0",
     "uuid": "^8.3.2",
     "xlsx": "^0.18.5",
