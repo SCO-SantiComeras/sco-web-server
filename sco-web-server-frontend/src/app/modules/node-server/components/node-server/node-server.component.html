@@ -156,6 +156,11 @@
                       <td [id]="('table-typeDescription-'+i)">{{file.typeDescription}}</td>
                       <td [id]="('table-modifiedDate-'+i)">{{file.modifiedDate | date: 'dd-MM-yyy HH:mm:ss'}}</td> 
                       <td class="text-right pr-2" [id]="('table-buttons-'+i)">
+                        <button class="btn btn-sm btn-success mr-3" 
+                          (click)="onDownloadFile(file, i)"
+                        >
+                          <i class="fa fa-download sco-node-server__container__body--action"></i>
+                        </button>
                         <button class="btn btn-sm btn-secondary mr-3" 
                           (click)="onCopyCopyFile(file, i)"
                         >
@@ -284,6 +289,11 @@
     <div modal-content class="p-0 m-0">
       <div class="row p-0 m-0">
         <div class="col-12 p-0 m-0 text-center" *ngIf="selectedActionPanelFile">
+          <button class="btn btn-sm btn-success mr-3" 
+            (click)="onDownloadFile(selectedActionPanelFile, undefined)"
+          >
+            <i class="fa fa-download sco-node-server__container__body--action"></i>
+          </button>
           <button class="btn btn-sm btn-secondary mr-3" 
             (click)="onCopyCopyFile(selectedActionPanelFile, undefined)"
           >

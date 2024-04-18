@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ScoConstantsService, ScoDisplayResize, ScoModalService, ScoSpinnerService, ScoToastService, ScoTranslateService } from 'sco-angular-components';
 import { NodeServerState } from '../../store/node-server.state';
 import { NodeServerFile } from '../../model/node-server-file';
-import { Copy, CreateFolder, Delete, DownloadBackup, IsDirectory, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from '../../store/node-server.actions';
+import { Copy, CreateFolder, Delete, DownloadBackup, DownloadFolder, IsDirectory, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from '../../store/node-server.actions';
 import { NodeServerFileFilter } from '../../model/node-server-file-filter';
 import environment from 'src/environments/environment';
 import { FILE_TYPES_CONSTANTS } from 'src/app/constants/file-types.constants';
@@ -545,6 +545,60 @@ export class NodeServerComponent implements OnInit, OnDestroy {
         );
       }
     })
+  }
+
+  /* Download Files */
+  onDownloadFile($event: NodeServerFile, index: number) {
+    if ($event.type == 'd') {
+      this.downloadFolder($event, index);
+    } else {
+      this.downloadFile($event, index);
+    }
+  }
+
+  downloadFolder($event: NodeServerFile, index: number) {
+    let downloadFolderPath: string = `${this.currentPath}/${$event.name}`;
+    if (this.currentPath == '/') {
+      downloadFolderPath = `${this.currentPath}${$event.name}`;
+    }
+    
+    this.store.dispatch(new DownloadFolder({ nodeServer: { path: downloadFolderPath }})).subscribe({
+      next: () => {
+        const success: boolean = this.store.selectSnapshot(NodeServerState.success);
+        if (!success) {
+          this.toastService.addErrorMessage(
+            this.translateService.getTranslate('label.error'),
+            this.store.selectSnapshot(NodeServerState.errorMsg),
+          );
+          return;
+        }
+
+        const nodeServerDownload: NodeServerDownload = this.store.selectSnapshot(NodeServerState.nodeServerDownload);
+        if (!nodeServerDownload) {
+          this.toastService.addErrorMessage(
+            this.translateService.getTranslate('label.error'),
+            this.store.selectSnapshot(NodeServerState.errorMsg),
+          );
+          return;
+        }
+
+        this.utilsService.downloadFile(nodeServerDownload.base64, nodeServerDownload.fileName);
+        this.toastService.addSuccessMessage(
+          this.translateService.getTranslate('label.success'),
+          this.store.selectSnapshot(NodeServerState.successMsg),
+        );
+      },
+      error: () => {
+        this.toastService.addErrorMessage(
+          this.translateService.getTranslate('label.error'),
+          this.store.selectSnapshot(NodeServerState.errorMsg),
+        );
+      }
+    })
+  }
+
+  downloadFile($event: NodeServerFile, index: number) {
+
   }
 
   /* Keyboard Events */
