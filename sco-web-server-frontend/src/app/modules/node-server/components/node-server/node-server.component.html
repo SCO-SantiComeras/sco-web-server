@@ -30,12 +30,6 @@
                 </sco-button>
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-refresh'"
-                  [transparent]="false"
-                  (action)="onRefreshCurrentList()">
-                </sco-button>
-                <sco-button class="sco-node-server__container__header--button pl-2"
-                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="'fa fa-save'"
                   [transparent]="false"
                   (action)="onDownloadServerBackup()">
@@ -77,6 +71,12 @@
                     [disabled]="currentPath == '/' || currentPath == undefined"
                     (action)="onLevelUpButton()">
                   </sco-button>
+                  <sco-button class="sco-node-server__container__header--button pl-5"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-folder'"
+                    [transparent]="false"
+                    (action)="onClickCreateFolder()">
+                  </sco-button>
                   <sco-file-uploader class="pt-1 pl-2"
                     [showLabel]="false"
                     [label]="''"
@@ -116,11 +116,11 @@
                     [transparent]="false"
                     (action)="onClickHomeButton()">
                   </sco-button>
-                  <sco-button class="sco-node-server__container__header--button pl-2 pr-2"
+                  <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-folder'"
+                    [icon]="'fa fa-refresh'"
                     [transparent]="false"
-                    (action)="onClickCreateFolder()">
+                    (action)="onRefreshCurrentList()">
                   </sco-button>
                 </div>
               </div>
