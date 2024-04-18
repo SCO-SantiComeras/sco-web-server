@@ -29,6 +29,14 @@ export class UtilsService {
       return result;
     }
   }
+
+  public downloadFile(base64:any,fileName:any){
+    const src = `data:text/csv;base64,${base64}`;
+    const a = document.createElement('a');
+    a.href = src
+    a.download = fileName
+    a.click();
+  }
   
   public getArrayFromPosition(array: any[], position: number = 1): any[] {
     if (!array || array && array.length == 0) {
