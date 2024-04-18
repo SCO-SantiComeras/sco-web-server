@@ -232,5 +232,30 @@
     "label.node-server.state.downloadFile.error": "Unnable to download file",
     "label.node-server.state.downloadFile.catch": "Error trying to download file",
 
-    "label-node-server.component.subfolders.circular.error": "The destination folder is a subfolder of the source folder"
+    "label.node-server.component.subfolders.circular.error": "The destination folder is a subfolder of the source folder",
+
+    "label.node-server.component.card.title": "Server files",
+    
+    "label.node-server.components.no.elements": "There are not elements to show",
+    "label.node-server.component.table.name": "Name",
+    "label.node-server.component.table.size": "Size",
+    "label.node-server.component.table.type": "Type",
+    "label.node-server.component.table.modifiedDate": "Last modification",
+
+    "label.node-server.component.new.folder.modal.confirm": "Create",
+    "label.node-server.component.new.folder.modal.cancel": "Cancel",
+    "label.node-server.component.new.folder.modal.title": "New folder",
+
+    "label.node-server.component.delete.file.modal.confirm": "Delete",
+    "label.node-server.component.delete.file.modal.cancel": "Cancel",
+    "label.node-server.component.delete.file.modal.title": "Delete",
+    "label.node-server.component.delete.file.modal.content": "Do you really want to delete the file?",
+
+    "label.node-server.component.file.options.modal.confirm": "Close",
+    "label.node-server.component.file.options.modal.cancel": "Cancel",
+    "label.node-server.component.file.options.modal.title": "Options of",
+    "label.node-server.component.file.options.modal.download": "Download",
+    "label.node-server.component.file.options.modal.copy": "Copy",
+    "label.node-server.component.file.options.modal.cut": "Cut",
+    "label.node-server.component.file.options.modal.delete": "Delete"
 }

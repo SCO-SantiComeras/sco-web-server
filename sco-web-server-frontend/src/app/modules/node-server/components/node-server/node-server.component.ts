@@ -407,7 +407,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     if (this.utilsService.isSubfolder(originPath, destinyPath)) {
       this.toastService.addErrorMessage(
         this.translateService.getTranslate('label.error'),
-        this.translateService.getTranslate('label-node-server.component.subfolders.circular.error')
+        this.translateService.getTranslate('label.node-server.component.subfolders.circular.error')
       );
       return;
     }
@@ -476,7 +476,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     if (this.utilsService.isSubfolder(originPath, destinyPath)) {
       this.toastService.addErrorMessage(
         this.translateService.getTranslate('label.error'),
-        this.translateService.getTranslate('label-node-server.component.subfolders.circular.error')
+        this.translateService.getTranslate('label.node-server.component.subfolders.circular.error')
       );
       return;
     }

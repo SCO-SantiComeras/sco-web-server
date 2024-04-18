@@ -232,5 +232,30 @@
     "label.node-server.state.downloadFile.error": "Imposible descargar el archivo",
     "label.node-server.state.downloadFile.catch": "Error intentando descargar el archivo",
 
-    "label-node-server.component.subfolders.circular.error": "La carpeta de destino es una subcarpeta de la carpeta de origen"
+    "label.node-server.component.subfolders.circular.error": "La carpeta de destino es una subcarpeta de la carpeta de origen",
+
+    "label.node-server.component.card.title": "Archivos del servidor",
+    
+    "label.node-server.components.no.elements": "No hay ficheros para mostrar",
+    "label.node-server.component.table.name": "Nombre",
+    "label.node-server.component.table.size": "Tamaño",
+    "label.node-server.component.table.type": "Tipo",
+    "label.node-server.component.table.modifiedDate": "Ultima modificación",
+
+    "label.node-server.component.new.folder.modal.confirm": "Crear",
+    "label.node-server.component.new.folder.modal.cancel": "Cancelar",
+    "label.node-server.component.new.folder.modal.title": "Nueva carpeta",
+
+    "label.node-server.component.delete.file.modal.confirm": "Eliminar",
+    "label.node-server.component.delete.file.modal.cancel": "Cancelar",
+    "label.node-server.component.delete.file.modal.title": "Eliminar",
+    "label.node-server.component.delete.file.modal.content": "¿Realmente quiere eliminar el fichero?",
+
+    "label.node-server.component.file.options.modal.confirm": "Cerrar",
+    "label.node-server.component.file.options.modal.cancel": "Cancelar",
+    "label.node-server.component.file.options.modal.title": "Opciones del",
+    "label.node-server.component.file.options.modal.download": "Descargar",
+    "label.node-server.component.file.options.modal.copy": "Copiar",
+    "label.node-server.component.file.options.modal.cut": "Cortar",
+    "label.node-server.component.file.options.modal.delete": "Eliminar"
 }
