@@ -165,13 +165,17 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     }
 
     const pathSplit: string[] = this.currentPath.split('/');
-    let newPath: string = `/`;
+    let newPath: string = ``;
     for (const split of pathSplit) {
       if (pathSplit.indexOf(split) == 0 || pathSplit.indexOf(split) == pathSplit.length-1) {
         continue;
       }
 
-      newPath += split;
+      newPath += `/${split}`;
+    }
+
+    if (!newPath || newPath == '') {
+      newPath = '/';
     }
     
     this.currentPath = newPath;
@@ -399,8 +403,16 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     if (this.currentPath == '/') {
       destinyPath = `${this.currentPath}${this.selectedCutFile.name}`;
     }
-    
-    this.store.dispatch(new Move({ nodeServer: { path: originPath, newPath: destinyPath, recursive: true } })).subscribe({
+
+    if (this.utilsService.isSubfolder(originPath, destinyPath)) {
+      this.toastService.addErrorMessage(
+        this.translateService.getTranslate('label.error'),
+        this.translateService.getTranslate('label-node-server.component.subfolders.circular.error')
+      );
+      return;
+    }
+
+    this.store.dispatch(new Move({ nodeServer: { path: originPath, newPath: destinyPath, recursive: false } })).subscribe({
       next: () => {
         const success: boolean = this.store.selectSnapshot(NodeServerState.success);
         if (!success) {
@@ -460,8 +472,16 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     if (this.currentPath == '/') {
       destinyPath = `${this.currentPath}${this.selectedCopyFile.name}`;
     }
+
+    if (this.utilsService.isSubfolder(originPath, destinyPath)) {
+      this.toastService.addErrorMessage(
+        this.translateService.getTranslate('label.error'),
+        this.translateService.getTranslate('label-node-server.component.subfolders.circular.error')
+      );
+      return;
+    }
     
-    this.store.dispatch(new Copy({ nodeServer: { path: originPath, newPath: destinyPath, recursive: true } })).subscribe({
+    this.store.dispatch(new Copy({ nodeServer: { path: originPath, newPath: destinyPath, recursive: false } })).subscribe({
       next: () => {
         const success: boolean = this.store.selectSnapshot(NodeServerState.success);
         if (!success) {

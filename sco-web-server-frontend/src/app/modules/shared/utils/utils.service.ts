@@ -45,4 +45,19 @@ export class UtilsService {
 
     return cloneDeep(array.slice(position));
   }
+
+  public isSubfolder(originPath: string, destinyPath: string) {
+    const originSegments = originPath.split('/');
+    const destinySegments = destinyPath.split('/');
+  
+    // Verifica si los segmentos de la ruta de origen son un subconjunto de los segmentos de la ruta de destino
+    for (let i = 0; i < originSegments.length; i++) {
+      if (originSegments[i] !== destinySegments[i]) {
+        return false;
+      }
+    }
+    
+    // Verifica si la longitud de los segmentos de la ruta de origen es menor que la de los segmentos de la ruta de destino
+    return originSegments.length < destinySegments.length;
+  }
 }
