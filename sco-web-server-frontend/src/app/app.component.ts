@@ -70,7 +70,7 @@ export class AppComponent {
       currentTheme = this.configService.getData(CONFIG_CONSTANTS.THEME);
     }
 
-    this.store.dispatch(new SetApplicationTheme({ theme: currentTheme })).subscribe();
+    this.store.dispatch(new SetApplicationTheme({ theme: this.configService.getData(CONFIG_CONSTANTS.THEME) })).subscribe();
   }
 
   onDisplayResize($event: ScoDisplayResize) {
