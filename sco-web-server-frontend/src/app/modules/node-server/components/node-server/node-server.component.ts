@@ -30,6 +30,9 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   @Select(NodeServerState.notifyChangeNodeServer)
   notifyChangeNodeServer$: Observable<boolean>;
 
+  /* File Type Constants */
+  public FILE_TYPES_CONSTANTS = FILE_TYPES_CONSTANTS;
+
   /* List */
   public serverPath: string;
   public currentPath: string;
@@ -647,7 +650,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
   /* Download Files */
   onDownloadFile($event: NodeServerFile, index: number) {
-    if ($event.type == 'd') {
+    if ($event.type == FILE_TYPES_CONSTANTS.DIRECTORY) {
       this.downloadFolder($event, index);
     } else {
       this.downloadFile($event, index);

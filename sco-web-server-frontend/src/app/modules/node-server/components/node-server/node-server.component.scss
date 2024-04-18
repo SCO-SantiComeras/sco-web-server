@@ -34,13 +34,16 @@
         width: 100%;
         overflow: auto; 
         max-height: calc(100vh - 162px); 
-       
         display: flex;
         padding: 0;
 
         &__header-input {
             background-color: lightsteelblue;
             display: flex;
+
+            &--button {
+                padding-top: 7.5px;
+            }
         }
 
         &__header {
@@ -61,11 +64,6 @@
 
             &--right {
                 display: flex;
-            }
-
-            &--path {
-                padding-top: 5px;
-                width: 100%;
             }
 
             &--filter {
@@ -95,18 +93,6 @@
                 height: 40px;
                 padding-left: 10px;
             }
-
-            &--action {
-                font-size: 20px; 
-                cursor: pointer;
-            }
-
-            &--no-elements {
-                display: flex;
-                text-align: center;
-                justify-content: center;
-                padding-top: 15px;
-            }
         }
 
         &__body-list {
@@ -119,6 +105,7 @@
                 cursor: pointer;
                 padding-top: 25px;
                 padding-bottom: 25px;
+                text-align: center;
                 &:hover {
                     background-color: #aefff48c;
                 }
@@ -132,13 +119,13 @@
             &--title {
                 padding-top: 10px;
             }
-    
-            &--no-elements {
-                display: flex;
-                text-align: center;
-                justify-content: center;
-                padding-top: 15px;
-            }
         }  
+
+        &__no-elements {
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            padding-top: 15px;
+        }
     }
 }

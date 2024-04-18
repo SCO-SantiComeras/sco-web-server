@@ -23,6 +23,8 @@
     "label.modify": "Modify",
     "label.created.at": "Created at",
     "label.updated.at": "Updated at",
+    "label.file": "file",
+    "label.directory": "directory",
 
     "label.actions.create": "Create",
     "label.actions.update": "Edit",

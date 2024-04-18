@@ -7,8 +7,10 @@
         <div class="col-12 sco-node-server__container">
 
           <div class="row w-100 p-0 m-0">
+
+            <!-- Input Path Header -->
             <div class="col-12 pt-1 pb-1 sco-node-server__container__header-input">
-              <sco-button class="sco-node-server__container__header--button pr-2 pt-1"
+              <sco-button class="sco-node-server__container__header-input--button pr-2 pt-1"
                 [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                 [icon]="'fa fa-eye'"
                 [transparent]="false"
@@ -19,14 +21,18 @@
                 [readonly]="false"
                 [showLabel]="false">
               </sco-input>
-              <sco-button class="sco-node-server__container__header--button pl-2 pt-1"
+              <sco-button class="sco-node-server__container__header-input--button pl-2 pt-1"
                 [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                 [icon]="'fa fa-check'"
                 [transparent]="false"
                 (action)="onFilterCurrentPath()">
               </sco-button>
             </div>
+
+            <!-- Button Actions Header -->
             <div class="col-12 sco-node-server__container__header pb-5">
+
+              <!-- Left Side -->
               <div class="col-3 sco-node-server__container__header--left">
                 <sco-button class="sco-node-server__container__header--button"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
@@ -34,6 +40,7 @@
                   [transparent]="false"
                   (action)="tableView = !tableView;">
                 </sco-button>
+
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="'fa fa-home'"
@@ -41,6 +48,7 @@
                   [transparent]="false"
                   (action)="onClickHomeButton()">
                 </sco-button>
+
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="'fa fa-level-up'"
@@ -49,7 +57,11 @@
                   (action)="onLevelUpButton()">
                 </sco-button>
               </div>
-              <div class="col-5 sco-node-server__container__header--right">
+
+              <!-- Center Side -->
+              <div class="col-5 sco-node-server__container__header--center">
+
+                <!-- Left SIde -->
                 <div class="col-8 p-0 m-0 d-flex justify-content-center">
                   <sco-button class="sco-node-server__container__header--button"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
@@ -58,6 +70,7 @@
                     [disabled]="selectedCopyFile == undefined"
                     (action)="onCopyPasteFile()">
                   </sco-button>
+
                   <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-cut'"
@@ -65,6 +78,7 @@
                     [disabled]="selectedCutFile == undefined"
                     (action)="onCutPasteFile()">
                   </sco-button>
+
                   <sco-button class="sco-node-server__container__header--button"
                     [ngClass]="{
                       'pl-5': scoDisplayResize.mode == constantsService.ScoResolutionConstants.WEB,
@@ -75,6 +89,7 @@
                     [transparent]="false"
                     (action)="onClickCreateFolder()">
                   </sco-button>
+
                   <sco-file-uploader class="pt-1 pl-2"
                     [showLabel]="false"
                     [label]="''"
@@ -107,6 +122,8 @@
                     (copyBtn)="undefined">
                   </sco-file-uploader>
                 </div>
+
+                <!-- Right Side -->
                 <div class="col-4 p-0 m-0 d-flex justify-content-end">
                   <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
@@ -114,6 +131,7 @@
                     [transparent]="false"
                     (action)="onRefreshCurrentList()">
                   </sco-button>
+
                   <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-save'"
@@ -122,12 +140,15 @@
                   </sco-button>
                 </div>
               </div>
-              <div class="col-4 sco-node-server__container__header--center">
+              
+              <!-- Right SIde -->
+              <div class="col-4 sco-node-server__container__header--right">
                 <sco-input class="sco-node-server__container__header--filter"
                   [(ngModel)]="filterFileNames"
                   [showLabel]="false"
                   (inputKeyUp)="onFilterFileNames($event)">
                 </sco-input>
+
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="'fa fa-close'"
@@ -135,7 +156,10 @@
                   (action)="onCleanFilterNames()">
                 </sco-button>
               </div>  
+
             </div>  
+
+            <!-- Table View -->
             <div class="col-12 sco-node-server__container__body pl-2 pr-2" [hidden]="!tableView">
               <table class="table">
                 <thead>
@@ -149,7 +173,9 @@
                 </thead>
                 <tbody>
                   <ng-container *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
-                    <tr class="sco-node-server__container__body--row" *ngFor="let file of nodeServerFiles; let i = index;" [id]="('table-'+i)"
+                    <tr class="sco-node-server__container__body--row"
+                      *ngFor="let file of nodeServerFiles; let i = index;"
+                      [id]="('table-'+i)"
                     >
                       <th scope="row" 
                         class="c-pointer"
@@ -169,31 +195,42 @@
                   </ng-container>
                 </tbody>
               </table>
-              <ng-container *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
-                <div class="sco-node-server__container__body--no-elements">
-                  <span>{{'label.node-server.components.no.elements' | scoTranslate}}</span>
-                </div>
-              </ng-container>
             </div>
+
+            <!-- Block View -->
             <div class="col-12 sco-node-server__container__body-list p-0 m-0" [hidden]="tableView">
               <div class="row w-100 p-0 m-0 pl-2 pr-2" *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
-                <div class="col-2 text-center sco-node-server__container__body-list--element" *ngFor="let file of nodeServerFiles; let i = index;" [id]="('list-'+i)">
-                  <div class="d-flex justify-content-center" [id]="('list-icon-'+i)" (click)="onSelectItem(file, i)">
+                <div class="col-2 sco-node-server__container__body-list--element" 
+                  *ngFor="let file of nodeServerFiles; let i = index;" 
+                  [id]="('list-'+i)"
+                >
+                 
+                  <!-- Icon Container -->
+                  <div class="d-flex justify-content-center" 
+                    [id]="('list-icon-'+i)" 
+                    (click)="onSelectItem(file, i)"
+                  >
                     <img class="sco-node-server__container__body-list--icon" 
                       [id]="('list-icon-image-'+i)"
                       [src]="'../../../../../assets/icons/' + file.image"
                     >
                   </div>
-                  <div class="sco-node-server__container__body-list--title" [id]="('list-name-'+i)">
+
+                  <!-- Text Container -->
+                  <div class="sco-node-server__container__body-list--title" 
+                    [id]="('list-name-'+i)"
+                  >
                     <span [id]="('list-name-span-'+i)">{{file.name}}</span>
                   </div>
+
                 </div>
               </div>
-              <ng-container *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
-                <div class="sco-node-server__container__body-list--no-elements">
-                  <span>{{'label.node-server.components.no.elements' | scoTranslate}}</span>
-                </div>
-              </ng-container>
+            </div>
+
+            <div class="col-12 pt-5" *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
+              <div class="sco-node-server__container__no-elements">
+                <span>{{'label.node-server.components.no.elements' | scoTranslate}}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -247,7 +284,14 @@
   (close)="onCancelDeleteFileModal($event)"
   (accept)="onConfirmDeleteFileModal($event)" >
     <div modal-title>
-      <span *ngIf="selectedDeleteFile">{{'label.node-server.component.delete.file.modal.title' | scoTranslate}} {{selectedDeleteFile.type == 'd' ? 'directorio' : 'archivo'}}: {{selectedDeleteFile.name}}</span>
+      <span *ngIf="selectedDeleteFile">
+        {{'label.node-server.component.delete.file.modal.title' | scoTranslate}} 
+        {{selectedDeleteFile.type == FILE_TYPES_CONSTANTS.DIRECTORY 
+          ? ('label.directory' | scoTranslate) 
+          : ('label.file' | scoTranslate)
+        }}: 
+        {{selectedDeleteFile.name}}
+      </span>
     </div>
     <div modal-content class="p-0 m-0">
       <div class="row p-0 m-0">
@@ -274,7 +318,14 @@
   (close)="onCancelActionsPanelModal($event)"
   (accept)="onConfirmActionsPanelModal($event)" >
     <div modal-title>
-      <span *ngIf="selectedActionPanelFile">{{'label.node-server.component.file.options.modal.title' | scoTranslate}} {{selectedActionPanelFile.type == 'd' ? 'directorio' : 'archivo'}}: {{selectedActionPanelFile.name}}</span>
+      <span *ngIf="selectedActionPanelFile">
+        {{'label.node-server.component.file.options.modal.title' | scoTranslate}} 
+        {{selectedActionPanelFile.type == FILE_TYPES_CONSTANTS.DIRECTORY 
+          ? ('label.directory' | scoTranslate) 
+          : ('label.file' | scoTranslate)
+        }}: 
+        {{selectedActionPanelFile.name}}
+      </span>
     </div>
     <div modal-content class="p-0 m-0">
       <div class="row p-0 m-0" *ngIf="selectedActionPanelFile">

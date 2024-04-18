@@ -6,5 +6,4 @@ export const CONFIG_CONSTANTS = {
     CLOSE_FORM_WHEN_CANCEL: 'formCrud.closeFormWhenCancel',
     FORM_ALWAYS_VISIBLE: 'formCrud.formAlwaysVisible',
     FORM_BACK_BUTTON: 'formCrud.formBackButton',
-    
 }
