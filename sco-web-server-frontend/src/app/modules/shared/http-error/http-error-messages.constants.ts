@@ -68,6 +68,8 @@ export const httpErrorMessages = {
   },
   NODE_SERVER: {
     ROOT_PATH_NOT_EXIST: 'Root path not exists',
+    ROOT_PATH_NO_FILES: 'Root path not files',
+    UNNABLE_CREATE_ROOT_PATH_BACKUP: 'Unnable to create root path backup',
 
     UNNABLE_CREATE_SERVER_FOLDER: 'Unnable to create server folder',
     UNNABLE_DELETE_SERVER_FOLDER: 'Unnable to delete server folder',
