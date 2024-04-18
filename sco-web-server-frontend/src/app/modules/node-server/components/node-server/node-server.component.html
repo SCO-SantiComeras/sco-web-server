@@ -22,7 +22,7 @@
             </div>
             <div class="col-12 sco-node-server__container__header pb-5">
               <div class="col-2 sco-node-server__container__header--left">
-                <sco-button class="sco-node-server__container__header--button pl-2"
+                <sco-button class="sco-node-server__container__header--button"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="tableView ? 'fa fa-table' : 'fa fa-list'"
                   [transparent]="false"
@@ -64,14 +64,18 @@
                     [disabled]="selectedCutFile == undefined"
                     (action)="onCutPasteFile()">
                   </sco-button>
-                  <sco-button class="sco-node-server__container__header--button pl-2"
+                  <sco-button class="sco-node-server__container__header--button"
+                    [ngClass]="{
+                      'pl-5': scoDisplayResize.mode == constantsService.ScoResolutionConstants.WEB,
+                      'pl-2': scoDisplayResize.mode != constantsService.ScoResolutionConstants.WEB
+                    }"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-level-up'"
                     [transparent]="false"
                     [disabled]="currentPath == '/' || currentPath == undefined"
                     (action)="onLevelUpButton()">
                   </sco-button>
-                  <sco-button class="sco-node-server__container__header--button pl-5"
+                  <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-folder'"
                     [transparent]="false"
