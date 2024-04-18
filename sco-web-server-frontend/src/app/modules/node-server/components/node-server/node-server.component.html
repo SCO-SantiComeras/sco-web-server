@@ -27,7 +27,7 @@
               </sco-button>
             </div>
             <div class="col-12 sco-node-server__container__header pb-5">
-              <div class="col-2 sco-node-server__container__header--left">
+              <div class="col-3 sco-node-server__container__header--left">
                 <sco-button class="sco-node-server__container__header--button"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                   [icon]="tableView ? 'fa fa-table' : 'fa fa-list'"
@@ -36,25 +36,20 @@
                 </sco-button>
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-save'"
+                  [icon]="'fa fa-home'"
+                  [disabled]="currentPath == '/'"
                   [transparent]="false"
-                  (action)="onDownloadServerBackup()">
+                  (action)="onClickHomeButton()">
                 </sco-button>
-              </div>
-              <div class="col-4 sco-node-server__container__header--center">
-                <sco-input class="sco-node-server__container__header--filter"
-                  [(ngModel)]="filterFileNames"
-                  [showLabel]="false"
-                  (inputKeyUp)="onFilterFileNames($event)">
-                </sco-input>
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-close'"
+                  [icon]="'fa fa-level-up'"
                   [transparent]="false"
-                  (action)="onCleanFilterNames()">
+                  [disabled]="currentPath == '/' || currentPath == undefined"
+                  (action)="onLevelUpButton()">
                 </sco-button>
-              </div>       
-              <div class="col-6 sco-node-server__container__header--right">
+              </div>
+              <div class="col-5 sco-node-server__container__header--right">
                 <div class="col-8 p-0 m-0 d-flex justify-content-center">
                   <sco-button class="sco-node-server__container__header--button"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
@@ -75,13 +70,6 @@
                       'pl-5': scoDisplayResize.mode == constantsService.ScoResolutionConstants.WEB,
                       'pl-2': scoDisplayResize.mode != constantsService.ScoResolutionConstants.WEB
                     }"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-level-up'"
-                    [transparent]="false"
-                    [disabled]="currentPath == '/' || currentPath == undefined"
-                    (action)="onLevelUpButton()">
-                  </sco-button>
-                  <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-folder'"
                     [transparent]="false"
@@ -122,19 +110,31 @@
                 <div class="col-4 p-0 m-0 d-flex justify-content-end">
                   <sco-button class="sco-node-server__container__header--button pl-2"
                     [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-home'"
-                    [disabled]="currentPath == '/'"
-                    [transparent]="false"
-                    (action)="onClickHomeButton()">
-                  </sco-button>
-                  <sco-button class="sco-node-server__container__header--button pl-2"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
                     [icon]="'fa fa-refresh'"
                     [transparent]="false"
                     (action)="onRefreshCurrentList()">
                   </sco-button>
+                  <sco-button class="sco-node-server__container__header--button pl-2"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-save'"
+                    [transparent]="false"
+                    (action)="onDownloadServerBackup()">
+                  </sco-button>
                 </div>
               </div>
+              <div class="col-4 sco-node-server__container__header--center">
+                <sco-input class="sco-node-server__container__header--filter"
+                  [(ngModel)]="filterFileNames"
+                  [showLabel]="false"
+                  (inputKeyUp)="onFilterFileNames($event)">
+                </sco-input>
+                <sco-button class="sco-node-server__container__header--button pl-2"
+                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                  [icon]="'fa fa-close'"
+                  [transparent]="false"
+                  (action)="onCleanFilterNames()">
+                </sco-button>
+              </div>  
             </div>  
             <div class="col-12 sco-node-server__container__body pl-2 pr-2" [hidden]="!tableView">
               <table class="table">
