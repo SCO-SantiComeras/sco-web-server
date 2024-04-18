@@ -8,6 +8,12 @@
 
           <div class="row w-100 p-0 m-0">
             <div class="col-12 pt-1 pb-1 sco-node-server__container__header-input">
+              <sco-button class="sco-node-server__container__header--button pr-2 pt-1"
+                [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                [icon]="'fa fa-eye'"
+                [transparent]="false"
+                (action)="onGoToViewServer()">
+              </sco-button>
               <sco-input class="w-100"
                 [(ngModel)]="showCurrentPath"
                 [readonly]="false"

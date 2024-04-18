@@ -638,6 +638,15 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     })
   }
 
+  /* View Server */
+  onGoToViewServer() {
+    let appPort: number = Number.parseInt(environment.port);
+    if (!environment.production) appPort = 80;
+
+    const path: string = `${environment.httpsEnabled ? 'https://' : 'http://'}${environment.hostname}:${appPort}/${environment.serverFolder}`;
+    window.open(path, "_blank");
+  }
+
   /* Keyboard Events */
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
