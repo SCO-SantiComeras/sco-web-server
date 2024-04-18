@@ -69,6 +69,7 @@ export const httpErrorMessageTranslates = {
       ROOT_PATH_NOT_EXIST: 'La ruta raíz no existe',
       ROOT_PATH_NO_FILES: 'La ruta raíz no contiene archivos',
       UNNABLE_CREATE_ROOT_PATH_BACKUP: 'Imposible crear un backup de la ruta raíz',
+      UNNABLE_DOWNLOAD_FOLDER: 'Imposible descargar directorio',
 
       UNNABLE_CREATE_SERVER_FOLDER: 'Imposible crear la carpeta del servidor',
       UNNABLE_DELETE_SERVER_FOLDER: 'Imposible eliminar la carpeta del servidor',
@@ -157,6 +158,7 @@ export const httpErrorMessageTranslates = {
       ROOT_PATH_NOT_EXIST: 'Root path not exists',
       ROOT_PATH_NO_FILES: 'Root path not files',
       UNNABLE_CREATE_ROOT_PATH_BACKUP: 'Unnable to create root path backup',
+      UNNABLE_DOWNLOAD_FOLDER: 'Unnable to download folder',
 
       UNNABLE_CREATE_SERVER_FOLDER: 'Unnable to create server folder',
       UNNABLE_DELETE_SERVER_FOLDER: 'Unnable to delete server folder',
