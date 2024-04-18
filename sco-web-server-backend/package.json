@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build && copyfiles -f ./env/* ./dist/env && copyfiles package.json ./dist/ && copyfiles -f ./i18n/* ./dist/i18n",
+    "build": "rimraf dist && nest build && copyfiles -f ./env/* ./dist/env && copyfiles package.json ./dist/ && copyfiles -f ./i18n/* ./dist/i18n && copyfiles -f ./scripts/* ./dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "cross-env NODE_ENV=development nest start --watch",
