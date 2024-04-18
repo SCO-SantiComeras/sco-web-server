@@ -236,5 +236,23 @@ export const BACKEND_VALIDATION_ERROR_CONSTANTS = {
             NOT_EMPTY: 'Modified date should be not empty',
             INVALID_VALUE: 'Modified date should be Date value',
         },
-    }
+    },
+    NODE_SERVER_DOWNLOAD: {
+        FILE_NAME: {
+            NOT_EMPTY: 'File name should be not empty',
+            INVALID_VALUE: 'File name should be string value',
+        },
+        FILE_PATH: {
+            NOT_EMPTY: 'File path should be not empty',
+            INVALID_VALUE: 'File path should be string value',
+        },
+        FILE_TYPE: {
+            NOT_EMPTY: 'File type should be not empty',
+            INVALID_VALUE: 'File type should be string value',
+        },
+        BASE64: {
+            NOT_EMPTY: 'Base64 should be not empty',
+            INVALID_VALUE: 'Base64 should be string value',
+        },
+    },
 }
