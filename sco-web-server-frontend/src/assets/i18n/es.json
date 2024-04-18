@@ -228,5 +228,8 @@
     "label.node-server.state.downloadBackup.catch": "Error intentando descargar el backup del servidor",
     "label.node-server.state.downloadFolder.success": "Carpeta descargada con éxito",
     "label.node-server.state.downloadFolder.error": "Imposible descargar la carpeta",
-    "label.node-server.state.downloadFolder.catch": "Error intentando descargar la carpeta"
+    "label.node-server.state.downloadFolder.catch": "Error intentando descargar la carpeta",
+    "label.node-server.state.downloadFile.success": "Archivo descargado con éxito",
+    "label.node-server.state.downloadFile.error": "Imposible descargar el archivo",
+    "label.node-server.state.downloadFile.catch": "Error intentando descargar el archivo"
 }

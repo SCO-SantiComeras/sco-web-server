@@ -228,5 +228,8 @@
     "label.node-server.state.downloadBackup.catch": "Error trying to download backup server",
     "label.node-server.state.downloadFolder.success": "Folder download successfully",
     "label.node-server.state.downloadFolder.error": "Unnable to download folder",
-    "label.node-server.state.downloadFolder.catch": "Error trying to download folder"
+    "label.node-server.state.downloadFolder.catch": "Error trying to download folder",
+    "label.node-server.state.downloadFile.success": "File download successfully",
+    "label.node-server.state.downloadFile.error": "Unnable to download file",
+    "label.node-server.state.downloadFile.catch": "Error trying to download file"
 }
