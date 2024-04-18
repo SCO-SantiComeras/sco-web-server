@@ -100,10 +100,10 @@ export class AppComponent {
 
     if (event == 'onLoad') {
       if (value) {
-        this.toastService.addSuccessMessage(
+        /* this.toastService.addSuccessMessage(
           this.translateService.getTranslate('label.success'),
           this.translateService.getTranslate('label.pdf-viewer.component.onLoad')
-        );
+        ); */
         return;
       }
     }

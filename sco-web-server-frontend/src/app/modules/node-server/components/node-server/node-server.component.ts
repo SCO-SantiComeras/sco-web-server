@@ -4,7 +4,7 @@ import { AppState } from './../../../../store/app.state';
 import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
-import { ScoConstantsService, ScoDisplayResize, ScoModalService, ScoSpinnerService, ScoToastService, ScoTranslateService } from 'sco-angular-components';
+import { ScoConstantsService, ScoDisplayResize, ScoModalService, ScoPdfViewerService, ScoSpinnerService, ScoToastService, ScoTranslateService } from 'sco-angular-components';
 import { NodeServerState } from '../../store/node-server.state';
 import { NodeServerFile } from '../../model/node-server-file';
 import { Copy, CreateFolder, Delete, DownloadBackup, DownloadFile, DownloadFolder, IsDirectory, List, Move, SubscribeNodeServerWS, UnSubscribeNodeServerWS, UploadFiles } from '../../store/node-server.actions';
@@ -68,6 +68,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     private readonly toastService: ScoToastService,
     private readonly modalService: ScoModalService,
     private readonly translateService: ScoTranslateService,
+    private readonly pdfViewerService: ScoPdfViewerService,
     private readonly utilsService: UtilsService,
     public readonly constantsService: ScoConstantsService,
   ) {
@@ -222,7 +223,48 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   }
 
   openPdfFile(file: NodeServerFile, index: number) {
+    let downloadFilePath: string = `${this.currentPath}/${file.name}`;
+    if (this.currentPath == '/') {
+      downloadFilePath = `${this.currentPath}${file.name}`;
+    }
+    
+    this.store.dispatch(new DownloadFile({ nodeServer: { path: downloadFilePath }})).subscribe({
+      next: () => {
+        const success: boolean = this.store.selectSnapshot(NodeServerState.success);
+        if (!success) {
+          this.toastService.addErrorMessage(
+            this.translateService.getTranslate('label.error'),
+            this.store.selectSnapshot(NodeServerState.errorMsg),
+          );
+          return;
+        }
 
+        const nodeServerDownload: NodeServerDownload = this.store.selectSnapshot(NodeServerState.nodeServerDownload);
+        if (!nodeServerDownload) {
+          this.toastService.addErrorMessage(
+            this.translateService.getTranslate('label.error'),
+            this.store.selectSnapshot(NodeServerState.errorMsg),
+          );
+          return;
+        }
+
+        this.spinnerService.showSpinner();
+        this.pdfViewerService.loadPdf({
+          pdfSrc: nodeServerDownload.base64,
+          isBase64: true,
+          fileName: nodeServerDownload.fileName,
+          startPage: undefined,
+          showTotalPages: true,
+          canDownload: true,
+        });
+      },
+      error: () => {
+        this.toastService.addErrorMessage(
+          this.translateService.getTranslate('label.error'),
+          this.store.selectSnapshot(NodeServerState.errorMsg),
+        );
+      }
+    })
   }
 
   /* Create Folder Actions */
