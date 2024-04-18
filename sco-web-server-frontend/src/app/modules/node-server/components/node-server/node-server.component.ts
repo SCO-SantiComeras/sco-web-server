@@ -188,9 +188,14 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     if (!file) return;
 
     if (file.type == FILE_TYPES_CONSTANTS.FILE) {
+      this.selectFile(file, index);
       return;
     }
 
+    this.selectFolder(file, index);
+  }
+
+  selectFolder(file: NodeServerFile, index: number) {
     if (this.currentPath.charAt(this.currentPath.length-1) == '/') {
       this.currentPath = this.currentPath + file.name;
     } else {
@@ -199,6 +204,25 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     this.showCurrentPath = this.currentPath;
 
     this.filterPathList();
+  }
+
+  selectFile(file: NodeServerFile, index: number) {
+    if (file.extension == 'pdf') {
+      this.openPdfFile(file, index);
+      return;
+    }
+
+    let appPort: number = Number.parseInt(environment.port);
+    if (!environment.production) appPort = 80;
+
+    let path: string = `${environment.httpsEnabled ? 'https://' : 'http://'}${environment.hostname}:${appPort}/${environment.serverFolder}`;
+    path = path + `${this.currentPath}/${file.name}`
+
+    window.open(path, "_blank");
+  }
+
+  openPdfFile(file: NodeServerFile, index: number) {
+
   }
 
   /* Create Folder Actions */
