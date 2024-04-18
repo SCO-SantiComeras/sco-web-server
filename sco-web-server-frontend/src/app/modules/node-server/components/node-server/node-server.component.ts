@@ -61,6 +61,9 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
   /* Actions Panel */
   public selectedActionPanelFile: NodeServerFile;
+
+  /* Modals Open Flag */
+  public isAnyModalOpen: boolean;
   
   constructor(
     private readonly store: Store,
@@ -101,6 +104,8 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     this.tableView = true;
 
     this.selectedActionPanelFile= undefined;
+
+    this.isAnyModalOpen = false;
   }
   
   /* Angular Flow Functions */
@@ -270,11 +275,13 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   /* Create Folder Actions */
   onClickCreateFolder() {
     this.newFolderName = '';
+    this.isAnyModalOpen = true;
     this.modalService.open('create-folder-modal');
   }
 
   onCancelCreateFolderModal($event: MouseEvent) {
     this.newFolderName = '';
+    this.isAnyModalOpen = false;
     this.modalService.close('create-folder-modal');
   }
 
@@ -316,6 +323,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   /* Delete File Actions */
   onCancelDeleteFileModal($event: MouseEvent) {
     this.selectedDeleteFile = undefined;
+    this.isAnyModalOpen = false;
     this.modalService.close('delete-file-modal');
   }
 
@@ -341,6 +349,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
           this.store.selectSnapshot(NodeServerState.successMsg),
         );
         this.selectedDeleteFile = undefined;
+        this.isAnyModalOpen = false;
         this.modalService.close('delete-file-modal');
       },
       error: () => {
@@ -355,6 +364,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
   onDeleteItem(file: NodeServerFile, index: number) {
     this.selectedDeleteFile = file;
+    this.isAnyModalOpen = true;
     this.modalService.open('delete-file-modal');
   }
 
@@ -567,12 +577,14 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   onCancelActionsPanelModal($event: boolean) {
     if (!$event) return;
     this.selectedActionPanelFile = undefined;
+    this.isAnyModalOpen = false;
     this.modalService.close('actions-panel-file-modal');
   }
 
   onConfirmActionsPanelModal($event: boolean) {
     if (!$event) return;
     this.selectedActionPanelFile = undefined;
+    this.isAnyModalOpen = false;
     this.modalService.close('actions-panel-file-modal');
   }
 
@@ -718,11 +730,11 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   keyEvent(event: KeyboardEvent) {
     switch (event.key) {
       case 'Enter':
-        if (this.selectedDeleteFile || this.selectedActionPanelFile) return;
+        if (this.isAnyModalOpen) return;
         this.onFilterCurrentPath();
         break;
       case 'Escape':
-        if (this.selectedDeleteFile || this.selectedActionPanelFile) return;
+        if (this.isAnyModalOpen) return;
         this.onCleanFilterNames();
         break;
       default:
@@ -734,6 +746,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   clickout() {
     if (this.selectedActionPanelFile) {
       this.selectedActionPanelFile = undefined;
+      this.isAnyModalOpen = false;
       this.modalService.close('actions-panel-file-modal');
     }
   }
@@ -766,6 +779,7 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     }
     
     this.selectedActionPanelFile = nodeServerFile;
+    this.isAnyModalOpen = true;
     this.modalService.open('actions-panel-file-modal');
 
     /* Return false always to no open default options panel */
