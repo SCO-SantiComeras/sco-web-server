@@ -1,6 +1,5 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from "@nestjs/core";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
 import { LoggerService, MicroserviceToBackend, WebsocketAdapter } from 'sco-nestjs-utilities';
 import { HttpException, HttpStatus, ValidationError, ValidationPipe } from '@nestjs/common';
@@ -51,30 +50,6 @@ async function bootstrap() {
     })
   );
 
-  const swagger: boolean = configService.get('app.swagger');
-  const swaggerRoute: string = configService.get('app.swaggerRoute');
-  if (swagger) {
-    const options = new DocumentBuilder()
-      .setTitle('SCO Nestjs Utilities Base')
-      .setDescription('SCO Nestjs Utilities Base')
-      .setVersion('1.0')
-      .addTag('SCO')
-      .addBearerAuth(
-        {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
-          name: "JWT",
-          description: "Enter JWT token",
-          in: "header",
-        },
-        "JWT-auth"
-      )
-      .build();
-    const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup(swaggerRoute, app, document);
-  }
-
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (validationErrors: ValidationError[] = []) => {
@@ -94,7 +69,6 @@ async function bootstrap() {
   await app.listen(port);
 
   const host: string = configService.get("app.host");
-  if (swagger) console.log(`[bootstrap] Swagger started in url '${htppsEnable ? 'https' : 'http'}://${host}:${port}/${swaggerRoute}'`);
   console.log(`[bootstrap] App started in '${htppsEnable ? 'https' : 'http'}://${host}:${port}'`);
   console.log(`[bootstrap] Environment loaded is: ${configService.get('app.production') ? 'PROD' : 'DEV'}`);
 }
