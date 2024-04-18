@@ -338,6 +338,20 @@ export class NodeServerService {
 
         return nodeServerDownload;
     }
+
+    async downloadFile(nodeServerDto: NodeServerDto): Promise<NodeServerDownloadDto> {
+        const backupBase64: string = fs.readFileSync(`${this._serverPath}/${nodeServerDto.path}`, { encoding: 'base64' });
+
+        const formatName: string = nodeServerDto.path.split("/")[nodeServerDto.path.split("/").length-1];
+        const nodeServerDownload: NodeServerDownloadDto = {
+            fileName: formatName,
+            fileType: 'zip',
+            filePath: `${path}`,
+            base64: backupBase64,
+        };
+        
+        return nodeServerDownload;
+    }
 }
 
 const copyFolderRecursive = function(srcDir: string, dstDir: string, recursive: boolean, verbose: boolean = true) {

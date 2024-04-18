@@ -367,10 +367,37 @@ export class NodeServerController {
   ): Promise<Response<NodeServerDownloadDto, Record<string, NodeServerDownloadDto>>> {
     const rootFiles: NodeServerFileDto[] = await this.nodeServerService.list(nodeServerDto) || [];
 
+    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
+    if (!exists) {
+      console.log(`[downloadFolder] Path '${nodeServerDto.path}' not exists`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
+    }
+
     const nodeServerDownload: NodeServerDownloadDto = await this.nodeServerService.downloadFolder(nodeServerDto, rootFiles);
     if (!nodeServerDownload) {
-      console.log(`[downloadFolder] Unnable to create root path backup`);
+      console.log(`[downloadFolder] Unnable to download folder`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DOWNLOAD_FOLDER, HttpStatus.CONFLICT);
+    }
+
+    return res.status(200).json(nodeServerDownload);
+  }
+  
+  @Post('downloadFile')
+  @UseGuards(AuthGuard())
+  async downloadFile(
+    @Res() res: Response,
+    @Body() nodeServerDto: NodeServerDto
+  ): Promise<Response<NodeServerDownloadDto, Record<string, NodeServerDownloadDto>>> {
+    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
+    if (!exists) {
+      console.log(`[downloadFile] Path '${nodeServerDto.path}' not exists`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
+    }
+
+    const nodeServerDownload: NodeServerDownloadDto = await this.nodeServerService.downloadFile(nodeServerDto);
+    if (!nodeServerDownload) {
+      console.log(`[downloadFile] Unnable to download file`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DOWNLOAD_FILE, HttpStatus.CONFLICT);
     }
 
     return res.status(200).json(nodeServerDownload);
