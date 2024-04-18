@@ -359,7 +359,7 @@ export class NodeServerService {
         return filteredList;
     }
 
-    copyFolderRecursive(
+    private copyFolderRecursive(
         srcDir: string, 
         dstDir: string, 
         recursive: boolean, 
