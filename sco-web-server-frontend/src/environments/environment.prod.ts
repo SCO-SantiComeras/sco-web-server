@@ -11,7 +11,7 @@ const environment = {
   apiUrl: '',
   serverSocketUrl: '',
 
-  rootPath: '/home/sco/sco-web-server/dist/public',
+  rootPath: '/home/sco/sco-web-server/public',
   serverFolder: 'nodeserver',
 };
 
