@@ -1,7 +1,6 @@
 import { BACKEND_WEBSOCKET_EVENTS } from './../../constants/websocket.constants';
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
 import { Body, Controller, Res, Post, Req, HttpException, HttpStatus, UseGuards, UseInterceptors, UploadedFiles, Param, Query } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import { NodeServerService, filterListFiles } from './node-server.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -10,9 +9,9 @@ import { NodeServerFileDto } from './dto/node-server-file';
 import { WebsocketGateway } from 'sco-nestjs-utilities';
 import { ConfigService } from '@nestjs/config';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { NodeServerDownloadDto } from './dto/node-server-download';
 
 @Controller('api/v1/node-server')
-@ApiTags('Node server')
 export class NodeServerController {
   
   constructor(
@@ -336,5 +335,27 @@ export class NodeServerController {
     }
 
     return res.status(200).json(uploadFiles);
+  }
+
+  @Post('downloadBackup')
+  @UseGuards(AuthGuard())
+  async downloadBackup(
+    @Res() res: Response,
+  ): Promise<Response<NodeServerDownloadDto, Record<string, NodeServerDownloadDto>>> {
+    const nodeServerDto: NodeServerDto = { path: '' };
+
+    const rootFiles: NodeServerFileDto[] = await this.nodeServerService.list(nodeServerDto);
+    if (!rootFiles || (rootFiles && rootFiles.length == 0)) {
+      console.log(`[downloadBackup] No files in root server path to download`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.ROOT_PATH_NO_FILES, HttpStatus.CONFLICT);
+    }
+
+    const nodeServerDownload: NodeServerDownloadDto = await this.nodeServerService.downloadBackup(nodeServerDto, rootFiles);
+    if (!nodeServerDownload) {
+      console.log(`[downloadBackup] Unnable to create root path backup`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_CREATE_ROOT_PATH_BACKUP, HttpStatus.CONFLICT);
+    }
+
+    return res.status(200).json(nodeServerDownload);
   }
 }

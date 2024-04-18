@@ -2,10 +2,14 @@ import { FILE_TYPES_CONSTANTS } from './../../constants/file-types.constants';
 import { Injectable } from "@nestjs/common";
 import * as fs from 'fs';
 import * as path from 'path';
+import * as archiver from 'archiver';
+import * as moment from 'moment';
 import { NodeServerDto } from "./dto/node-server";
 import { NodeServerFileDto } from "./dto/node-server-file";
 import { BACKEND_HTTP_ERROR_CONSTANTS } from 'src/constants/http-error-messages.constants';
 import { ConfigService } from '@nestjs/config';
+import { NodeServerDownloadDto } from './dto/node-server-download';
+
 @Injectable()
 export class NodeServerService {
 
@@ -258,6 +262,42 @@ export class NodeServerService {
 
 
         return filesUploaded;
+    }
+
+    async downloadBackup(nodeServerDto: NodeServerDto, rootFiles: NodeServerFileDto[]): Promise<NodeServerDownloadDto> {
+        const zipName: string = `nodeserver_backup_${moment(new Date()).format(`DD-MM-yyy`)}.zip`;
+        const archive = archiver('zip', { zlib: { level: 9 } });
+        const output = fs.createWriteStream(`${this._serverPath}${nodeServerDto.path}/${zipName}`);
+        archive.pipe(output)
+
+        for (const file of rootFiles) {
+            if (file.type == 'd') {
+                archive.directory(`${this._serverPath}${nodeServerDto.path}/${file.name}`, file.name);
+            } else {
+                archive.append(fs.createReadStream(`${this._serverPath}${nodeServerDto.path}/${file.name}`), { name: file.name });
+            }
+        }
+
+        archive.finalize()
+
+        const path: string = `${this._serverPath}${nodeServerDto.path}`;
+        const nodeServerDownload: NodeServerDownloadDto = await new Promise<NodeServerDownloadDto>((resolve) => {
+            output.on('close', function() {
+                const backupBase64: string = fs.readFileSync(`${path}/${zipName}`, { encoding: 'base64' });
+                if (fs.existsSync(`${path}/${zipName}`)) {
+                    fs.rmSync(`${path}/${zipName}`, { recursive: true, force: true });
+                }
+                
+                return resolve({
+                    fileName: zipName,
+                    fileType: 'zip',
+                    filePath: `${path}`,
+                    base64: backupBase64,
+                });
+            });
+        });
+
+        return nodeServerDownload;
     }
 }
 
