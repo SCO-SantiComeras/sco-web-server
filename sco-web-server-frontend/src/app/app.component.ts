@@ -56,7 +56,12 @@ export class AppComponent {
 
   onCLickLogo($event: boolean) {
     if (!$event) return;
-    this.router.navigateByUrl('login');
+       
+    if (this.store.selectSnapshot(AuthState.loggedUser)) {
+      this.router.navigateByUrl('node-server');
+    } else {
+      this.router.navigateByUrl('login');
+    }
   }
 
   private setTheme() {
