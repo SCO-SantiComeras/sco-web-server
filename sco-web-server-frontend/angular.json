@@ -65,6 +65,48 @@
               ],
               "outputHashing": "all"
             },
+            "dockerprod": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.docker.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "dockerdev": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.docker.dev.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -81,6 +123,12 @@
           "configurations": {
             "production": {
               "browserTarget": "sco-web-server:build:production"
+            },
+            "dockerprod": {
+              "browserTarget": "sco-web-server:build:dockerprod"
+            },
+            "dockerdev": {
+              "browserTarget": "sco-web-server:build:dockerdev"
             },
             "development": {
               "browserTarget": "sco-web-server:build:development"

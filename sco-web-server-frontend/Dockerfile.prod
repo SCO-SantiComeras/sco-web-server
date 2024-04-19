@@ -4,7 +4,7 @@ WORKDIR /app/
 COPY package*.json .
 RUN npm i @angular/cli@13.1.0
 COPY . .
-RUN npm run build:prod
+RUN npm run build:docker:prod
 
 # Levantar ficheros compilados
 FROM nginx:1.25.1-alpine3.17-slim
