@@ -229,7 +229,12 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     if (!environment.production) appPort = 80;
 
     let path: string = `${environment.httpsEnabled ? 'https://' : 'http://'}${environment.hostname}:${appPort}/${environment.serverFolder}`;
-    path = path + `${this.currentPath}/${file.name}`
+    let filePath: string = `${this.currentPath}/${file.name}`;
+    if (this.currentPath == '/') {
+      filePath =  `${this.currentPath}${file.name}`;
+    }
+
+    path = path + filePath;
 
     window.open(path, "_blank");
   }
