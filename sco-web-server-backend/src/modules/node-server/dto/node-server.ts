@@ -1,4 +1,4 @@
-import { BACKEND_VALIDATION_ERROR_CONSTANTS } from './../../../constants/validation-error-messages.constants';
+import { BACKEND_VALIDATION_ERROR_CONSTANTS } from '../../../constants/validation-error-messages.constants';
 import { IsBoolean, IsObject, IsOptional, IsString } from "class-validator";
 import { NodeServerFileFilterDto } from './node-server-file-filter';
 

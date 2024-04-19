@@ -1,4 +1,4 @@
-import { BACKEND_VALIDATION_ERROR_CONSTANTS } from './../../../constants/validation-error-messages.constants';
+import { BACKEND_VALIDATION_ERROR_CONSTANTS } from '../../../constants/validation-error-messages.constants';
 import { Type } from 'class-transformer';
 import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 

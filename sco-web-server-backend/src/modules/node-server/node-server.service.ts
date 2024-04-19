@@ -1,4 +1,4 @@
-import { FILE_TYPES_CONSTANTS } from './../../constants/file-types.constants';
+import { FILE_TYPES_CONSTANTS } from '../../constants/file-types.constants';
 import { Injectable } from "@nestjs/common";
 import * as fs from 'fs';
 import * as path from 'path';

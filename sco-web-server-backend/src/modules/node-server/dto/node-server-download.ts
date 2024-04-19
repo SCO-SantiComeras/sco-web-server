@@ -1,4 +1,4 @@
-import { BACKEND_VALIDATION_ERROR_CONSTANTS } from './../../../constants/validation-error-messages.constants';
+import { BACKEND_VALIDATION_ERROR_CONSTANTS } from '../../../constants/validation-error-messages.constants';
 import { IsNotEmpty, IsString } from "class-validator";
 
 export class NodeServerDownloadDto {
