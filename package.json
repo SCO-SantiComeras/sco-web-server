@@ -4,7 +4,7 @@
   "scripts": {
     "install-frontend": "cd ./sco-web-server-frontend && npm i && cd ..",
     "install-backend": "cd ./sco-web-server-backend && npm i && cd ..",
-    "install": "concurrently \"npm run install-frontend\" \"npm run install-backend\"",
+    "install-deps": "concurrently \"npm run install-frontend\" \"npm run install-backend\"",
     "run-frontend-dev": "cd ./sco-web-server-frontend && npm run start && cd ..",
     "run-backend-dev": "cd ./sco-web-server-backend && npm run start:dev && cd ..",
     "run-dev": "concurrently \"npm run run-frontend-dev\" \"npm run run-backend-dev\"",
