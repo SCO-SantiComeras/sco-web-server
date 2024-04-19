@@ -749,7 +749,9 @@ export class NodeServerComponent implements OnInit, OnDestroy {
     let appPort: number = Number.parseInt(environment.port);
     if (!environment.production) appPort = 80;
 
-    const path: string = `${environment.httpsEnabled ? 'https://' : 'http://'}${environment.hostname}:${appPort}/${environment.serverFolder}`;
+    const httpsEnabled: string = `${environment.httpsEnabled ? 'https://' : 'http://'}`;
+
+    const path: string = `${httpsEnabled}${environment.hostname}:${appPort}/${environment.serverFolder}/index.html`;
     window.open(path, "_blank");
   }
 
