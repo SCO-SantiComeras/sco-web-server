@@ -228,6 +228,20 @@ export class NodeServerService {
         return true;
     }
 
+    async formatDoubleRootPath(nodeServerDto: NodeServerDto, formatNewPath: boolean = false): Promise<NodeServerDto> {
+        if (!formatNewPath) {
+            while(nodeServerDto.path.includes('//')) {
+                nodeServerDto.path = nodeServerDto.path.replace('//', '/');
+            }
+        } else {
+            while(nodeServerDto.newPath.includes('//')) {
+                nodeServerDto.newPath = nodeServerDto.newPath.replace('//', '/');
+            }
+        }
+
+        return nodeServerDto;
+    }
+
     async createFolder(nodeServerDto: NodeServerDto): Promise<boolean> {
         const folderCreated: boolean = await new Promise<boolean>(async (resolve) => {
             fs.mkdirSync(`${this._serverPath}${nodeServerDto.path}`, { recursive: nodeServerDto.recursive == true ? true : false });

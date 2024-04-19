@@ -30,6 +30,8 @@ export class NodeServerController {
       console.log(`[exists] Path '${nodeServerDto.path}' not provided`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
+    
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
 
     const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
     if (!pathIsValid) {
@@ -52,16 +54,18 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
 
-    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
-    if (!exists) {
-      console.log(`[isDirectory] Path '${nodeServerDto.path}' not exists`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
-    }
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
 
     const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
     if (!pathIsValid) {
       console.log(`[isDirectory] Path '${nodeServerDto.path}' is not in valid format`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
+    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
+    if (!exists) {
+      console.log(`[isDirectory] Path '${nodeServerDto.path}' not exists`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
     }
     
     const isDirectory: boolean = await this.nodeServerService.isDirectory(nodeServerDto);
@@ -79,16 +83,18 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
 
-    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
-    if (!exists) {
-      console.log(`[isFile] Path '${nodeServerDto.path}' not exists`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
-    }
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
 
     const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
     if (!pathIsValid) {
       console.log(`[isFile] Path '${nodeServerDto.path}' is not in valid format`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
+    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
+    if (!exists) {
+      console.log(`[isFile] Path '${nodeServerDto.path}' not exists`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
     }
     
     const isFile: boolean = await this.nodeServerService.isFile(nodeServerDto);
@@ -106,11 +112,7 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
 
-    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
-    if (!exists) {
-      console.log(`[list] Path '${nodeServerDto.path}' not exists`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
-    }
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
 
     const isDirectory: boolean = await this.nodeServerService.isDirectory(nodeServerDto);
     if (!isDirectory) {
@@ -118,6 +120,12 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_DIRECTORY, HttpStatus.CONFLICT);
     }
 
+    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
+    if (!exists) {
+      console.log(`[list] Path '${nodeServerDto.path}' not exists`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_EXISTS, HttpStatus.CONFLICT);
+    }
+    
     const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
     if (!pathIsValid) {
       console.log(`[list] Path '${nodeServerDto.path}' is not in valid format`);
@@ -163,6 +171,14 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
 
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
+
+    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
+    if (!pathIsValid) {
+      console.log(`[delete] Path '${nodeServerDto.path}' is not in valid format`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
     const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
     if (!exists) {
       console.log(`[delete] Path '${nodeServerDto.path}' not exists`);
@@ -173,12 +189,6 @@ export class NodeServerController {
     if (`${rootPath}${nodeServerDto.path}` == (`${rootPath}/` || `${rootPath}`)) {
       console.log(`[delete] Unnable to delete server folder '${rootPath}${nodeServerDto.path}'`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.UNNABLE_DELETE_SERVER_FOLDER, HttpStatus.CONFLICT);
-    }
-    
-    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
-    if (!pathIsValid) {
-      console.log(`[delete] Path '${nodeServerDto.path}' is not in valid format`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
     }
 
     const deleted: boolean = await  this.nodeServerService.delete(nodeServerDto);
@@ -205,6 +215,15 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.NEW_PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
 
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto, true);
+
+    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
+    if (!pathIsValid) {
+      console.log(`[copy] Path '${nodeServerDto.path}' is not in valid format`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
     const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
     if (!exists) {
       console.log(`[copy] Path '${nodeServerDto.path}' not exists`);
@@ -215,12 +234,6 @@ export class NodeServerController {
     if (existNewPath) {
       console.log(`[copy] New path '${nodeServerDto.newPath}' already exists`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.NEW_PATH_ALREADY_EXISTS, HttpStatus.CONFLICT);
-    }
-
-    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
-    if (!pathIsValid) {
-      console.log(`[copy] Path '${nodeServerDto.path}' is not in valid format`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
     }
 
     const copy: boolean = await  this.nodeServerService.copy(nodeServerDto);
@@ -247,6 +260,15 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.NEW_PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
 
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto, true);
+
+    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
+    if (!pathIsValid) {
+      console.log(`[move] Path '${nodeServerDto.path}' is not in valid format`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
     const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
     if (!exists) {
       console.log(`[move] Path '${nodeServerDto.path}' not exists`);
@@ -257,12 +279,6 @@ export class NodeServerController {
     if (existNewPath) {
       console.log(`[move] New path '${nodeServerDto.newPath}' already exists`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.NEW_PATH_ALREADY_EXISTS, HttpStatus.CONFLICT);
-    }
-
-    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
-    if (!pathIsValid) {
-      console.log(`[move] Path '${nodeServerDto.path}' is not in valid format`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
     }
 
     const move: boolean = await  this.nodeServerService.move(nodeServerDto);
@@ -284,16 +300,18 @@ export class NodeServerController {
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
     }
 
-    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
-    if (exists) {
-      console.log(`[createFolder] Path '${nodeServerDto.path}' already exists`);
-      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_ALREADY_EXISTS, HttpStatus.CONFLICT);
-    }
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
 
     const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
     if (!pathIsValid) {
       console.log(`[createFolder] Path '${nodeServerDto.path}' is not in valid format`);
       throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
+    const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
+    if (exists) {
+      console.log(`[createFolder] Path '${nodeServerDto.path}' already exists`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_ALREADY_EXISTS, HttpStatus.CONFLICT);
     }
     
     const createFolder: boolean = await this.nodeServerService.createFolder(nodeServerDto);
@@ -322,7 +340,9 @@ export class NodeServerController {
       currentPath = currentPath.replace('-rootParse-', '/');
     }
 
-    const nodeServerDto: NodeServerDto = { path: currentPath };   
+    let nodeServerDto: NodeServerDto = { path: currentPath };   
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
+
     const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
     if (!pathIsValid) {
       console.log(`[createFolder] Path '${nodeServerDto.path}' is not in valid format`);
@@ -365,7 +385,20 @@ export class NodeServerController {
     @Res() res: Response,
     @Body() nodeServerDto: NodeServerDto
   ): Promise<Response<NodeServerDownloadDto, Record<string, NodeServerDownloadDto>>> {
+    if (!nodeServerDto.path) {
+      console.log(`[downloadFolder] Path '${nodeServerDto.path}' not provided`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
+    }
+
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
+
     const rootFiles: NodeServerFileDto[] = await this.nodeServerService.list(nodeServerDto) || [];
+
+    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
+    if (!pathIsValid) {
+      console.log(`[downloadFolder] Path '${nodeServerDto.path}' is not in valid format`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
 
     const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
     if (!exists) {
@@ -388,6 +421,19 @@ export class NodeServerController {
     @Res() res: Response,
     @Body() nodeServerDto: NodeServerDto
   ): Promise<Response<NodeServerDownloadDto, Record<string, NodeServerDownloadDto>>> {
+    if (!nodeServerDto.path) {
+      console.log(`[downloadFolder] Path '${nodeServerDto.path}' not provided`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_NOT_PROVIDED, HttpStatus.PAYMENT_REQUIRED);
+    }
+
+    nodeServerDto = await this.nodeServerService.formatDoubleRootPath(nodeServerDto);
+
+    const pathIsValid: boolean = await this.nodeServerService.validateServerPath(nodeServerDto);
+    if (!pathIsValid) {
+      console.log(`[downloadFolder] Path '${nodeServerDto.path}' is not in valid format`);
+      throw new HttpException(BACKEND_HTTP_ERROR_CONSTANTS.NODE_SERVER.PATH_IS_NOT_VALID, HttpStatus.CONFLICT);
+    }
+
     const exists: boolean = await this.nodeServerService.exists(nodeServerDto);
     if (!exists) {
       console.log(`[downloadFile] Path '${nodeServerDto.path}' not exists`);
