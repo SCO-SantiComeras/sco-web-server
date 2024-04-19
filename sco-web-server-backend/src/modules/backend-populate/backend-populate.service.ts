@@ -11,7 +11,6 @@ export class BackendPopulateService {
     ) { }
 
     async onModuleInit() {
-        console.log("Populate init");
         await this.deletePublicUser();
     }
 
@@ -27,6 +26,7 @@ export class BackendPopulateService {
                 console.log(`[deletePublicUser] Unnable to delete public user`);
                 throw new Error(`Unnable to delete public user`);
             }
+            console.log(`[deletePublicUser] Public user deleted successfully`);
         }
     }
 }
