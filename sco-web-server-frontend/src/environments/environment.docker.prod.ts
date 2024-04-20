@@ -11,8 +11,8 @@ const environment = {
   apiUrl: '',
   serverSocketUrl: '',
 
-  rootPath: '/usr/share/nginx',
-  serverFolder: 'html',
+  rootPath: '/app/backend/dist/public',
+  serverFolder: 'nodeserver',
 };
 
 environment.apiUrl = `${environment.httpsEnabled ? 'https://' : 'http://'}`;
