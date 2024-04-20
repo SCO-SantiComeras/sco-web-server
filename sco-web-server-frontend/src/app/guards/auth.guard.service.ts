@@ -1,13 +1,11 @@
 import { AuthState } from '../modules/auth/store/auth.state';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Token } from '../modules/auth/model/token';
 import { LogOut, ValidateToken } from '../modules/auth/store/auth.actions';
 import { ScoToastService, ScoTranslateService } from 'sco-angular-components';
 import { User } from '../modules/users/model/user';
-import { Location } from '@angular/common';
-
 @Injectable()
 export class AuthGuard implements CanActivate {
 
@@ -15,7 +13,7 @@ export class AuthGuard implements CanActivate {
     private readonly store: Store,
     private readonly toastService: ScoToastService,
     private readonly translateService: ScoTranslateService,
-    private readonly locationService: Location,
+    private readonly router: Router,
   ) {}
 
   async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
@@ -23,7 +21,7 @@ export class AuthGuard implements CanActivate {
     const user: User = this.store.selectSnapshot(AuthState.loggedUser);
 
     if (!token || !user) {
-      this.locationService.back();
+      this.router.navigateByUrl('login');
       return false;
     }
 
@@ -59,7 +57,7 @@ export class AuthGuard implements CanActivate {
     });
 
     if (!validatedToken) {
-      this.locationService.back();
+      this.router.navigateByUrl('login'); 
       this.toastService.addErrorMessage(
         this.translateService.getTranslate('label.error'), 
         this.store.selectSnapshot(AuthState.errorMsg),
