@@ -24,9 +24,10 @@ O la insalación con docker:
 - Docker files (https://github.com/SCO-SantiComeras/sco-docker-files)
 
 # Instalación sin docker
-1- Clonar el repositorio
+1- Clonar el repositorio y ubicarse en el
 <pre>
 git clone https://github.com/SCO-SantiComeras/sco-web-server
+cd sco-web-server
 </pre>
 
 2- Modificar los valores necesarios en los ficheros de entorno del backend
@@ -51,8 +52,8 @@ WEBSOCKETS_ORIGIN: http://scoapps.es,http://scoapps.es:80,http://scoapps.es:9000
 # POPULATE
 POPULATE_PUBLIC_USER: true (Indicador para crear o no un usuario público no administrador)
 
-# NODE SERVER
-NODE_SERVER_ROOT_PATH: /home/sco/sco-web-server/public (Ruta donde está alojada la aplicación (Frontend))
+# NODE SERVER *Si se sigue la instalación, solo habrá que modificar la parte del a ruta '/home/sco/'
+NODE_SERVER_ROOT_PATH: /home/sco/sco-web-server/deploy/public (Ruta donde está alojada la aplicación (Frontend))
 NODE_SERVER_SERVER_FOLDER: nodeserver (Nombre de la carpeta que se utilizará de servidor web)
 </pre>
 
@@ -60,17 +61,19 @@ NODE_SERVER_SERVER_FOLDER: nodeserver (Nombre de la carpeta que se utilizará de
 <pre>
 # sco-web-server-frontend\src\environments\environment.prod.ts
 
- hostname: 'scoapps.es', (Host donde trabajará la aplicación)
- port: '9000', (Puerto de la aplicación)
- apiPort: '9000', (Puerto de la api)
- webSocketPort: '9001', (Puerto de los websockets de la api)
+hostname: 'scoapps.es', (Host donde trabajará la aplicación)
+port: '9000', (Puerto de la aplicación)
+apiPort: '9000', (Puerto de la api)
+webSocketPort: '9001', (Puerto de los websockets de la api)
  
-rootPath: '/home/sco/sco-web-server/public', (Ruta donde está alojada la aplicación)
+*Si se sigue la instalación, solo habrá que modificar la parte del a ruta '/home/sco/'
+rootPath: '/home/sco/sco-web-server/deploy/public', (Ruta donde está alojada la aplicación)
 serverFolder: 'nodeserver', (Nombre de la carpeta que se utilizará de servidor)
 </pre>
 
-4- Instalar dependencias, ubicarse en la carpeta principal del repositorio
+4- Instalar dependencias
 <pre>
+npm i
 npm run install-deps
 </pre>
 
@@ -81,25 +84,29 @@ npm run build-prod
 
 6- Mover ficheros compilados del frontend
 <pre>
-npm run cp-public
+cp -r ./sco-web-server-frontend/dist/sco-web-server/ ./sco-web-server-backend/dist/public/
 </pre>
 
-7- La aplicación está lista para iniciarla o alojar los ficheros en un servidor, el resultado de la compilación se encuentra en la siguiente ruta
+7- Mover el resultado de la compilación a la carpeta deploy
 <pre>
-sco-web-server-backend/dist
+mkdir deploy && cp -r ./sco-web-server-backend/dist/* ./deploy/
 </pre>
 
-8- Una vez movidos los ficheros a la ubicación deseada, instalaremos las dependencias de produción
+8- Instalar dependencias // Copiar backend node_modules si la compilación se realizó en el mismo equipo que la ejecutará
 <pre>
-npm install
+- Instalar dependencias
+  cd deploy && npm i
+
+- Copiar node_modules
+  cd deploy && cp -r ../sco-web-server-backend/node_modules .
 </pre>
 
-9- Lanzaremos la aplicación con PM2
+7- Iniciar aplicación con PM2
 <pre>
 npm run pm2:start:prod
 </pre>
 
-10- Una vez iniciada, podemos ver los logs en tiempo real
+8- Ver logs de PM2 (Opcional)
 <pre>
 pm2 logs sco-web-server --lines 2000
 </pre>
