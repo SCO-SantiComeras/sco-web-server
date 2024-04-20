@@ -33,6 +33,7 @@ cd sco-web-server
 2- Modificar los valores necesarios en los ficheros de entorno del backend
 <pre>
 # sco-web-server-backend\env\production.env
+# *El resto de variables no modificar, podría resultar en un fallo de la aplicación
 
 # APP
 APP_PORT: 9000 (Puerto en el que inicia la aplicación)
@@ -49,6 +50,8 @@ MONGO_DATABASE: sco-web-server (Nombre de la base de datos Mongodb)
 WEBSOCKETS_PORT: 9001 (Puerto en el que trabajarán los websockets de la aplicación)
 WEBSOCKETS_ORIGIN: http://scoapps.es,http://scoapps.es:80,http://scoapps.es:9000,http://scoapps.es:9001 (Origen de las peticiones de la aplicación)
 
+# AUTH_EXPIRES_IN: 7d (Tiempo que durará la sesión iniciada antes de que expire)
+
 # POPULATE
 POPULATE_PUBLIC_USER: true (Indicador para crear o no un usuario público no administrador)
 
@@ -60,6 +63,7 @@ NODE_SERVER_SERVER_FOLDER: nodeserver (Nombre de la carpeta que se utilizará de
 3- Modificar los valores necesarios en los ficheros de entorno del frontend
 <pre>
 # sco-web-server-frontend\src\environments\environment.prod.ts
+# *El resto de variables no modificar, podría resultar en un fallo de la aplicación
 
 hostname: 'scoapps.es', (Host donde trabajará la aplicación)
 port: '9000', (Puerto de la aplicación)
@@ -101,12 +105,12 @@ mkdir deploy && cp -r ./sco-web-server-backend/dist/* ./deploy/
   cd deploy && cp -r ../sco-web-server-backend/node_modules .
 </pre>
 
-7- Iniciar aplicación con PM2
+9- Iniciar aplicación con PM2
 <pre>
 npm run pm2:start:prod
 </pre>
 
-8- Ver logs de PM2 (Opcional)
+10- Ver logs de PM2 (Opcional)
 <pre>
 pm2 logs sco-web-server --lines 2000
 </pre>
