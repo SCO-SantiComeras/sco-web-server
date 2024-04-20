@@ -1,2 +1,21 @@
 /node_modules
 npm-debug*
+/sco-web-server-backend/node_modules
+/sco-web-server-frontend/node_modules
+/nodeserver
+
+# Docker
+docker-images-clean.sh
+docker-soft-clean.sh
+docker-system-clean.sh
+get-changes.sh
+get-repositories.sh
+run-docker.sh
+stop-docker.sh
+
+.dockerignore
+Dockerfile.be.dev
+Dockerfile.fe.dev
+Dockerfile.prod
+docker-compose.prod.yml
+docker-compose.yml
