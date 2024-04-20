@@ -29,7 +29,7 @@ O la insalación con docker:
 git clone https://github.com/SCO-SantiComeras/sco-web-server
 </pre>
 
-2- Modificar los valores nesarios en los ficheros de entorno del backend
+2- Modificar los valores necesarios en los ficheros de entorno del backend
 <pre>
 # sco-web-server-backend\env\production.env
 
@@ -56,7 +56,7 @@ NODE_SERVER_ROOT_PATH: /home/sco/sco-web-server/public (Ruta donde está alojada
 NODE_SERVER_SERVER_FOLDER: nodeserver (Nombre de la carpeta que se utilizará de servidor web)
 </pre>
 
-3- Modificar los valores nesarios en los ficheros de entorno del frontend
+3- Modificar los valores necesarios en los ficheros de entorno del frontend
 <pre>
 # sco-web-server-frontend\src\environments\environment.prod.ts
 
@@ -65,8 +65,8 @@ NODE_SERVER_SERVER_FOLDER: nodeserver (Nombre de la carpeta que se utilizará de
  apiPort: '9000', (Puerto de la api)
  webSocketPort: '9001', (Puerto de los websockets de la api)
  
-  rootPath: '/home/sco/sco-web-server/public', (Ruta donde está alojada la aplicación)
-  serverFolder: 'nodeserver', (Nombre de la carpeta que se utilizará de servidor)
+rootPath: '/home/sco/sco-web-server/public', (Ruta donde está alojada la aplicación)
+serverFolder: 'nodeserver', (Nombre de la carpeta que se utilizará de servidor)
 </pre>
 
 4- Instalar dependencias, ubicarse en la carpeta principal del repositorio
@@ -134,7 +134,7 @@ git clone https://github.com/SCO-SantiComeras/sco-web-server.git \
 git switch main
 </pre>
 
-3- Modificar los valores nesarios en los ficheros de entorno del backend
+3- Modificar los valores necesarios en los ficheros de entorno del backend
 <pre>
 # sco-web-server-backend\env\docker-production.env
 
@@ -161,7 +161,7 @@ POPULATE_PUBLIC_USER: true (Indicador para crear o no un usuario público no adm
 	- (/app/backend/dist/public/nodeserver)
 </pre>
 
-4- Modificar los valores nesarios en los ficheros de entorno del frontend
+4- Modificar los valores necesarios en los ficheros de entorno del frontend
 <pre>
 # sco-web-server-frontend\src\environments\environment.docker.prod.ts
 
