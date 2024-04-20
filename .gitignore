@@ -13,7 +13,6 @@ get-repositories.sh
 run-docker.sh
 stop-docker.sh
 
-.dockerignore
 Dockerfile.be.dev
 Dockerfile.fe.dev
 Dockerfile.prod
