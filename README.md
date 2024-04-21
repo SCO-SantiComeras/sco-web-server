@@ -246,3 +246,29 @@ http://yourhost:appPort
 - admin // Scoserver123456!
 - public // Scoserver123456!
 </pre>
+
+# Funciones de la aplicación
+- Visualizar el servidor (Redirección al index.html del servidor)
+- Filtrar la ruta actual mediante input
+- Filtrar por nombre mediante input
+- Cambiar de vista
+- Volver a la ruta raíz
+- Actualizar ruta actual
+- Subir de nivel
+- Crear carpeta
+- Subir archivos
+- Descargar backup de todo el servidor
+- Seleccionar archivos
+  - Directorios se navegará y listará la nueva ruta
+  - Archivos se abrirá en un enlace nuevo el archivo seleccionado
+  - Archivos PDF se abriran en la propia aplicación
+- Copiar
+- Pegar
+- Descargar
+- Eliminar
+
+# Copiar o Cortar ejemplo
+- Al seleccionar un archivo con click izquierdo, se abrirá el panel de acciones
+- En este panel estan las opciones descargar, copiar, cortar y eliminar
+- Cuando se seleccione la opcion copiar / cortar, en el panel superior se activará el botón con el mismo icono de la opción, y permitirá pegar en la ruta actual
+- Los botones superiores de pegar (Copia y Cortar), estarán deshabilitado siempre que no se seleccione la opción copiar o cortar del panel de acciones de un archivo
