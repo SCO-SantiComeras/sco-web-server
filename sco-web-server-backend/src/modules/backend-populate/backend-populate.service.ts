@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { BcryptService, IUser, USERS_CONSTANTS, UserDto, UsersRepository } from "sco-nestjs-utilities";
+import { IUser, USERS_CONSTANTS, UsersRepository } from "sco-nestjs-utilities";
 
 @Injectable()
 export class BackendPopulateService {
@@ -8,13 +8,11 @@ export class BackendPopulateService {
     constructor(
         private readonly configService: ConfigService,
         private readonly usersRepository: UsersRepository,
-        private readonly bcryptService: BcryptService,
     ) { }
 
     async onModuleInit() {
         await this.deleteSuperadminUser();
         await this.deletePublicUser();
-        await this.updateUsersPassword();
     }
 
     async deleteSuperadminUser() {
@@ -42,20 +40,6 @@ export class BackendPopulateService {
                 throw new Error(`Unnable to delete public user`);
             }
             console.log(`[deletePublicUser] Public user deleted successfully`);
-        }
-    }
-
-    async updateUsersPassword() {
-        const existAdminUser: IUser = await this.usersRepository.findUserByName(USERS_CONSTANTS.ADMIN.NAME);
-        const adminDto: UserDto = await this.usersRepository.modelToDto(existAdminUser);
-        adminDto.password = await this.bcryptService.encryptPassword('Scoserver123456!');
-        await this.usersRepository.updateUser(existAdminUser._id, adminDto, true);
-
-        if (this.configService.get('populate.publicUser') == true) {
-            const existPublicUser: IUser = await this.usersRepository.findUserByName(USERS_CONSTANTS.PUBLIC.NAME);
-            const publicDto: UserDto = await this.usersRepository.modelToDto(existPublicUser);
-            publicDto.password = await this.bcryptService.encryptPassword('Scoserver123456!');
-            await this.usersRepository.updateUser(existPublicUser._id, publicDto, true);
         }
     }
 }
