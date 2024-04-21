@@ -56,7 +56,7 @@ WEBSOCKETS_ORIGIN: http://scoapps.es,http://scoapps.es:80,http://scoapps.es:9000
 POPULATE_PUBLIC_USER: true (Indicador para crear o no un usuario público no administrador)
 
 # NODE SERVER *Si se sigue la instalación, solo habrá que modificar la parte del a ruta '/home/sco/'
-NODE_SERVER_ROOT_PATH: /home/sco/sco-web-server/deploy/public (Ruta donde está alojada la aplicación (Frontend))
+NODE_SERVER_ROOT_PATH: /home/sco/sco-web-server/dist/public (Ruta donde está alojada la aplicación (Frontend))
 NODE_SERVER_SERVER_FOLDER: nodeserver (Nombre de la carpeta que se utilizará de servidor web)
 </pre>
 
@@ -71,7 +71,7 @@ apiPort: '9000', (Puerto de la api)
 webSocketPort: '9001', (Puerto de los websockets de la api)
  
 *Si se sigue la instalación, solo habrá que modificar la parte del a ruta '/home/sco/'
-rootPath: '/home/sco/sco-web-server/deploy/public', (Ruta donde está alojada la aplicación)
+rootPath: '/home/sco/sco-web-server/dist/public', (Ruta donde está alojada la aplicación)
 serverFolder: 'nodeserver', (Nombre de la carpeta que se utilizará de servidor)
 </pre>
 
@@ -91,18 +91,18 @@ npm run build-prod
 cp -r ./sco-web-server-frontend/dist/sco-web-server/ ./sco-web-server-backend/dist/public/
 </pre>
 
-7- Mover el resultado de la compilación a la carpeta deploy
+7- Mover el resultado de la compilación a la carpeta dist
 <pre>
-mkdir deploy && cp -r ./sco-web-server-backend/dist/* ./deploy/
+mkdir dist && cp -r ./sco-web-server-backend/dist/* ./dist/
 </pre>
 
 8- Instalar dependencias // Copiar backend node_modules si la compilación se realizó en el mismo equipo que la ejecutará
 <pre>
 - Instalar dependencias
-  cd deploy && npm i
+  cd dist && npm i
 
 - Copiar node_modules
-  cd deploy && cp -r ../sco-web-server-backend/node_modules .
+  cd dist && cp -r ../sco-web-server-backend/node_modules .
 </pre>
 
 9- Iniciar aplicación con PM2
@@ -271,4 +271,8 @@ http://yourhost:appPort
 - Al seleccionar un archivo con click izquierdo, se abrirá el panel de acciones
 - En este panel estan las opciones descargar, copiar, cortar y eliminar
 - Cuando se seleccione la opcion copiar / cortar, en el panel superior se activará el botón con el mismo icono de la opción, y permitirá pegar en la ruta actual
-- Los botones superiores de pegar (Copia y Cortar), estarán deshabilitado siempre que no se seleccione la opción copiar o cortar del panel de acciones de un archivo
+- Los botones superiores de pegar (Copia y Cortar), estarán deshabilitados siempre que no se seleccione la opción copiar o cortar del panel de acciones de un archivo
+
+# Ejemplo
+- http://scoapps.es:9000/#/node-server
+- 
