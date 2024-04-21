@@ -129,20 +129,12 @@ http://yourhost:appPort
 # Instalación con docker
 1- Clonar el repositorio
 <pre>
-git clone https://github.com/SCO-SantiComeras/sco-web-server.git \
-&& cp -r -a ./sco-web-server/* ./ \
-&& cp -r ./sco-web-server/.gitignore ./.gitignore \
-&& cp -r ./sco-web-server/.dockerignore ./.dockerignore \
-&& cp -r ./sco-web-server/.git ./.git \
-&& mkdir nodeserver \
-&& chmod -R 777 ./sco-web-server \
-&& sleep 3 \
-&& rm -f -r ./sco-web-server
+git clone https://github.com/SCO-SantiComeras/sco-web-server.git
 </pre>
 
-2- Situar el repositorio en la rama main
+2- Situarse en el directorio del repositorio
 <pre>
-git switch main
+cd sco-web-server
 </pre>
 
 3- Modificar los valores necesarios en los ficheros de entorno del backend
@@ -163,6 +155,8 @@ MONGO_DATABASE: sco-web-server (Nombre de la base de datos Mongodb)
 # WEBSOCKETS
 WEBSOCKETS_PORT: 9001 (Puerto en el que trabajarán los websockets de la aplicación)
 WEBSOCKETS_ORIGIN: http://scoapps.es,http://scoapps.es:80,http://scoapps.es:9000,http://scoapps.es:9001 (Origen de las peticiones de la aplicación)
+
+# AUTH_EXPIRES_IN: 7d (Tiempo que durará la sesión iniciada antes de que expire)
 
 # POPULATE
 POPULATE_PUBLIC_USER: true (Indicador para crear o no un usuario público no administrador)
@@ -185,13 +179,15 @@ POPULATE_PUBLIC_USER: true (Indicador para crear o no un usuario público no adm
 	- (/app/backend/dist/public/nodeserver)
 </pre>
 
-4- Descargar los ficheros de docker (https://github.com/SCO-SantiComeras/sco-docker-files/tree/main/sco-web-server/root)
+5- Descargar los ficheros de docker (https://github.com/SCO-SantiComeras/sco-docker-files/tree/main/sco-web-server/root)
 <pre>
+#Los ficheros de docker se tienen que situar en la carpeta raíz del repositorio ('sco-web-server')
+
 - Dockerfile.prod
 - docker-compose.prod.yml
 </pre>
 
-6- Si se han modificado los puertos de la aplicación en los ficheros de entornos, modificar el mapeo de puertos del fichero docker-compose.prod.yml
+6- Si se han modificado los puertos de la aplicación en los ficheros de entornos, modificar el mapeo de puertos del fichero docker-compose.prod.yml, en caso contrario saltar este paso
 <pre>
 version: "1.1.1"
 
@@ -220,17 +216,32 @@ volumes:
   sco-web-server:
 </pre>
 
-7- Crear imagen del contenedor de docker
+7- Crear la carpeta para el volumen de docker (Los ficheros del servidor de la máquina de docker se vinculará con esta carpeta)
 <pre>
- docker compose -f docker-compose.yml up --build
+#La carpeta 'nodeserver' necesita perisos de escritura por Otros en el caso de linux
+
+cd ..
+mkdir ./sco-web-server/nodeserver
+chmod -R 777 sco-web-server/
+cd sco-web-server/
+
+||
+
+mkdir nodeserver
+chmod -R 777 nodeserver
 </pre>
 
-8- Acceder a la aplicación
+8- Crear imagen del contenedor de docker
+<pre>
+docker compose -f docker-compose.prod.yml up --build
+</pre>
+
+9- Acceder a la aplicación
 <pre>
 http://yourhost:appPort
 </pre>
 
-9- Usuarios por defecto
+10- Usuarios por defecto
 <pre>
 - admin // Scoserver123456!
 - public // Scoserver123456!
