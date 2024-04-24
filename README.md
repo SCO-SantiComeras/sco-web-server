@@ -122,8 +122,8 @@ http://yourhost:appPort
 
 12- Usuarios por defecto
 <pre>
-- admin // Scoserver123456!
-- public // Scoserver123456!
+- admin // Admin123456!
+- public // Public123456!
 </pre>
 
 # Instalación con docker
@@ -243,8 +243,8 @@ http://yourhost:appPort
 
 10- Usuarios por defecto
 <pre>
-- admin // Scoserver123456!
-- public // Scoserver123456!
+- admin // Admin123456!
+- public // Public123456!
 </pre>
 
 # Funciones de la aplicación
