@@ -275,3 +275,4 @@ http://yourhost:appPort
 
 # Ejemplo
 - http://scoapps.es:9000/#/node-server
+- Public // Public123456!
