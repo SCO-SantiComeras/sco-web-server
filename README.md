@@ -7,8 +7,6 @@ Además de su función principal como servidor web, SCO-Web Server también pued
 
 La aplicación proporciona un frontend intuitivo que te permite gestionar tus archivos fácilmente. Puedes añadir, copiar, eliminar y visualizar los archivos necesarios directamente desde la interfaz de usuario.
 
-[TOC]
-
 # Características principales
 
 - Simula ser un servidor web, como Apache2, pero con flexibilidad para trabajar junto con otros servidores web.
