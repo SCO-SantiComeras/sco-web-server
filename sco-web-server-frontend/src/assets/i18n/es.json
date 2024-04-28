@@ -251,7 +251,8 @@
     "label.node-server.component.delete.file.modal.confirm": "Eliminar",
     "label.node-server.component.delete.file.modal.cancel": "Cancelar",
     "label.node-server.component.delete.file.modal.title": "Eliminar",
-    "label.node-server.component.delete.file.modal.content": "¿Realmente quiere eliminar el fichero?",
+    "label.node-server.component.delete.file.modal.content": "¿Realmente quiere eliminar el archivo?",
+    "label.node-server.component.delete.file.modal.content.f": "¿Realmente quiere eliminar la carpeta?",
 
     "label.node-server.component.file.options.modal.confirm": "Cerrar",
     "label.node-server.component.file.options.modal.cancel": "Cancelar",

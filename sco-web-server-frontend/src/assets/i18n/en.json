@@ -252,6 +252,7 @@
     "label.node-server.component.delete.file.modal.cancel": "Cancel",
     "label.node-server.component.delete.file.modal.title": "Delete",
     "label.node-server.component.delete.file.modal.content": "Do you really want to delete the file?",
+    "label.node-server.component.delete.file.modal.content.f": "Do you really want to delete the folder?",
 
     "label.node-server.component.file.options.modal.confirm": "Close",
     "label.node-server.component.file.options.modal.cancel": "Cancel",

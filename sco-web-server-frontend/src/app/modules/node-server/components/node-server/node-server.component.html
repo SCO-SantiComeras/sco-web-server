@@ -251,9 +251,9 @@
   [forceClose]="false" 
   [closeWhenConfirm]="false"
 
-  [width]="30"
-  [height]="21"
-  [sizeUnity]="'percentage'"
+  [width]="scoDisplayResize.mode == constantsService.ScoResolutionConstants.MOBILE ? 300 : 500"
+  [height]="200"
+  [sizeUnity]="'px'"
 
   (close)="onCancelCreateFolderModal($event)"
   (accept)="onConfirmCreateFolderModal($event)" >
@@ -279,26 +279,26 @@
   [forceClose]="false" 
   [closeWhenConfirm]="false"
 
-  [width]="30"
-  [height]="20"
-  [sizeUnity]="'percentage'"
+  [width]="scoDisplayResize.mode == constantsService.ScoResolutionConstants.MOBILE ? 300 : 500"
+  [height]="210"
+  [sizeUnity]="'px'"
 
   (close)="onCancelDeleteFileModal($event)"
   (accept)="onConfirmDeleteFileModal($event)" >
     <div modal-title>
       <span *ngIf="selectedDeleteFile">
-        {{'label.node-server.component.delete.file.modal.title' | scoTranslate}} 
-        {{selectedDeleteFile.type == FILE_TYPES_CONSTANTS.DIRECTORY 
-          ? ('label.directory' | scoTranslate) 
-          : ('label.file' | scoTranslate)
-        }}: 
         {{selectedDeleteFile.name}}
       </span>
     </div>
     <div modal-content class="p-0 m-0">
       <div class="row p-0 m-0">
         <div class="col-12 p-0 m-0 text-center" *ngIf="selectedDeleteFile">
-          <span>{{'label.node-server.component.delete.file.modal.content' | scoTranslate}}</span>
+          <span>
+            {{selectedDeleteFile.type == FILE_TYPES_CONSTANTS.DIRECTORY 
+              ? ('label.node-server.component.delete.file.modal.content.f' | scoTranslate) 
+              : ('label.node-server.component.delete.file.modal.content' | scoTranslate)
+            }}
+          </span>
         </div>
       </div>
     </div>
@@ -313,19 +313,14 @@
   [forceClose]="true" 
   [closeWhenConfirm]="false"
 
-  [width]="20"
-  [height]="35"
-  [sizeUnity]="'percentage'"
+  [width]="scoDisplayResize.mode == constantsService.ScoResolutionConstants.MOBILE ? 300 : 500"
+  [height]="285"
+  [sizeUnity]="'px'"
 
   (close)="onCancelActionsPanelModal($event)"
   (accept)="onConfirmActionsPanelModal($event)" >
     <div modal-title>
       <span *ngIf="selectedActionPanelFile">
-        {{'label.node-server.component.file.options.modal.title' | scoTranslate}} 
-        {{selectedActionPanelFile.type == FILE_TYPES_CONSTANTS.DIRECTORY 
-          ? ('label.directory' | scoTranslate) 
-          : ('label.file' | scoTranslate)
-        }}: 
         {{selectedActionPanelFile.name}}
       </span>
     </div>
