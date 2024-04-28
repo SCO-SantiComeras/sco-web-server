@@ -618,8 +618,12 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
   /* Download Server Backup Actions */
   onDownloadServerBackup() {
+    this.spinnerService.showSpinner();
+
     this.store.dispatch(new DownloadBackup()).subscribe({
       next: () => {
+        this.spinnerService.hideSpinner();
+
         const success: boolean = this.store.selectSnapshot(NodeServerState.success);
         if (!success) {
           this.toastService.addErrorMessage(
@@ -645,6 +649,8 @@ export class NodeServerComponent implements OnInit, OnDestroy {
         );
       },
       error: () => {
+        this.spinnerService.hideSpinner();
+
         this.toastService.addErrorMessage(
           this.translateService.getTranslate('label.error'),
           this.store.selectSnapshot(NodeServerState.errorMsg),
@@ -668,8 +674,11 @@ export class NodeServerComponent implements OnInit, OnDestroy {
       downloadFolderPath = `${this.currentPath}${$event.name}`;
     }
     
+    this.spinnerService.showSpinner();
     this.store.dispatch(new DownloadFolder({ nodeServer: { path: downloadFolderPath }})).subscribe({
       next: () => {
+        this.spinnerService.hideSpinner();
+
         const success: boolean = this.store.selectSnapshot(NodeServerState.success);
         if (!success) {
           this.toastService.addErrorMessage(
@@ -695,6 +704,8 @@ export class NodeServerComponent implements OnInit, OnDestroy {
         );
       },
       error: () => {
+        this.spinnerService.hideSpinner();
+
         this.toastService.addErrorMessage(
           this.translateService.getTranslate('label.error'),
           this.store.selectSnapshot(NodeServerState.errorMsg),
@@ -709,8 +720,11 @@ export class NodeServerComponent implements OnInit, OnDestroy {
       downloadFilePath = `${this.currentPath}${$event.name}`;
     }
     
+    this.spinnerService.showSpinner();
     this.store.dispatch(new DownloadFile({ nodeServer: { path: downloadFilePath }})).subscribe({
       next: () => {
+        this.spinnerService.hideSpinner();
+
         const success: boolean = this.store.selectSnapshot(NodeServerState.success);
         if (!success) {
           this.toastService.addErrorMessage(
@@ -736,6 +750,8 @@ export class NodeServerComponent implements OnInit, OnDestroy {
         );
       },
       error: () => {
+        this.spinnerService.hideSpinner();
+
         this.toastService.addErrorMessage(
           this.translateService.getTranslate('label.error'),
           this.store.selectSnapshot(NodeServerState.errorMsg),
