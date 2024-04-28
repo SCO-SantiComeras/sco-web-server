@@ -160,8 +160,8 @@
             </div>  
 
             <!-- Table View -->
-            <div class="col-12 sco-node-server__container__body pl-2 pr-2" [hidden]="!tableView">
-              <table class="table">
+            <div class="col-12 sco-node-server__container__body pl-2 pr-2 " [hidden]="!tableView">
+              <table class="table table-responsive">
                 <thead>
                   <tr>
                     <th scope="col"></th>
@@ -199,30 +199,32 @@
 
             <!-- Block View -->
             <div class="col-12 sco-node-server__container__body-list p-0 m-0" [hidden]="tableView">
-              <div class="row w-100 p-0 m-0 pl-2 pr-2" *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
-                <div class="col-2 sco-node-server__container__body-list--element" 
-                  *ngFor="let file of nodeServerFiles; let i = index;" 
-                  [id]="('list-'+i)"
-                >
-                 
-                  <!-- Icon Container -->
-                  <div class="d-flex justify-content-center" 
-                    [id]="('list-icon-'+i)" 
-                    (click)="onSelectItem(file, i)"
+              <div class="table-responsive">
+                <div class="row w-100 p-0 m-0 pl-2 pr-2" *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
+                  <div class="col-2 sco-node-server__container__body-list--element" 
+                    *ngFor="let file of nodeServerFiles; let i = index;" 
+                    [id]="('list-'+i)"
                   >
-                    <img class="sco-node-server__container__body-list--icon" 
-                      [id]="('list-icon-image-'+i)"
-                      [src]="'../../../../../assets/icons/' + file.image"
+                  
+                    <!-- Icon Container -->
+                    <div class="d-flex justify-content-center" 
+                      [id]="('list-icon-'+i)" 
+                      (click)="onSelectItem(file, i)"
                     >
-                  </div>
+                      <img class="sco-node-server__container__body-list--icon" 
+                        [id]="('list-icon-image-'+i)"
+                        [src]="'../../../../../assets/icons/' + file.image"
+                      >
+                    </div>
 
-                  <!-- Text Container -->
-                  <div class="sco-node-server__container__body-list--title" 
-                    [id]="('list-name-'+i)"
-                  >
-                    <span [id]="('list-name-span-'+i)">{{file.name}}</span>
-                  </div>
+                    <!-- Text Container -->
+                    <div class="sco-node-server__container__body-list--title" 
+                      [id]="('list-name-'+i)"
+                    >
+                      <span [id]="('list-name-span-'+i)">{{file.name}}</span>
+                    </div>
 
+                  </div>
                 </div>
               </div>
             </div>
