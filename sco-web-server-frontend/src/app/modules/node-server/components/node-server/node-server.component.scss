@@ -1,5 +1,8 @@
 .sco-node-server {
     
+    padding: 0px !important;
+    margin: 0px !important;
+
     sco-card {
         .sco-card { 
             width: 100%;
@@ -32,8 +35,7 @@
 
     &__container {
         width: 100%;
-        overflow: auto; 
-        max-height: calc(100vh - 162px); 
+        overflow-y: auto;
         display: flex;
         padding: 0;
 
@@ -81,7 +83,6 @@
             width: 100%;
             padding: 0;
             margin: 0;
-            margin-top: 20px;
 
             &--row {
                 &:hover {

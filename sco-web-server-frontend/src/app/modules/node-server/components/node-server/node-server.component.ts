@@ -1,7 +1,7 @@
 import { UtilsService } from 'src/app/modules/shared/utils/utils.service';
 import { cloneDeep } from 'lodash-es';
 import { AppState } from './../../../../store/app.state';
-import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { ScoConstantsService, ScoDisplayResize, ScoModalService, ScoPdfViewerService, ScoSpinnerService, ScoToastService, ScoTranslateService } from 'sco-angular-components';
@@ -19,7 +19,7 @@ import { NodeServerDownload } from '../../model/node-server-download';
   styleUrls: ['./node-server.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class NodeServerComponent implements OnInit, OnDestroy {
+export class NodeServerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Select(AppState.scoDisplayResize) scoDisplayResize$: Observable<ScoDisplayResize>;
   public scoDisplayResize: ScoDisplayResize;
@@ -67,6 +67,10 @@ export class NodeServerComponent implements OnInit, OnDestroy {
 
   /* Modals Open Flag */
   public isAnyModalOpen: boolean;
+
+  @ViewChild('subHeader') subHeader: ElementRef;
+  public contentHeight: number = 0;
+  public contentMargin: number = 0;
   
   constructor(
     private readonly store: Store,
@@ -120,6 +124,12 @@ export class NodeServerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchNodeServerFiles();
     this.notifyChangeNodeServer();
+  }
+
+  ngAfterViewInit(): void {
+    // -60 is the sco-app header size
+    this.contentHeight = window.innerHeight - 60 - this.subHeader.nativeElement.offsetHeight;
+    this.contentMargin =  this.subHeader.nativeElement.offsetHeight;
   }
 
   /* Subscription To Node Server Files */

@@ -1,174 +1,173 @@
-<div class="row sco-node-server">
+<div class="row no-gutters sco-node-server" style="height: {{contentHeight}}px; min-height: {{contentHeight}}px;">
   <div class="col-12">
+    <div class="col-12 sco-node-server__container">
+      <div class="row w-100 p-0 m-0">
 
-    <sco-card [showTitle]="true">
-      <p card-title>{{'label.node-server.component.card.title' | scoTranslate}}</p>
-      <div card-content class="row m-0 p-0">
-        <div class="col-12 sco-node-server__container">
+        <div class="w-100 position-fixed" [ngStyle]="{'z-index': 9999}" #subHeader>
 
-          <div class="row w-100 p-0 m-0">
+          <!-- Input Path Header -->
+          <div class="col-12 pt-1 pb-1 sco-node-server__container__header-input">
+            <sco-button class="sco-node-server__container__header-input--button pr-2 pt-1"
+              [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+              [icon]="'fa fa-eye'"
+              [transparent]="false"
+              (action)="onGoToViewServer()">
+            </sco-button>
+            <sco-input class="w-100"
+              [(ngModel)]="showCurrentPath"
+              [readonly]="false"
+              [showLabel]="false">
+            </sco-input>
+            <sco-button class="sco-node-server__container__header-input--button pl-2 pt-1"
+              [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+              [icon]="'fa fa-check'"
+              [transparent]="false"
+              (action)="onFilterCurrentPath()">
+            </sco-button>
+          </div>
 
-            <!-- Input Path Header -->
-            <div class="col-12 pt-1 pb-1 sco-node-server__container__header-input">
-              <sco-button class="sco-node-server__container__header-input--button pr-2 pt-1"
+          <!-- Button Actions Header -->
+          <div class="col-12 sco-node-server__container__header pb-5">
+            <!-- Left Side -->
+            <div class="col-3 sco-node-server__container__header--left">
+              <sco-button class="sco-node-server__container__header--button"
                 [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                [icon]="'fa fa-eye'"
+                [icon]="tableView ? 'fa fa-table' : 'fa fa-list'"
                 [transparent]="false"
-                (action)="onGoToViewServer()">
+                (action)="tableView = !tableView;">
               </sco-button>
-              <sco-input class="w-100"
-                [(ngModel)]="showCurrentPath"
-                [readonly]="false"
-                [showLabel]="false">
-              </sco-input>
-              <sco-button class="sco-node-server__container__header-input--button pl-2 pt-1"
+
+              <sco-button class="sco-node-server__container__header--button pl-2"
                 [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                [icon]="'fa fa-check'"
+                [icon]="'fa fa-home'"
+                [disabled]="currentPath == '/'"
                 [transparent]="false"
-                (action)="onFilterCurrentPath()">
+                (action)="onClickHomeButton()">
+              </sco-button>
+
+              <sco-button class="sco-node-server__container__header--button pl-2"
+                [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                [icon]="'fa fa-level-up'"
+                [transparent]="false"
+                [disabled]="currentPath == '/' || currentPath == undefined"
+                (action)="onLevelUpButton()">
               </sco-button>
             </div>
 
-            <!-- Button Actions Header -->
-            <div class="col-12 sco-node-server__container__header pb-5">
+            <!-- Center Side -->
+            <div class="col-5 sco-node-server__container__header--center">
 
-              <!-- Left Side -->
-              <div class="col-3 sco-node-server__container__header--left">
+              <!-- Left SIde -->
+              <div class="col-8 p-0 m-0 d-flex justify-content-center">
                 <sco-button class="sco-node-server__container__header--button"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="tableView ? 'fa fa-table' : 'fa fa-list'"
+                  [icon]="'fa fa-clone'"
                   [transparent]="false"
-                  (action)="tableView = !tableView;">
+                  [disabled]="selectedCopyFile == undefined"
+                  (action)="onCopyPasteFile()">
                 </sco-button>
 
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-home'"
-                  [disabled]="currentPath == '/'"
+                  [icon]="'fa fa-cut'"
                   [transparent]="false"
-                  (action)="onClickHomeButton()">
+                  [disabled]="selectedCutFile == undefined"
+                  (action)="onCutPasteFile()">
                 </sco-button>
 
-                <sco-button class="sco-node-server__container__header--button pl-2"
+                <sco-button class="sco-node-server__container__header--button"
+                  [ngClass]="{
+                    'pl-5': scoDisplayResize.mode == constantsService.ScoResolutionConstants.WEB,
+                    'pl-2': scoDisplayResize.mode != constantsService.ScoResolutionConstants.WEB
+                  }"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-level-up'"
+                  [icon]="'fa fa-folder'"
                   [transparent]="false"
-                  [disabled]="currentPath == '/' || currentPath == undefined"
-                  (action)="onLevelUpButton()">
+                  (action)="onClickCreateFolder()">
                 </sco-button>
-              </div>
 
-              <!-- Center Side -->
-              <div class="col-5 sco-node-server__container__header--center">
-
-                <!-- Left SIde -->
-                <div class="col-8 p-0 m-0 d-flex justify-content-center">
-                  <sco-button class="sco-node-server__container__header--button"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-clone'"
-                    [transparent]="false"
-                    [disabled]="selectedCopyFile == undefined"
-                    (action)="onCopyPasteFile()">
-                  </sco-button>
-
-                  <sco-button class="sco-node-server__container__header--button pl-2"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-cut'"
-                    [transparent]="false"
-                    [disabled]="selectedCutFile == undefined"
-                    (action)="onCutPasteFile()">
-                  </sco-button>
-
-                  <sco-button class="sco-node-server__container__header--button"
-                    [ngClass]="{
-                      'pl-5': scoDisplayResize.mode == constantsService.ScoResolutionConstants.WEB,
-                      'pl-2': scoDisplayResize.mode != constantsService.ScoResolutionConstants.WEB
-                    }"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-folder'"
-                    [transparent]="false"
-                    (action)="onClickCreateFolder()">
-                  </sco-button>
-
-                  <sco-file-uploader class="pt-1 pl-2"
-                    [showLabel]="false"
-                    [label]="''"
-                    [required]="false"
-
-                    [multipleFiles]="true"
-                    [acceptFileTypes]="[]"
-
-                    [showBorder]="false"
-                    [colorBorder]="''"
-
-                    [labelSelectBtn]="''"
-                    [iconSelectBtn]="'fa fa-upload'"
-
-                    [labelUploadBtn]="''"
-                    [showUploadBtn]="false"
-                    [iconUploadBtn]="''"
-
-                    [labelCleanBtn]="''"
-                    [showCleanBtn]="false"
-                    [iconCleanBtn]="''"
-
-                    [base64]="false"
-                    [labelBase64Title]="''"
-                    [base64TextRows]="0"
-
-                    (selectFiles)="onSelectFiles($event)"
-                    (uploadBtn)="undefined"
-                    (cleanBtn)="undefined"
-                    (copyBtn)="undefined">
-                  </sco-file-uploader>
-                </div>
-
-                <!-- Right Side -->
-                <div class="col-4 p-0 m-0 d-flex justify-content-end">
-                  <sco-button class="sco-node-server__container__header--button pl-2"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-refresh'"
-                    [transparent]="false"
-                    (action)="onRefreshCurrentList()">
-                  </sco-button>
-
-                  <sco-button class="sco-node-server__container__header--button pl-2"
-                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                    [icon]="'fa fa-save'"
-                    [transparent]="false"
-                    (action)="onDownloadServerBackup()">
-                  </sco-button>
-                </div>
-              </div>
-              
-              <!-- Right SIde -->
-              <div class="col-4 sco-node-server__container__header--right">
-                <sco-input class="sco-node-server__container__header--filter"
-                  [(ngModel)]="filterFileNames"
+                <sco-file-uploader class="pt-1 pl-2"
                   [showLabel]="false"
-                  (inputKeyUp)="onFilterFileNames($event)">
-                </sco-input>
+                  [label]="''"
+                  [required]="false"
+
+                  [multipleFiles]="true"
+                  [acceptFileTypes]="[]"
+
+                  [showBorder]="false"
+                  [colorBorder]="''"
+
+                  [labelSelectBtn]="''"
+                  [iconSelectBtn]="'fa fa-upload'"
+
+                  [labelUploadBtn]="''"
+                  [showUploadBtn]="false"
+                  [iconUploadBtn]="''"
+
+                  [labelCleanBtn]="''"
+                  [showCleanBtn]="false"
+                  [iconCleanBtn]="''"
+
+                  [base64]="false"
+                  [labelBase64Title]="''"
+                  [base64TextRows]="0"
+
+                  (selectFiles)="onSelectFiles($event)"
+                  (uploadBtn)="undefined"
+                  (cleanBtn)="undefined"
+                  (copyBtn)="undefined">
+                </sco-file-uploader>
+              </div>
+
+              <!-- Right Side -->
+              <div class="col-4 p-0 m-0 d-flex justify-content-end">
+                <sco-button class="sco-node-server__container__header--button pl-2"
+                  [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                  [icon]="'fa fa-refresh'"
+                  [transparent]="false"
+                  (action)="onRefreshCurrentList()">
+                </sco-button>
 
                 <sco-button class="sco-node-server__container__header--button pl-2"
                   [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                  [icon]="'fa fa-close'"
+                  [icon]="'fa fa-save'"
                   [transparent]="false"
-                  (action)="onCleanFilterNames()">
+                  (action)="onDownloadServerBackup()">
                 </sco-button>
-              </div>  
+              </div>
+            </div>
+            
+            <!-- Right SIde -->
+            <div class="col-4 sco-node-server__container__header--right">
+              <sco-input class="sco-node-server__container__header--filter"
+                [(ngModel)]="filterFileNames"
+                [showLabel]="false"
+                (inputKeyUp)="onFilterFileNames($event)">
+              </sco-input>
 
+              <sco-button class="sco-node-server__container__header--button pl-2"
+                [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                [icon]="'fa fa-close'"
+                [transparent]="false"
+                (action)="onCleanFilterNames()">
+              </sco-button>
             </div>  
+          </div>  
 
-            <!-- Table View -->
-            <div class="col-12 sco-node-server__container__body pl-2 pr-2 " [hidden]="!tableView">
-              <table class="table table-responsive">
+        </div>
+
+        <div style="margin-top: {{contentMargin}}px;">
+          <!-- Table View -->
+          <div class="col-12 sco-node-server__container__body" [hidden]="!tableView">
+            <div class="table-responsive">
+              <table class="table">
                 <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">{{'label.node-server.component.table.name' | scoTranslate}}</th>
-                    <th scope="col">{{'label.node-server.component.table.size' | scoTranslate}}</th>
-                    <th scope="col">{{'label.node-server.component.table.type' | scoTranslate}}</th>
-                    <th scope="col">{{'label.node-server.component.table.modifiedDate' | scoTranslate}}</th>
+                  <tr style="min-width: 100vw !important;">
+                    <th scope="col" style="min-width: 10vw; max-width: 10vw;"></th>
+                    <th scope="col" style="min-width: 30vw; max-width: 30vw;">{{'label.node-server.component.table.name' | scoTranslate}}</th>
+                    <th scope="col" style="min-width: 20vw; max-width: 20vw;">{{'label.node-server.component.table.size' | scoTranslate}}</th>
+                    <th scope="col" style="min-width: 20vw; max-width: 20vw;">{{'label.node-server.component.table.type' | scoTranslate}}</th>
+                    <th scope="col" style="min-width: 20vw; max-width: 20vw;">{{'label.node-server.component.table.modifiedDate' | scoTranslate}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -187,8 +186,16 @@
                           [src]="'../../../../../assets/icons/' + file.image"
                         >
                       </th>
-                      <td [id]="('table-name-'+i)">{{file.name}}</td>
-                      <td [id]="('table-size-'+i)">{{file.size}}</td>
+                      <td [id]="('table-name-'+i)">
+                        <div style="min-width: 20vw; max-width: 20vw; overflow-x: auto;">
+                          {{file.name}}
+                        </div>
+                      </td>
+                      <td [id]="('table-size-'+i)">
+                        <div style="min-width: 20vw; max-width: 20vw; overflow-x: auto;">
+                          {{file.size}}
+                        </div>
+                      </td>
                       <td [id]="('table-typeDescription-'+i)">{{file.typeDescription}}</td>
                       <td [id]="('table-modifiedDate-'+i)">{{file.modifiedDate | date: 'dd-MM-yyy HH:mm:ss'}}</td> 
                     </tr>
@@ -196,51 +203,50 @@
                 </tbody>
               </table>
             </div>
+          </div>
 
-            <!-- Block View -->
-            <div class="col-12 sco-node-server__container__body-list p-0 m-0" [hidden]="tableView">
-              <div class="table-responsive">
-                <div class="row w-100 p-0 m-0 pl-2 pr-2" *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
-                  <div class="col-2 sco-node-server__container__body-list--element" 
-                    *ngFor="let file of nodeServerFiles; let i = index;" 
-                    [id]="('list-'+i)"
+          <!-- Block View -->
+          <div class="col-12 sco-node-server__container__body-list p-0 m-0" [hidden]="tableView">
+            <div class="table-responsive">
+              <div class="row w-100 p-0 m-0 pl-2 pr-2" *ngIf="nodeServerFiles && nodeServerFiles.length > 0">
+                <div class="col-2 sco-node-server__container__body-list--element" 
+                  *ngFor="let file of nodeServerFiles; let i = index;" 
+                  [id]="('list-'+i)"
+                >
+                
+                  <!-- Icon Container -->
+                  <div class="d-flex justify-content-center" 
+                    [id]="('list-icon-'+i)" 
+                    (click)="onSelectItem(file, i)"
                   >
-                  
-                    <!-- Icon Container -->
-                    <div class="d-flex justify-content-center" 
-                      [id]="('list-icon-'+i)" 
-                      (click)="onSelectItem(file, i)"
+                    <img class="sco-node-server__container__body-list--icon" 
+                      [id]="('list-icon-image-'+i)"
+                      [src]="'../../../../../assets/icons/' + file.image"
                     >
-                      <img class="sco-node-server__container__body-list--icon" 
-                        [id]="('list-icon-image-'+i)"
-                        [src]="'../../../../../assets/icons/' + file.image"
-                      >
-                    </div>
-
-                    <!-- Text Container -->
-                    <div class="sco-node-server__container__body-list--title" 
-                      [id]="('list-name-'+i)"
-                    >
-                      <span [id]="('list-name-span-'+i)">{{file.name}}</span>
-                    </div>
-
                   </div>
+
+                  <!-- Text Container -->
+                  <div class="sco-node-server__container__body-list--title" 
+                    [id]="('list-name-'+i)"
+                  >
+                    <span [id]="('list-name-span-'+i)">{{file.name}}</span>
+                  </div>
+
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- No elements -->
-            <div class="col-12 pt-5" *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
-              <div class="sco-node-server__container__no-elements">
-                <span>{{'label.node-server.components.no.elements' | scoTranslate}}</span>
-              </div>
+          <!-- No elements -->
+          <div class="col-12 pt-5" *ngIf="!nodeServerFiles || (nodeServerFiles && nodeServerFiles.length == 0)">
+            <div class="sco-node-server__container__no-elements">
+              <span>{{'label.node-server.components.no.elements' | scoTranslate}}</span>
             </div>
-            
           </div>
         </div>
+        
       </div>
-    </sco-card>
-
+    </div>
   </div>
 </div>
 
