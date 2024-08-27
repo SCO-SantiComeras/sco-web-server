@@ -272,7 +272,3 @@ http://yourhost:appPort
 - En este panel estan las opciones descargar, copiar, cortar y eliminar
 - Cuando se seleccione la opcion copiar / cortar, en el panel superior se activará el botón con el mismo icono de la opción, y permitirá pegar en la ruta actual
 - Los botones superiores de pegar (Copia y Cortar), estarán deshabilitados siempre que no se seleccione la opción copiar o cortar del panel de acciones de un archivo
-
-# Ejemplo
-- http://scoapps.es:9000/#/node-server
-- Public // Public123456!
