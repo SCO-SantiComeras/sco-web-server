@@ -47,17 +47,18 @@ const routes: Routes = [
   },
 
   {
-    path: 'node-server',
+    path: '',
     component: NodeServerComponent,
     canActivate: [AuthGuard],
   },
   
   //
-  { path: '', redirectTo: 'node-server', pathMatch: 'full'},
+  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true } )],
+  imports: [RouterModule.forRoot(routes, { useHash: false } )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
