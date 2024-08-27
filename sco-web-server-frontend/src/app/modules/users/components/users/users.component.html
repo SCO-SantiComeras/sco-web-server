@@ -1,307 +1,311 @@
-<sco-form-crud
-  [showFilterPanel]="true"
+<div class="row">
+  <div class="col-12 content">
+    <sco-form-crud
+      [showFilterPanel]="true"
 
-  [showChangeView]="true"
-  [changeViewTableBtnIcon]="'fa fa-table'"
-  [changeViewTableBtnTransparent]="true"
-  [changeViewBlocklistBtnIcon]="'fa fa-th-large'"
-  [changeViewBlocklistBtnTransparent]="true"
+      [showChangeView]="true"
+      [changeViewTableBtnIcon]="'fa fa-table'"
+      [changeViewTableBtnTransparent]="true"
+      [changeViewBlocklistBtnIcon]="'fa fa-th-large'"
+      [changeViewBlocklistBtnTransparent]="true"
 
-  [showExcelDownloadBtn]="true"
-  [excelDownloadBtnIcon]="'fa fa-download'"
-  [excelDownloadBtnTransparent]="true"
+      [showExcelDownloadBtn]="true"
+      [excelDownloadBtnIcon]="'fa fa-download'"
+      [excelDownloadBtnTransparent]="true"
 
-  [addElementBtnIcon]="'fa fa-plus'"
-  [addElementBtnTransparent]="true"
+      [addElementBtnIcon]="'fa fa-plus'"
+      [addElementBtnTransparent]="true"
 
-  [enableKeyboardBinds]="true"
-  [tableDefaultView]="true"
-  [tableCols]="cols"
-  [tableItems]="tableItems"
-  [blockItems]="blockItems"
-  [tableItemsPage]="8"
-  [blocklistItemsPage]="5"
-  [labelTotalResults]="'label.pagination.total.elements' | scoTranslate"
-  [labelNoResults]="'label.pagination.no.elements' | scoTranslate"
-  [showActions]="true"
-  [showTotalItems]="true"
-  [canSelectItems]="false"
-  [previousLabel]="'label.pagination.previous' | scoTranslate"
-  [nextLabel]="'label.pagination.next' | scoTranslate"
-  [paginationOnTop]="false"
-  [closeFormWhenCancel]="(CONFIG_CONSTANTS.CLOSE_FORM_WHEN_CANCEL | scoConfig) || false"
+      [enableKeyboardBinds]="true"
+      [tableDefaultView]="true"
+      [tableCols]="cols"
+      [tableItems]="tableItems"
+      [blockItems]="blockItems"
+      [tableItemsPage]="8"
+      [blocklistItemsPage]="5"
+      [labelTotalResults]="'label.pagination.total.elements' | scoTranslate"
+      [labelNoResults]="'label.pagination.no.elements' | scoTranslate"
+      [showActions]="true"
+      [showTotalItems]="true"
+      [canSelectItems]="false"
+      [previousLabel]="'label.pagination.previous' | scoTranslate"
+      [nextLabel]="'label.pagination.next' | scoTranslate"
+      [paginationOnTop]="false"
+      [closeFormWhenCancel]="(CONFIG_CONSTANTS.CLOSE_FORM_WHEN_CANCEL | scoConfig) || false"
 
-  [showTableIndex]="true"
-  [showTableAddBtn]="true"
-  [tableActionsMarginBottom]="40"
+      [showTableIndex]="true"
+      [showTableAddBtn]="true"
+      [tableActionsMarginBottom]="40"
 
-  [showBlocklistHeader]="false"
-  [showBlocklistInfoAdditional]="false"
-  [showBlocklistBorder]="true"
-  [blocklistActionsMarginBottom]="40"
+      [showBlocklistHeader]="false"
+      [showBlocklistInfoAdditional]="false"
+      [showBlocklistBorder]="true"
+      [blocklistActionsMarginBottom]="40"
 
-  [formShowTitle]="true"
-  [formCenterTitle]="true"
-  [formPadding]="true"
-  [formNewItemTitle]="'label.users.component.form.title.new' | scoTranslate"
-  [formUpdateItemTitle]="'label.users.component.form.title.update' | scoTranslate"
-  [formUpdateItemTitleProperty]="'name'"
-  [formButtonsPosition]="constantsService.ScoFormCrudConstants.FORM_BUTTONS_POSITION_RIGHT"
-  [formButtonsPaddingClasses]="'pl-5 pr-5'"
-  [formCancelButtonLabel]="'label.cancel' | scoTranslate"
-  [formCreateButtonLabel]="'label.create' | scoTranslate"
-  [formUpdateButtonLabel]="'label.update' | scoTranslate"
-  [formBackButton]="(CONFIG_CONSTANTS.FORM_BACK_BUTTON | scoConfig) || false"
-  [formBackButtonIcon]="'fa fa-arrow-left'"
-  [formBackButtonTransparent]="true"
-  [formBackButtonPosition]="constantsService.ScoFormCrudConstants.FORM_BUTTONS_POSITION_LEFT"
-  [formBackButtonPaddingClasses]="'mb-2'"
-  [formAlwaysVisible]="scoDisplayResize.mode != constantsService.ScoResolutionConstants.WEB
-    ? (CONFIG_CONSTANTS.FORM_ALWAYS_VISIBLE | scoConfig)
-    : !(CONFIG_CONSTANTS.FORM_ALWAYS_VISIBLE | scoConfig)
-  "
-  
-  [deleteModalConfirmLabel]="'label.delete' | scoTranslate"
-  [deleteModalCancelLabel]="'label.cancel' | scoTranslate"
-  [deleteModalTitle]="'label.users.component.modal.delete.title' | scoTranslate"
-  [deleteModalContent]="'label.users.component.modal.delete.content' | scoTranslate"
-  [elementSelectedProperty]="'name'"
+      [formShowTitle]="true"
+      [formCenterTitle]="true"
+      [formPadding]="true"
+      [formNewItemTitle]="'label.users.component.form.title.new' | scoTranslate"
+      [formUpdateItemTitle]="'label.users.component.form.title.update' | scoTranslate"
+      [formUpdateItemTitleProperty]="'name'"
+      [formButtonsPosition]="constantsService.ScoFormCrudConstants.FORM_BUTTONS_POSITION_RIGHT"
+      [formButtonsPaddingClasses]="'pl-5 pr-5'"
+      [formCancelButtonLabel]="'label.cancel' | scoTranslate"
+      [formCreateButtonLabel]="'label.create' | scoTranslate"
+      [formUpdateButtonLabel]="'label.update' | scoTranslate"
+      [formBackButton]="(CONFIG_CONSTANTS.FORM_BACK_BUTTON | scoConfig) || false"
+      [formBackButtonIcon]="'fa fa-arrow-left'"
+      [formBackButtonTransparent]="true"
+      [formBackButtonPosition]="constantsService.ScoFormCrudConstants.FORM_BUTTONS_POSITION_LEFT"
+      [formBackButtonPaddingClasses]="'mb-2'"
+      [formAlwaysVisible]="scoDisplayResize.mode != constantsService.ScoResolutionConstants.WEB
+        ? (CONFIG_CONSTANTS.FORM_ALWAYS_VISIBLE | scoConfig)
+        : !(CONFIG_CONSTANTS.FORM_ALWAYS_VISIBLE | scoConfig)
+      "
+      
+      [deleteModalConfirmLabel]="'label.delete' | scoTranslate"
+      [deleteModalCancelLabel]="'label.cancel' | scoTranslate"
+      [deleteModalTitle]="'label.users.component.modal.delete.title' | scoTranslate"
+      [deleteModalContent]="'label.users.component.modal.delete.content' | scoTranslate"
+      [elementSelectedProperty]="'name'"
 
-  (onDownloadExcel)="onDownloadExcel($event)"
-  (itemSelected)="onItemSelected($event)"
-  (actionSelected)="onActionSelected($event)"
-  (changePage)="onChangePage($event)"
-  (closeOptions)="onCloseOptions($event)"
-  (goToCreate)="onGoToCreate($event)"
-  (onFormCancel)="onFormCancel($event)"
-  (onFormConfirm)="onFormConfirm($event)"
-  (onFormClose)="onFormClose($event)"
+      (onDownloadExcel)="onDownloadExcel($event)"
+      (itemSelected)="onItemSelected($event)"
+      (actionSelected)="onActionSelected($event)"
+      (changePage)="onChangePage($event)"
+      (closeOptions)="onCloseOptions($event)"
+      (goToCreate)="onGoToCreate($event)"
+      (onFormCancel)="onFormCancel($event)"
+      (onFormConfirm)="onFormConfirm($event)"
+      (onFormClose)="onFormClose($event)"
 
-  (onConfirmDeleteModal)="onConfirmDeleteModal($event)"
-  (onCloseDeleteModal)="onCloseDeleteModal($event)"
-> 
-  <ng-template #templateFilter>
-    <sco-accordion [title]="'Label.filter.data' | scoTranslate" [open]="false"> 
-      <div content-accordion class="row">
-        <div class="col-12">
-          <div class="row form-group">
-            <div class="col-3">
-              <sco-input
-                [(ngModel)]="filter._id"
-                [label]="'label.id' | scoTranslate"
-                [showLabel]="true"  
-                [required]="false" >
-              </sco-input>
-            </div>
-            <div class="col-3">
-              <sco-input
-                [(ngModel)]="filter.name"
-                [label]="'label.users.component.input.name' | scoTranslate"
-                [showLabel]="true"  
-                [required]="false" >
-              </sco-input>
-            </div>
-            <div class="col-3">
-              <sco-input
-                [(ngModel)]="filter.email"
-                [label]="'label.users.component.input.email' | scoTranslate"
-                [showLabel]="true"  
-                [required]="false" >
-              </sco-input>
-            </div>
-            <div class="col-3">
-              <sco-dropdown 
-                [label]="'label.users.component.input.active' | scoTranslate"
-                [showLabel]="true"  
-                [required]="false" 
-                [options]="[
-                  { label: ('label.all' | scoTranslate), value: undefined },
-                  { label: ('label.yes' | scoTranslate), value: true },
-                  { label: ('label.no' | scoTranslate), value: false },
-                ]"
-                [(ngModel)]="filter.active">
-              </sco-dropdown>
-            </div>
-            <div class="col-3">
-              <sco-dropdown *ngIf="roleOptions && roleOptions.length > 0"
-                [label]="'label.users.component.input.role' | scoTranslate"
-                [showLabel]="true"  
-                [required]="false" 
-                [options]="roleFilterOptions"
-                (selectItem)="filter.role = $event && $event.value && $event.value.name ? $event.value.name: undefined;">
-              </sco-dropdown>
+      (onConfirmDeleteModal)="onConfirmDeleteModal($event)"
+      (onCloseDeleteModal)="onCloseDeleteModal($event)"
+    > 
+      <ng-template #templateFilter>
+        <sco-accordion [title]="'Label.filter.data' | scoTranslate" [open]="false"> 
+          <div content-accordion class="row">
+            <div class="col-12">
+              <div class="row form-group">
+                <div class="col-3">
+                  <sco-input
+                    [(ngModel)]="filter._id"
+                    [label]="'label.id' | scoTranslate"
+                    [showLabel]="true"  
+                    [required]="false" >
+                  </sco-input>
+                </div>
+                <div class="col-3">
+                  <sco-input
+                    [(ngModel)]="filter.name"
+                    [label]="'label.users.component.input.name' | scoTranslate"
+                    [showLabel]="true"  
+                    [required]="false" >
+                  </sco-input>
+                </div>
+                <div class="col-3">
+                  <sco-input
+                    [(ngModel)]="filter.email"
+                    [label]="'label.users.component.input.email' | scoTranslate"
+                    [showLabel]="true"  
+                    [required]="false" >
+                  </sco-input>
+                </div>
+                <div class="col-3">
+                  <sco-dropdown 
+                    [label]="'label.users.component.input.active' | scoTranslate"
+                    [showLabel]="true"  
+                    [required]="false" 
+                    [options]="[
+                      { label: ('label.all' | scoTranslate), value: undefined },
+                      { label: ('label.yes' | scoTranslate), value: true },
+                      { label: ('label.no' | scoTranslate), value: false },
+                    ]"
+                    [(ngModel)]="filter.active">
+                  </sco-dropdown>
+                </div>
+                <div class="col-3">
+                  <sco-dropdown *ngIf="roleOptions && roleOptions.length > 0"
+                    [label]="'label.users.component.input.role' | scoTranslate"
+                    [showLabel]="true"  
+                    [required]="false" 
+                    [options]="roleFilterOptions"
+                    (selectItem)="filter.role = $event && $event.value && $event.value.name ? $event.value.name: undefined;">
+                  </sco-dropdown>
+                </div>
+              </div>
+              
+              <div class="row form-group">
+                <div class="col-12 text-right">
+                  <sco-button class="mr-1"
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-close'"
+                    [transparent]="true"
+                    (action)="clearFilter()">
+                  </sco-button>
+            
+                  <sco-button
+                    [mode]="constantsService.ScoButtonConstants.MODE_ICON"
+                    [icon]="'fa fa-search'"
+                    [transparent]="true"
+                    (action)="search()">
+                  </sco-button>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div class="row form-group">
-            <div class="col-12 text-right">
-              <sco-button class="mr-1"
-                [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                [icon]="'fa fa-close'"
-                [transparent]="true"
-                (action)="clearFilter()">
-              </sco-button>
-        
-              <sco-button
-                [mode]="constantsService.ScoButtonConstants.MODE_ICON"
-                [icon]="'fa fa-search'"
-                [transparent]="true"
-                (action)="search()">
-              </sco-button>
-            </div>
+        </sco-accordion>
+      </ng-template>
+
+      <ng-template #templateHeader let-item="item">
+      </ng-template>
+
+      <ng-template #templateInfoAdditional let-item="item">
+      </ng-template>
+
+      <ng-template #templateData let-item="item">
+        <div class="row" *ngIf="item && cols && cols.length > 0">
+          <div class="col-3">
+            <sco-block-list-data-item
+              [label]="cols[0].label"
+              [value]="item._id" >
+            </sco-block-list-data-item>
+          </div> 
+          <div class="col-2">
+            <sco-block-list-data-item
+              [label]="cols[1].label"
+              [value]="item.name" >
+            </sco-block-list-data-item>
+          </div> 
+          <div class="col-3">
+            <sco-block-list-data-item
+              [label]="cols[2].label"
+              [value]="item.email" >
+            </sco-block-list-data-item>
+          </div> 
+          <div class="col-1">
+            <sco-block-list-data-item
+              [label]="cols[3].label"
+              [value]="item.active ? ('label.yes' | scoTranslate) : ('label.no' | scoTranslate)" >
+            </sco-block-list-data-item>
+          </div> 
+          <div class="col-2">
+            <sco-block-list-data-item
+              [label]="cols[4].label"
+              [value]="item.role.name" >
+            </sco-block-list-data-item>
+          </div> 
+        </div>
+      </ng-template>
+
+      <ng-template #templateRow let-item="item" let-cols="cols">
+        <td *ngFor="let col of cols" [ngSwitch]="col.property">     
+          <span *ngSwitchCase="'active'">
+            {{ item[col.property] ? ('label.yes' | scoTranslate) : ('label.no' | scoTranslate) }}
+          </span>
+          <span *ngSwitchCase="'role'">
+            {{ item[col.property].name }}
+          </span>
+          <span *ngSwitchDefault>
+            {{item[col.property]}}
+          </span>
+        </td>
+      </ng-template>
+
+      <ng-template #templateForm let-item="item" let-mode="mode">
+        <div class="row form-group">
+          <div class="col-12 pl-5 pr-5">
+            <sco-input
+              [(ngModel)]="item.name"
+              [readonly]="mode == constantsService.ScoFormCrudConstants.MODE_UPDATE"
+              [label]="'label.users.component.input.name' | scoTranslate"
+              [showLabel]="true"  
+              [required]="true" >
+            </sco-input>
+            <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('name', formErrors)">
+              {{formErrorsService.showError('name', formErrors)}}
+            </span>
+          </div>
+          <div class="col-12 pl-5 pr-5 mt-3">
+            <sco-input
+              [(ngModel)]="item.email"
+              [readonly]="mode == constantsService.ScoFormCrudConstants.MODE_UPDATE"
+              [label]="'label.users.component.input.email' | scoTranslate"
+              [showLabel]="true"  
+              [required]="true" >
+            </sco-input>
+            <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('email', formErrors)">
+              {{formErrorsService.showError('email', formErrors)}}
+            </span>
+          </div>
+          <div class="col-12 pl-5 pr-5 mt-3">
+            <sco-toggle 
+              [inLine]="true"
+              [required]="true"
+              [(ngModel)]="item.active"
+              [label]="'label.users.component.input.active' | scoTranslate">
+            </sco-toggle>
+            <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('active', formErrors)">
+              {{formErrorsService.showError('active', formErrors)}}
+            </span>
+          </div>
+          <div class="col-12 pl-5 pr-5 mt-3">
+            <sco-dropdown *ngIf="roleOptions && roleOptions.length > 0"
+              [label]="'label.users.component.input.role' | scoTranslate"
+              [showLabel]="true"  
+              [required]="true" 
+              [options]="roleOptions"
+              [setSelectedItem]="setRoleDropdown"
+              [(ngModel)]="item.role"
+              (unsetSelectedItem)="setRoleDropdown = $event;">
+            </sco-dropdown>
+            <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('role', formErrors)">
+              {{formErrorsService.showError('role', formErrors)}}
+            </span>
+          </div>
+
+          <div class="col-12 pl-5 pr-5 mt-3" *ngIf="mode == constantsService.ScoFormCrudConstants.MODE_UPDATE">
+            <sco-toggle 
+              [inLine]="true"
+              [required]="false"
+              [(ngModel)]="updatePassword"
+              [label]="'label.users.component.input.update-password' | scoTranslate">
+            </sco-toggle>
+          </div>
+          <div class="col-12 pl-5 pr-5 mt-3" *ngIf="mode == constantsService.ScoFormCrudConstants.MODE_NEW || mode == constantsService.ScoFormCrudConstants.MODE_UPDATE && updatePassword">
+            <sco-input
+              [(ngModel)]="item.password"
+              [label]="'label.users.component.input.password' | scoTranslate"
+              [showLabel]="true"
+              [type]="showPasswordInput ? constantsService.ScoInputTypeConstants.TEXT : constantsService.ScoInputTypeConstants.PASSWORD "
+              [icon]="showPasswordInput ? 'fa fa-eye-slash' : 'fa fa-eye' "
+              [showIcon]="true" 
+              [enabledIconClick]="true"
+              [required]="true"
+              (iconClick)="showPasswordInput = !showPasswordInput;" >
+            </sco-input>
+            <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('password', formErrors)">
+              {{formErrorsService.showError('password', formErrors)}}
+            </span>
+          </div>
+          <div class="col-12 pl-5 pr-5 mt-3" *ngIf="mode == constantsService.ScoFormCrudConstants.MODE_NEW || mode == constantsService.ScoFormCrudConstants.MODE_UPDATE && updatePassword">
+            <sco-input
+              [(ngModel)]="item.newPassword"
+              [label]="'label.users.component.input.newPassword' | scoTranslate"
+              [showLabel]="true"
+              [type]="showConfirmInput ? constantsService.ScoInputTypeConstants.TEXT : constantsService.ScoInputTypeConstants.PASSWORD "
+              [icon]="showConfirmInput ? 'fa fa-eye-slash' : 'fa fa-eye' "
+              [showIcon]="true" 
+              [enabledIconClick]="true"
+              [required]="true"
+              (iconClick)="showConfirmInput = !showConfirmInput;" >
+            </sco-input>
+            <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('newPassword', formErrors)">
+              {{formErrorsService.showError('newPassword', formErrors)}}
+            </span>
           </div>
         </div>
-      </div>
-    </sco-accordion>
-  </ng-template>
-
-  <ng-template #templateHeader let-item="item">
-  </ng-template>
-
-  <ng-template #templateInfoAdditional let-item="item">
-  </ng-template>
-
-  <ng-template #templateData let-item="item">
-    <div class="row" *ngIf="item && cols && cols.length > 0">
-      <div class="col-3">
-        <sco-block-list-data-item
-          [label]="cols[0].label"
-          [value]="item._id" >
-        </sco-block-list-data-item>
-      </div> 
-      <div class="col-2">
-        <sco-block-list-data-item
-          [label]="cols[1].label"
-          [value]="item.name" >
-        </sco-block-list-data-item>
-      </div> 
-      <div class="col-3">
-        <sco-block-list-data-item
-          [label]="cols[2].label"
-          [value]="item.email" >
-        </sco-block-list-data-item>
-      </div> 
-      <div class="col-1">
-        <sco-block-list-data-item
-          [label]="cols[3].label"
-          [value]="item.active ? ('label.yes' | scoTranslate) : ('label.no' | scoTranslate)" >
-        </sco-block-list-data-item>
-      </div> 
-      <div class="col-2">
-        <sco-block-list-data-item
-          [label]="cols[4].label"
-          [value]="item.role.name" >
-        </sco-block-list-data-item>
-      </div> 
-    </div>
-  </ng-template>
-
-  <ng-template #templateRow let-item="item" let-cols="cols">
-    <td *ngFor="let col of cols" [ngSwitch]="col.property">     
-      <span *ngSwitchCase="'active'">
-        {{ item[col.property] ? ('label.yes' | scoTranslate) : ('label.no' | scoTranslate) }}
-      </span>
-      <span *ngSwitchCase="'role'">
-        {{ item[col.property].name }}
-      </span>
-      <span *ngSwitchDefault>
-        {{item[col.property]}}
-      </span>
-    </td>
-  </ng-template>
-
-  <ng-template #templateForm let-item="item" let-mode="mode">
-    <div class="row form-group">
-      <div class="col-12 pl-5 pr-5">
-        <sco-input
-          [(ngModel)]="item.name"
-          [readonly]="mode == constantsService.ScoFormCrudConstants.MODE_UPDATE"
-          [label]="'label.users.component.input.name' | scoTranslate"
-          [showLabel]="true"  
-          [required]="true" >
-        </sco-input>
-        <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('name', formErrors)">
-          {{formErrorsService.showError('name', formErrors)}}
-        </span>
-      </div>
-      <div class="col-12 pl-5 pr-5 mt-3">
-        <sco-input
-          [(ngModel)]="item.email"
-          [readonly]="mode == constantsService.ScoFormCrudConstants.MODE_UPDATE"
-          [label]="'label.users.component.input.email' | scoTranslate"
-          [showLabel]="true"  
-          [required]="true" >
-        </sco-input>
-        <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('email', formErrors)">
-          {{formErrorsService.showError('email', formErrors)}}
-        </span>
-      </div>
-      <div class="col-12 pl-5 pr-5 mt-3">
-        <sco-toggle 
-          [inLine]="true"
-          [required]="true"
-          [(ngModel)]="item.active"
-          [label]="'label.users.component.input.active' | scoTranslate">
-        </sco-toggle>
-        <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('active', formErrors)">
-          {{formErrorsService.showError('active', formErrors)}}
-        </span>
-      </div>
-      <div class="col-12 pl-5 pr-5 mt-3">
-        <sco-dropdown *ngIf="roleOptions && roleOptions.length > 0"
-          [label]="'label.users.component.input.role' | scoTranslate"
-          [showLabel]="true"  
-          [required]="true" 
-          [options]="roleOptions"
-          [setSelectedItem]="setRoleDropdown"
-          [(ngModel)]="item.role"
-          (unsetSelectedItem)="setRoleDropdown = $event;">
-        </sco-dropdown>
-        <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('role', formErrors)">
-          {{formErrorsService.showError('role', formErrors)}}
-        </span>
-      </div>
-
-      <div class="col-12 pl-5 pr-5 mt-3" *ngIf="mode == constantsService.ScoFormCrudConstants.MODE_UPDATE">
-        <sco-toggle 
-          [inLine]="true"
-          [required]="false"
-          [(ngModel)]="updatePassword"
-          [label]="'label.users.component.input.update-password' | scoTranslate">
-        </sco-toggle>
-      </div>
-      <div class="col-12 pl-5 pr-5 mt-3" *ngIf="mode == constantsService.ScoFormCrudConstants.MODE_NEW || mode == constantsService.ScoFormCrudConstants.MODE_UPDATE && updatePassword">
-        <sco-input
-          [(ngModel)]="item.password"
-          [label]="'label.users.component.input.password' | scoTranslate"
-          [showLabel]="true"
-          [type]="showPasswordInput ? constantsService.ScoInputTypeConstants.TEXT : constantsService.ScoInputTypeConstants.PASSWORD "
-          [icon]="showPasswordInput ? 'fa fa-eye-slash' : 'fa fa-eye' "
-          [showIcon]="true" 
-          [enabledIconClick]="true"
-          [required]="true"
-          (iconClick)="showPasswordInput = !showPasswordInput;" >
-        </sco-input>
-        <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('password', formErrors)">
-          {{formErrorsService.showError('password', formErrors)}}
-        </span>
-      </div>
-      <div class="col-12 pl-5 pr-5 mt-3" *ngIf="mode == constantsService.ScoFormCrudConstants.MODE_NEW || mode == constantsService.ScoFormCrudConstants.MODE_UPDATE && updatePassword">
-        <sco-input
-          [(ngModel)]="item.newPassword"
-          [label]="'label.users.component.input.newPassword' | scoTranslate"
-          [showLabel]="true"
-          [type]="showConfirmInput ? constantsService.ScoInputTypeConstants.TEXT : constantsService.ScoInputTypeConstants.PASSWORD "
-          [icon]="showConfirmInput ? 'fa fa-eye-slash' : 'fa fa-eye' "
-          [showIcon]="true" 
-          [enabledIconClick]="true"
-          [required]="true"
-          (iconClick)="showConfirmInput = !showConfirmInput;" >
-        </sco-input>
-        <span class="sco-form-error" *ngIf="formErrors && formErrors.length > 0 && formErrorsService.checkIfErrors('newPassword', formErrors)">
-          {{formErrorsService.showError('newPassword', formErrors)}}
-        </span>
-      </div>
-    </div>
-  </ng-template>
-</sco-form-crud>
+      </ng-template>
+    </sco-form-crud>
+  </div>
+</div>
