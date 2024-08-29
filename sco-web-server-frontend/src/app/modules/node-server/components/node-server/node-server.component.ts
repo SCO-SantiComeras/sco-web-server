@@ -70,7 +70,8 @@ export class NodeServerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('subHeader') subHeader: ElementRef;
   public contentHeight: number = 0;
-  public contentMargin: number = 0;
+  public tableMargin: number = 0;
+  public tableHeight: number = 0;
   
   constructor(
     private readonly store: Store,
@@ -128,8 +129,9 @@ export class NodeServerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     // -60 is the sco-app header size
-    this.contentHeight = window.innerHeight - 60 - this.subHeader.nativeElement.offsetHeight;
-    this.contentMargin =  this.subHeader.nativeElement.offsetHeight;
+    this.contentHeight = window.innerHeight - 60;
+    this.tableHeight = window.innerHeight - 60 - this.subHeader.nativeElement.offsetHeight;
+    this.tableMargin =  this.subHeader.nativeElement.offsetHeight;
   }
 
   /* Subscription To Node Server Files */

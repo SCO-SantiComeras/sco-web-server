@@ -229,7 +229,6 @@
           <div class="col-12 pl-5 pr-5 mt-3">
             <sco-input
               [(ngModel)]="item.email"
-              [readonly]="mode == constantsService.ScoFormCrudConstants.MODE_UPDATE"
               [label]="'label.users.component.input.email' | scoTranslate"
               [showLabel]="true"  
               [required]="true" >
