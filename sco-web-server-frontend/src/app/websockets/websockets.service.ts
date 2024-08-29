@@ -12,7 +12,10 @@ export class WebsocketsService extends Socket {
   
   constructor() {
     super({
-      url: `${environment.serverSocketUrl}`
+      url: environment.serverSocketUrl,
+      options: {
+        withCredentials: true,
+      }
     });
   }
 

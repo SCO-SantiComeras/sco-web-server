@@ -1,17 +1,17 @@
 const environment = {
   name: 'prod',
   production: true,
-  hostname: 'scoapps.es',
+  hostname: 'nodeserver.sco-techlab.es',
   port: '9000',
   apiPort: '9000',
   webSocketPort: '9001',
   globalPrefix: 'api',
   apiVersion: 'v1',
-  httpsEnabled: false,
+  httpsEnabled: true,
   apiUrl: '',
   serverSocketUrl: '',
 
-  rootPath: '/home/sco/sco-web-server/dist/public',
+  rootPath: '/root/sco-web-server/dist/public',
   serverFolder: 'nodeserver',
 };
 

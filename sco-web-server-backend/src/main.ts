@@ -1,54 +1,53 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
-import { LoggerService, MicroserviceToBackend, WebsocketAdapter } from 'sco-nestjs-utilities';
 import { HttpException, HttpStatus, ValidationError, ValidationPipe } from '@nestjs/common';
+import { LoggerService, MicroserviceToBackend, WebsocketAdapter } from 'sco-nestjs-utilities';
 import * as fs from 'fs';
 
 async function bootstrap() {
 
-  const domain: string | null = 'demo.com' || ''; // Ejemplo de dominio
+  const basepath: string = `${process.env.SSL_PATH}/${process.env.APP_HOST}`;
+  console.log(basepath)
 
-  let htppsEnable: boolean = false;
-  
   let cert: any = undefined;
-  if (fs.existsSync(`/etc/letsencrypt/live/${domain}/fullchain.pem`)) {
-    cert = fs.readFileSync(`/etc/letsencrypt/live/${domain}/fullchain.pem`);
+  if (fs.existsSync(`${basepath}/fullchain.pem`)) {
+    console.log(`Cert: ${basepath}/fullchain.pem found`);
+    cert = fs.readFileSync(`${basepath}/fullchain.pem`);
   }
 
   let key: any = undefined;
-  if (fs.existsSync(`/etc/letsencrypt/live/${domain}/privkey.pem`)) {
-    key = fs.readFileSync(`/etc/letsencrypt/live/${domain}/privkey.pem`);
+  if (fs.existsSync(`${basepath}/privkey.pem`)) {
+    console.log(`Key: ${basepath}/privkey.pem found`);
+    key = fs.readFileSync(`${basepath}/privkey.pem`);
   }
 
-  if (cert && key) {
-    htppsEnable = true;
-  }
-
+  const httpsEnabled: boolean = key && cert ? true : false;
   const app = await NestFactory.create(AppModule, 
     { 
       logger: new LoggerService(),
-      httpsOptions: htppsEnable ? { cert, key } : undefined,
+      httpsOptions: !httpsEnabled ? undefined : { key: key, cert: cert },
     }
   );
 
   const configService = app.get<ConfigService>(ConfigService);
 
+  const envOrigin: string = configService.get('websocket.origin');
+  let origin: string[] = [];
+  if (envOrigin && envOrigin.length > 0) {
+    origin = [envOrigin];
+
+    if (envOrigin.includes(',')) {
+      origin = envOrigin.split(',');
+    }
+  }
+  
   app.enableCors({
-    origin: !configService.get("ws.origin")
-      ? []
-      : configService.get("ws.origin").split(','),
+    origin: origin && origin.length > 0 ? origin : '*',
     credentials: true,
   });
 
-  app.useWebSocketAdapter(
-    new WebsocketAdapter(app, {
-      port: configService.get("ws.port"),
-      origin: !configService.get("ws.origin")
-        ? []
-        : configService.get("ws.origin").split(','),
-    })
-  );
+  app.useWebSocketAdapter(new WebsocketAdapter(app, configService));
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -69,7 +68,6 @@ async function bootstrap() {
   await app.listen(port);
 
   const host: string = configService.get("app.host");
-  console.log(`[bootstrap] App started in '${htppsEnable ? 'https' : 'http'}://${host}:${port}'`);
-  console.log(`[bootstrap] Environment loaded is: ${configService.get('app.production') ? 'PROD' : 'DEV'}`);
+  console.log(`[bootstrap] App started in '${httpsEnabled ? 'https' : 'http'}://${host}:${port}'`);
 }
 bootstrap();

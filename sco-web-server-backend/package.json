@@ -57,7 +57,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "sco-nestjs-utilities": "^9.1.18",
+    "sco-nestjs-utilities": "^9.1.21",
     "slackbots": "^1.3.0",
     "socket.io": "^4.7.2",
     "xlsx": "^0.18.5"

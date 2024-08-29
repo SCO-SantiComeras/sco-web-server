@@ -76,8 +76,8 @@ export const JWT_CONTROLLER_OFF: boolean = false;
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         return {
-          port: configService.get('ws.port'),
-          origin: configService.get('ws.origin'),
+          port: configService.get('websocket.port'),
+          origin: configService.get('websocket.origin'),
         };
       },
       inject: [ConfigService],

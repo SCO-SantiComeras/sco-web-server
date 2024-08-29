@@ -6,4 +6,5 @@ export const configurationApp = registerAs("app", () => ({
   swagger: process.env.APP_SWAGGER == "true",
   swaggerRoute: process.env.APP_SWAGGER_ROUTE,
   host: process.env.APP_HOST,
+  sslPath: process.env.SSL_PATH,
 }));
