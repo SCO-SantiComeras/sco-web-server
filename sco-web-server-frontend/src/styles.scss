@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
 html, body {
     height: 100%;
     width: 100%;
@@ -36,7 +40,7 @@ html body {
     cursor: pointer !important;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     background: transparent !important;
     height: 5px !important;
     width: 5px !important;
@@ -44,4 +48,4 @@ html body {
  
  ::-webkit-scrollbar-thumb {
     background: lightgray !important;
-}
+} */
